@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tour-Traz</title>
+     <!-- Favicon -->
+    <link rel="shortcut icon" href="../img/logowebb.PNG" type="image/x-icon">
+    <!-- Remix icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.5.0/remixicon.min.css" />
+    <!-- add style external -->
+    <link rel="stylesheet" href="../src/output.css">
+ <style>
+
+        .img-blog {
+            background-image:
+                linear-gradient(to bottom, rgba(19, 18, 18, 0.1) 0%, rgba(20, 20, 20, 0.3) 50%, rgba(10, 10, 10, 0.6) 100%),
+                url(../img/section2.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
+
+        /*  transition dark mode */
+        * {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        /* Mobile menu */
+        #nav-menu.open {
+            left: 0 !important;
+        }
+    </style>
+</head>
+<body class="dark:bg-gray-900 bg-gray-100">
+
+   <!-- HEADER NAVBAR -->
+    <header id="navbar" class="fixed w-full top-0 left-0 z-50 lg:mt-2">
+        <nav class="container mx-auto flex items-center justify-between py-4 h-16  ">
+            <!-- logo -->
+           <div class="w-40"><img src="../img/logotravel.png" alt="logotravel" class=""></div>
+            <!-- Nav menu -->
+            <div id="nav-menu"
+                class="absolute top-0 -left-full min-h-[80vh] w-full bg-sky-950/90 flex items-center justify-center duration-300 overflow-hidden transition-all z-40 lg:bg-transparent lg:w-auto lg:static lg:min-h-fit ">
+                <ul
+                    class="flex flex-col items-center gap-5 lg:flex-row uppercase px-2 py-1 lg:mr-10  lg:p-5 lg:rounded-full font-bold">
+                    <li><a href="#home" class="nav-link text-white hover:text-pink-400 transition-colors">Home</a></li>
+                    <li><a href="destination.html"
+                            class="nav-link text-white hover:text-pink-400 transition-colors">Destination</a></li>
+                    <li><a href="tour.html"
+                            class="nav-link text-white hover:text-pink-400 transition-colors">Tours</a></li>
+                    <li><a href="blog.html" class="nav-link text-white hover:text-pink-400 transition-colors">Blog</a></li>
+                    <li><a href="contact.html"
+                            class="nav-link text-white hover:text-pink-400 transition-colors">Contact</a></li>
+                    <li><a href="aboutus2.html" class="nav-link text-white hover:text-pink-400 transition-colors">About Us</a>
+                    </li>
+                    <li class="lg:hidden"><a href="signup.html"
+                            class="nav-link font-bold text-white hover:text-pink-400 transition-colors">Sign up</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Dark mode toggle Sign Up Hamburger -->
+            <div class="flex items-center gap-3">
+
+                <!--  Dark Light Mode  -->
+                <button id="theme-toggle" onclick="toggleTheme()"
+                    class="w-10 h-10 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 text-white transition-all duration-300 text-lg"
+                    title="Toggle dark/light mode">
+                    <!-- Sun icon -->
+                    <i id="icon-sun" class="ri-sun-line hidden"></i>
+                    <!-- Moon icon -->
+                    <i id="icon-moon" class="ri-moon-line"></i>
+                </button>
+
+                <!-- Sign Up -->
+                <a href="signup.html"
+                    class="hidden lg:block nav-link font-bold text-white hover:text-pink-400 transition-colors uppercase text-sm border border-gray-200 px-5 py-3 rounded-full">Sign
+                    up</a>
+
+                <!-- Hamburger -->
+                <div class="text-xl sm:text-3xl cursor-pointer z-50 lg:hidden text-white" id="menubutton">
+                    <i class="ri-menu-line"></i>
+                </div>
+            </div>
+             </nav>
+    </header>
+
+    <section
+        class="img-blog h-64 md:h-80 lg:h-96 flex flex-col items-center justify-center text-center relative overflow-hidden pt-16">
+        <main>
+        <div class="text-5xl md:text-7xl font-bold text-white drop-shadow-lg uppercase">
+            <h1 class="font-">tour</h1>
+        </div>
+        
+    </section>
+   <!-- Main Content -->
+  <section class="max-w-7xl mx-auto px-4 py-10 ">
+    <main >
+  <div >
+    <div class="flex flex-col lg:flex-row gap-8">
+
+      <!-- Tours Grid -->
+      <div class="flex-1">
+        <!-- Search & Sort Bar -->
+        <div class="flex items-center justify-between mb-6 gap-4">
+          <div class="relative flex-1 max-w-sm">
+            <input
+              type="text"
+              placeholder="Search"
+              class="w-full border border-gray-200 rounded-full py-2.5 pl-4 pr-10 text-sm bg-white shadow-sm focus:border-blue-400 focus:ring-2 focus:ring-blue-100 "
+            />
+            <button class="absolute right-2 top-1/2 -translate-y-1/2 bg-blue-500 text-white rounded-full p-1.5">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/></svg>
+            </button>
+          </div>
+          <div class="flex items-center gap-3">
+            <button class="bg-blue-600 text-white p-2 rounded">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><rect x="2" y="2" width="7" height="7"/><rect x="11" y="2" width="7" height="7"/><rect x="2" y="11" width="7" height="7"/><rect x="11" y="11" width="7" height="7"/></svg>
+            </button>
+            <button class="border border-gray-300 text-gray-500 p-2 rounded hover:bg-gray-100">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><rect x="2" y="4" width="16" height="2"/><rect x="2" y="9" width="16" height="2"/><rect x="2" y="14" width="16" height="2"/></svg>
+            </button>
+            <select class="border border-gray-200 rounded-lg text-sm px-3 py-2 bg-white focus:outline-none focus:border-blue-400">
+              <option>Default Sorting</option>
+              <option>Price: Low to High</option>
+              <option>Price: High to Low</option>
+              <option>Rating</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Tour Cards Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+          <!-- Card 1: Greece -->
+          <div class="tour-card bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 dark:bg-gray-700 dark:border-gray-700">
+            <div class="overflow-hidden h-48">
+              <img src="https://images.unsplash.com/photo-1533104816931-20fa691ff6ca?w=600&q=80" alt="Greece" class="w-full h-full object-cover"/>
+            </div>
+            <div class="p-4">
+              <h3 class="font-semibold text-gray-900 text-base mb-1 dark:text-white">Greece Tour Package</h3>
+              <div class="flex items-center gap-1 mb-2">
+                <span class="star text-sm">
+                   <i class="ri-star-line dark:text-white"></i>
+                  <i class="ri-star-line dark:text-white"></i>
+                  <i class="ri-star-line dark:text-white"></i>
+                  <i class="ri-star-line dark:text-white"></i>
+                  <i class="ri-star-line dark:text-white"></i>
+
+                </span>
+                <span class="text-xs text-gray-500 dark:text-gray-400">(4.8 Rating)</span>
+              </div>
+              <div class="text-blue-600 dark:text-blue-400 font-bold text-lg mb-3">$1280.00<span class="text-gray-400 text-sm font-normal">/Person</span></div>
+              <div class="flex items-center justify-between">
+                <span class="flex items-center gap-1 text-gray-500 text-sm">
+                  <i class="ri-time-line"></i>
+                  7 Days
+                </span>
+                <button class="border border-gray-300 text-sm px-4 py-1.5 rounded-lg hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-colors dark:text-white dark:bg-gray-600">Detail View</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Dubai -->
+          <div class="tour-card bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 dark:bg-gray-700 dark:border-gray-700">
+            <div class="overflow-hidden h-48">
+              <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&q=80" alt="Dubai" class="w-full h-full object-cover"/>
+            </div>
+            <div class="p-4">
+              <h3 class="font-semibold text-gray-900 text-base mb-1 dark:text-white">Dubai Tour Package</h3>
+              <div class="flex items-center gap-1 mb-2">
+                <span class="star text-sm">
+                  <i class="ri-star-line dark:text-white"></i>
+                  <i class="ri-star-line dark:text-white"></i>
+                  <i class="ri-star-line dark:text-white"></i>
+                  <i class="ri-star-line dark:text-white"></i>
+                  <i class="ri-star-line dark:text-white"></i>
+                </span>
+                <span class="text-xs text-gray-500 dark:text-gray-400">(4.8 Rating)</span>
+              </div>
+              <div class="text-blue-600 dark:text-blue-400  font-bold text-lg mb-3 ">$999.00<span class="text-gray-400 text-sm font-normal">/Person</span></div>
+              <div class="flex items-center justify-between">
+                <span class="flex items-center gap-1 text-gray-500 text-sm">
+                 <i class="ri-time-line"></i>
+                  7 Days
+                </span>
+                <button class="border border-gray-300 text-sm px-4 py-1.5 rounded-lg hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-colors dark:text-white dark:bg-gray-600">Detail View</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3: Belgium -->
+          <div class="tour-card bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 dark:bg-gray-700 dark:border-gray-700">
+            <div class="overflow-hidden h-48">
+              <img src="https://images.unsplash.com/photo-1581349485608-9469926a8e5e?w=600&q=80" alt="Belgium" class="w-full h-full object-cover"/>
+            </div>
+            <div class="p-4">
+              <h3 class="font-semibold text-gray-900 text-base mb-1 dark:text-white">Belgium Tour Package</h3>
+              <div class="flex items-center gap-1 mb-2">
+                <span class="star text-sm">
+                  <i class="ri-star-line dark:text-white"></i>
+                  <i class="ri-star-line dark:text-white"></i>
+                  <i class="ri-star-line dark:text-white"></i>
+                  <i class="ri-star-line dark:text-white"></i>
+                  <i class="ri-star-line dark:text-white"></i>
+                </span>
+                <span class="text-xs text-gray-500 dark:text-gray-400">(4.8 Rating)</span>
+              </div>
+              <div class="text-blue-600 dark:text-blue-400 font-bold text-lg mb-3">$990.00<span class="text-gray-400 text-sm font-normal">/Person</span></div>
+              <div class="flex items-center justify-between">
+                <span class="flex items-center gap-1 text-gray-500 text-sm">
+                   <i class="ri-time-line"></i>
+                  7 Days
+                </span>
+                <button class="border border-gray-300 text-sm px-4 py-1.5 rounded-lg hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-colors dark:text-white dark:bg-gray-600">Detail View</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4: Greece 2 (lake castle) -->
+          <div class="tour-card bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 dark:bg-gray-700 dark:border-gray-700">
+            <div class="overflow-hidden h-48">
+              <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80" alt="Alps" class="w-full h-full object-cover"/>
+            </div>
+            <div class="p-4">
+              <h3 class="font-semibold text-gray-900 text-base mb-1 dark:text-white">Greece Tour Package</h3>
+              <div class="flex items-center gap-1 mb-2">
+                <span class="star text-sm">
+                  <i class="ri-star-line dark:text-white"></i>
+                  <i class="ri-star-line dark:text-white"></i>
+                  <i class="ri-star-line dark:text-white"></i>
+                  <i class="ri-star-line dark:text-white"></i>
+                  <i class="ri-star-line dark:text-white"></i>
+                </span>
+                <span class="text-xs text-gray-500 dark:text-gray-400">(4.8 Rating)</span>
+              </div>
+              <div class="text-blue-600 dark:text-blue-400 font-bold text-lg mb-3">$980.00<span class="text-gray-400 text-sm font-normal">/Person</span></div>
+              <div class="flex items-center justify-between">
+                <span class="flex items-center gap-1 text-gray-500 text-sm">
+                  <i class="ri-time-line"></i>
+                  7 Days
+                </span>
+                <button class="border border-gray-300 text-sm px-4 py-1.5 rounded-lg hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-colors dark:text-white dark:bg-gray-600">Detail View</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 5: Maldives -->
+          <div class="tour-card bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 dark:bg-gray-700 dark:border-gray-700">
+            <div class="overflow-hidden h-48">
+              <img src="https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=600&q=80" alt="Maldives" class="w-full h-full object-cover"/>
+            </div>
+            <div class="p-4"><h3 class="font-semibold text-gray-900 text-base mb-1 dark:text-white ">Maldives Tour Package</h3>
+              <div class="flex items-center gap-1 mb-2">
+                <span class="star text-sm">
+                  <i class="ri-star-line dark:text-white"></i>
+                  <i class="ri-star-line dark:text-white"></i>
+                  <i class="ri-star-line dark:text-white"></i>
+                  <i class="ri-star-line dark:text-white"></i>
+                  <i class="ri-star-line dark:text-white"></i>
+                </span>
+                <span class="text-xs text-gray-500 dark:text-gray-400">(4.8 Rating)</span>
+              </div>
+              <div class="text-blue-600 dark:text-blue-400 font-bold text-lg mb-3">$1180.00<span class="text-gray-400 text-sm font-normal">/Person</span></div>
+              <div class="flex items-center justify-between">
+                <span class="flex items-center gap-1 text-gray-500 text-sm">
+                <i class="ri-time-line"></i>
+                  7 Days
+                </span>
+                <button class="border border-gray-300 text-sm px-4 py-1.5 rounded-lg hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-colors dark:text-white dark:bg-gray-600">Detail View</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 6: Paris -->
+          <div class="tour-card bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 dark:bg-gray-700 dark:border-gray-700">
+            <div class="overflow-hidden h-48">
+              <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600&q=80" alt="Paris" class="w-full h-full object-cover"/>
+            </div>
+            <div class="p-4">
+              <h3 class="font-semibold text-gray-900 text-base mb-1 dark:text-white">Paris Tour Package</h3>
+              <div class="flex items-center gap-1 mb-2">
+                <span class="star text-sm">
+                   <i class="ri-star-line dark:text-white"></i>
+                  <i class="ri-star-line dark:text-white"></i>
+                  <i class="ri-star-line dark:text-white"></i>
+                  <i class="ri-star-line dark:text-white"></i>
+                  <i class="ri-star-line dark:text-white"></i>
+                </span>
+                <span class="text-xs text-gray-500 dark:text-gray-400">(4.8 Rating)</span>
+              </div>
+              <div class="text-blue-600 dark:text-blue-400 font-bold text-lg mb-3">$880.00<span class="text-gray-400 text-sm font-normal">/Person</span></div>
+              <div class="flex items-center justify-between">
+                <span class="flex items-center gap-1 text-gray-500 text-sm">
+                 <i class="ri-time-line"></i>
+                  7 Days
+                </span>
+                <button class="border border-gray-300 text-sm px-4 py-1.5 rounded-lg hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-colors dark:text-white dark:bg-gray-600">Detail View</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 7: Switzerland -->
+          <div class="tour-card bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 dark:bg-gray-700 dark:border-gray-700">
+            <div class="overflow-hidden h-48">
+              <img src="https://images.unsplash.com/photo-1476610182048-b716b8518aae?w=600&q=80" alt="Switzerland" class="w-full h-full object-cover"/>
+            </div>
+            <div class="p-4">
+              <h3 class="font-semibold text-gray-900 text-base mb-1 dark:text-white">Switzerland Tour Package</h3>
+              <div class="flex items-center gap-1 mb-2">
+                <span class="star text-sm">
+                   <i class="ri-star-line dark:text-white"></i>
+                  <i class="ri-star-line dark:text-white"></i>
+                  <i class="ri-star-line dark:text-white"></i>
+                  <i class="ri-star-line dark:text-white"></i>
+                  <i class="ri-star-line dark:text-white"></i>
+                </span>
+                <span class="text-xs text-gray-500 dark:text-gray-400">(4.8 Rating)</span>
+              </div>
+              <div class="text-blue-600 dark:text-blue-400 font-bold text-lg mb-3">$1080.00<span class="text-gray-400 text-sm font-normal">/Person</span></div>
+              <div class="flex items-center justify-between">
+                <span class="flex items-center gap-1 text-gray-500 text-sm">
+                  <i class="ri-time-line"></i>
+                  7 Days
+                </span>
+                <button class="border border-gray-300 text-sm px-4 py-1.5 rounded-lg hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-colors dark:text-white dark:bg-gray-600">Detail View</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 8: Bali -->
+          <div class="tour-card bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 dark:bg-gray-700 dark:border-gray-700">
+            <div class="overflow-hidden h-48">
+              <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=600&q=80" alt="Bali" class="w-full h-full object-cover"/>
+            </div>
+            <div class="p-4">
+              <h3 class="font-semibold text-gray-900 text-base mb-1 dark:text-white">Bali Tour Package</h3>
+              <div class="flex items-center gap-1 mb-2">
+                <span class="star text-sm ">
+                  <i class="ri-star-line dark:text-white"></i>
+                  <i class="ri-star-line dark:text-white"></i>
+                  <i class="ri-star-line dark:text-white"></i>
+                  <i class="ri-star-line dark:text-white"></i>
+                  <i class="ri-star-line dark:text-white"></i>
+                </span>
+                <span class="text-xs text-gray-500 dark:text-gray-400">(4.8 Rating)</span>
+              </div>
+              <div class="text-blue-600 dark:text-blue-400 font-bold text-lg mb-3">$650.00<span class="text-gray-400 text-sm font-normal">/Person</span></div>
+              <div class="flex items-center justify-between">
+                <span class="flex items-center gap-1 text-gray-500 text-sm">
+                  <i class="ri-time-line"></i>
+                  7 Days
+                </span>
+                <button class="border border-gray-300 text-sm px-4 py-1.5 rounded-lg hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-colors dark:text-white dark:bg-gray-600">Detail View</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- end grid -->
+      </div>
+      <!-- end tours col -->
+      
+      
+      <!-- Sidebar -->
+       <aside>
+      <div class="w-full lg:w-72 shrink-0 space-y-6">
+
+        <!-- Categories -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 dark:bg-gray-700 dark:border-gray-700 ">
+          <h2 class="section-title font-bold text-gray-900 text-lg mb-4 dark:text-white">Categories</h2>
+          <ul class="space-y-3 mt-5">
+            <li class="cat-item flex items-center justify-between text-sm text-gray-600 hover:text-blue-600 dark:text-gray-200">
+              <span class="flex items-center gap-2"> 
+               <i class="ri-map-pin-line text-pink-500"></i>
+                City Tour
+              </span>
+              <span class="text-gray-400 text-xs">(8)</span>
+            </li>
+            <li class="cat-item flex items-center justify-between text-sm text-gray-600 hover:text-blue-600 dark:text-gray-200">
+              <span class="flex items-center gap-2">
+             <i class="ri-map-pin-line text-pink-500"></i>
+                Beach Tours
+              </span>
+              <span class="text-gray-400 text-xs">(6)</span>
+            </li>
+            <li class="cat-item flex items-center justify-between text-sm text-gray-600 hover:text-blue-600 dark:text-gray-200">
+              <span class="flex items-center gap-2">
+               <i class="ri-map-pin-line text-pink-500"></i>
+                Wildlife Tours
+              </span>
+              <span class="text-gray-400 text-xs">(2)</span>
+            </li>
+            <li class="cat-item flex items-center justify-between text-sm text-gray-600 hover:text-blue-600 dark:text-gray-200">
+              <span class="flex items-center gap-2">
+               <i class="ri-map-pin-line text-pink-500"></i>
+                News & Tips
+              </span>
+              <span class="text-gray-400 text-xs">(7)</span>
+            </li><li class="cat-item flex items-center justify-between text-sm text-gray-600 hover:text-blue-600 dark:text-gray-200">
+              <span class="flex items-center gap-2 ">
+               <i class="ri-map-pin-line text-pink-500"></i>
+                Adventure Tours
+              </span>
+              <span class="text-gray-400 text-xs">(9)</span>
+            </li>
+            <li class="cat-item flex items-center justify-between text-sm text-gray-600 hover:text-blue-600 dark:text-gray-200">
+              <span class="flex items-center gap-2">
+               <i class="ri-map-pin-line text-pink-500"></i>
+                Mountain Tours
+              </span>
+              <span class="text-gray-400 text-xs">(10)</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Recent Posts -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 dark:bg-gray-700 dark:border-gray-700 ">
+          <h2 class="section-title font-bold text-gray-900 text-lg mb-4 dark:text-white ">Recent Posts</h2>
+          <div class="space-y-4 mt-5">
+            <div class="flex gap-3 items-start">
+              <img src="https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=80&q=70" alt="post" class="w-14 h-14 rounded-lg object-cover shrink-0"/>
+              <div>
+                <p class="text-sm font-medium text-gray-800 leading-snug dark:text-white">Exploring The Green Spaces Of The Island Maldives</p>
+                <p class="text-xs text-gray-400 dark:text-gray-300 mt-1 flex items-center gap-1">
+                 <i class="ri-calendar-line"></i>
+                  22/6/2025
+                </p>
+              </div>
+            </div>
+            <div class="flex gap-3 items-start">
+              <img src="https://images.unsplash.com/photo-1485081669829-bacb8c7bb1f3?w=80&q=70" alt="post" class="w-14 h-14 rounded-lg object-cover shrink-0"/>
+              <div>
+                <p class="text-sm font-medium text-gray-800 leading-snug dark:text-white">Harmony With Nature Of Belgium Tour And Travel</p>
+                <p class="text-xs text-gray-400 dark:text-gray-300 mt-1 flex items-center gap-1">
+                 <i class="ri-calendar-line"></i>
+                  25/6/2025
+                </p>
+              </div>
+            </div>
+            <div class="flex gap-3 items-start">
+              <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=80&q=70" alt="post" class="w-14 h-14 rounded-lg object-cover shrink-0"/>
+              <div>
+                <p class="text-sm font-medium text-gray-800 leading-snug dark:text-white">Exploring The Green Spaces Of Realar Residence</p>
+                <p class="text-xs text-gray-400 dark:text-gray-300 mt-1 flex items-center gap-1">
+                  <i class="ri-calendar-line"></i>
+                  27/6/2025
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Popular Tags -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 dark:bg-gray-700 dark:border-gray-700">
+          <h2 class="section-title font-bold text-gray-900 text-lg mb-4 dark:text-white">Popular Tags</h2>
+<div class="flex flex-wrap gap-2 mt-5">
+            <span class="tag border border-gray-200 text-gray-600 text-xs px-3 py-1.5 rounded-full dark:text-white shadow-sm dark:border-gray-400 dark:bg-gray-500">Tour</span>
+            <span class="tag border border-gray-200 text-gray-600 text-xs px-3 py-1.5 rounded-full dark:text-white shadow-sm dark:border-gray-400 dark:bg-gray-500">Adventure</span>
+            <span class="tag border border-gray-200 text-gray-600 text-xs px-3 py-1.5 rounded-full dark:text-white shadow-sm dark:border-gray-400 dark:bg-gray-500">Rent</span>
+            <span class="tag border border-gray-200 text-gray-600 text-xs px-3 py-1.5 rounded-full dark:text-white shadow-sm dark:border-gray-400 dark:bg-gray-500">Innovate</span>
+            <span class="tag border border-gray-200 text-gray-600 text-xs px-3 py-1.5 rounded-full dark:text-white shadow-sm dark:border-gray-400 dark:bg-gray-500">Hotel</span>
+            <span class="tag border border-gray-200 text-gray-600 text-xs px-3 py-1.5 rounded-full dark:text-white shadow-sm dark:border-gray-400 dark:bg-gray-500">Modern</span>
+            <span class="tag border border-gray-200 text-gray-600 text-xs px-3 py-1.5 rounded-full dark:text-white shadow-sm dark:border-gray-400 dark:bg-gray-500">Luxury</span>
+            <span class="tag border border-gray-200 text-gray-600 text-xs px-3 py-1.5 rounded-full dark:text-white shadow-sm dark:border-gray-400 dark:bg-gray-500">Travel</span>
+          </div>
+        </div>
+
+        <!-- Help Card -->
+        <div class="help-card p-6 dark:text-white text-center border border-gray-100 rounded-2xl dark:bg-gray-700 shadow-sm dark:border-gray-700">
+          <p class="font-bold text-lg mb-1">Need Help? We Are Here<br/>To Help You</p>
+          <div class="my-4 flex justify-center">
+            <div class="dark:bg-white/20 rounded-full px-4 py-2 flex items-center gap-2  p-5 shadow-sm border border-gray-300">
+              <span>
+               <i class="ri-questionnaire-line text-black dark:text-white"></i>
+              </span>
+              <div class="text-left ">
+                <div class="font-bold text-sm leading-tight uppercase">TraZ</div>
+                <div class="text-xs opacity-80">Explore World</div>
+              </div>
+            </div>
+          </div>
+          <p class="text-sm font-medium mb-1">You Get Online support</p>
+          <p class="text-base font-bold mb-4">+8 (123) 987 467</p>
+          <a href="#" class="inline-flex items-center gap-2 border-gray-200 border dark:border-white dark:text-white text-sm font-semibold px-5 py-2 rounded-full hover:bg-white hover:text-blue-700 transition-colors p-5 shadow-sm  ">
+            Read More &rarr;
+          </a>
+        </div>
+
+      </div>
+         </aside>
+      <!-- end sidebar -->
+    </div>
+  </div>
+
+</main>
+</section>
+
+     <!-- FOOTER  -->
+    <footer class="bg-sky-950 dark:bg-gray-800 py-14 px-6 md:px-10 lg:px-16">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 mb-10">
+            <div>
+                <img src="../img/logotravel.png" alt="LogoTraZ" class=" mb-3">
+                <span style="display:none"
+                    class="text-2xl font-bold text-white block mb-3">Tra<span class="text-pink-400">Z</span></span>
+                <p class="text-white/40 text-sm leading-relaxed mb-5">Crafting unforgettable journeys for the curious
+                    and the bold since 2009.</p>
+                <div class="flex gap-3">
+                    <a href="https://www.facebook.com" target="_blank"
+                        class="w-9 h-9 rounded-full bg-white/10 hover:bg-pink-500 flex items-center justify-center transition-colors text-white/60 hover:text-white text-xs"><i
+                            class="ri-facebook-fill"></i></a>
+                    <a href="https://www.youtube.com" target="_blank"
+                        class="w-9 h-9 rounded-full bg-white/10 hover:bg-pink-500 flex items-center justify-center transition-colors text-white/60 hover:text-white text-xs"><i
+                            class="ri-youtube-line"></i></a>
+                    <a href="https://cstad.edu.kh" target="_blank"
+                        class="w-9 h-9 rounded-full bg-white/10 hover:bg-pink-500 flex items-center justify-center transition-colors text-white/60 hover:text-white text-xs"><i
+                            class="ri-global-line"></i></a>
+                </div>
+            </div>
+            <div>
+                <p class="text-white font-semibold text-sm uppercase tracking-wider mb-5">Quick Links</p>
+                <ul class="space-y-2.5 text-white/40 text-sm">
+                    <li><a href="#" class="hover:text-white transition-colors">About Us</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Destinations</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Tours</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Blog</a></li>
+                </ul>
+            </div>
+            <div>
+                <p class="text-white font-semibold text-sm uppercase tracking-wider mb-5">Top Destinations</p>
+                <ul class="space-y-2.5 text-white/40 text-sm">
+                    <li><a href="#" class="hover:text-white transition-colors">Maldives</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Kyoto, Japan</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Santorini</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Patagonia</a></li>
+                </ul>
+            </div>
+            <div>
+                <p class="text-white font-semibold text-sm uppercase tracking-wider mb-5">Contact</p>
+                <ul class="space-y-3 text-white/40 text-sm">
+                    <li class="flex gap-2 items-start">
+                        <span class="mt-0.5 text-white"><i class="ri-map-pin-line"></i></span>
+                        <span class="hover:text-white">123 Explorer Ave, New York, NY 10001</span>
+                    </li>
+                    <li class="flex gap-2 items-center">
+                        <span><i class="ri-phone-line text-white"></i></span>
+                        <a href="tel:+81239857" class="hover:text-white transition-colors">+8 (123) 987 467</a>
+                    </li>
+                    <li class="flex gap-2 items-center">
+                        <span><i class="ri-mail-line text-white"></i></span>
+                        <a href="mailto:info@traz.com" class="hover:text-white transition-colors">info@traz.com</a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <img src="../img/New Logo iSTAD Full-12 (2).png" alt="#ISTAD"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                <span style="display:none" class="text-white font-bold">iSTAD</span>
+            </div>
+        </div>
+        <div
+            class="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-white/25 text-xs">
+            <p>© 2026 TraZ. All rights reserved.</p>
+            <div class="flex gap-5">
+                <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+     <!-- JAVASCRIPT -->
+    <script src="../src/main.js"> </script>
+</body>
+</html>
