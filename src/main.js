@@ -60,32 +60,27 @@
         const menuBtn = document.getElementById('menubutton');
         const navMenu = document.getElementById('nav-menu');
 
-        menuBtn.addEventListener('click', () => {
-            navMenu.classList.toggle('open');
-            // Toggle icon between menu and close
-            const icon = menuBtn.querySelector('i');
-            if (navMenu.classList.contains('open')) {
-                icon.className = 'ri-close-line';
-            } else {
-                icon.className = 'ri-menu-line';
-            }
-        });
-
-        // Close menu mobile
-        navMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('open');
-                menuBtn.querySelector('i').className = 'ri-menu-line';
+        if (menuBtn && navMenu) {
+            menuBtn.addEventListener('click', () => {
+                navMenu.classList.toggle('hidden');
+                const icon = menuBtn.querySelector('i');
+                if (!navMenu.classList.contains('hidden')) {
+                    icon.className = 'ri-close-line';
+                } else {
+                    icon.className = 'ri-menu-line';
+                }
             });
-        });
 
-        // ─── Navbar scroll effect 
-        window.addEventListener('scroll', () => {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('bg-sky-950/90', 'shadow-lg');
-            } else {
-                navbar.classList.remove('bg-sky-950/90', 'shadow-lg');
-            }
-        });
+            // Close menu on mobile link click
+            navMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.add('hidden');
+                    const icon = menuBtn.querySelector('i');
+                    if (icon) icon.className = 'ri-menu-line';
+                });
+            });
+        }
+
+       
+      
 

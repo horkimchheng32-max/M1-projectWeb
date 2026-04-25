@@ -14,13 +14,10 @@
     <style>
       
 
-        .img-blog {
+        .hero-overlay {
             background-image:
-                linear-gradient(to bottom, rgba(19, 18, 18, 0.1) 0%, rgba(20, 20, 20, 0.3) 50%, rgba(10, 10, 10, 0.6) 100%),
-                url(../img/sereneMountain.jpg);
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-position: center;
+                linear-gradient(to bottom, rgba(19, 18, 18, 0.1) 0%, rgba(20, 20, 20, 0.3) 50%, rgba(10, 10, 10, 0.6) 100%);
+             
         }
 
         /*  transition dark mode */
@@ -32,74 +29,112 @@
         #nav-menu.open {
             left: 0 !important;
         }
+        
+        .btn-solid {
+      background-color: #3b82f6;
+      color: white;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+    .btn-solid:hover{
+        background-color: #e47cd4;
+      color: white;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
     </style>
 
 </head>
-<body class="bg-gray-100 dark:bg-gray-900">
+<body class="bg-gray-50 dark:bg-gray-900">
 
   <!-- navbar -->
-<header id="navbar" class="fixed w-full top-0 left-0 z-50 lg:mt-2">
-        <nav class="container mx-auto flex items-center justify-between px-4 h-16 sm:h-20">
-            <!-- logo -->
-           <div><img src="../img/logotravel.png" alt="logotravel" class="h-30"></div>
-            <!-- Nav menu -->
-            <div id="nav-menu"
-                class="absolute top-0 -left-full min-h-[80vh] w-full bg-sky-950/90 flex items-center justify-center duration-300 overflow-hidden transition-all z-40 lg:bg-transparent lg:w-auto lg:static lg:min-h-fit">
-                <ul
-                    class="flex flex-col items-center gap-5 lg:flex-row uppercase px-2 py-1 lg:mr-10  lg:p-5 lg:rounded-full font-bold">
-                    <li><a href="#home" class="nav-link text-white hover:text-pink-400 transition-colors">Home</a></li>
-                    <li><a href="destination.html"
-                            class="nav-link text-white hover:text-pink-400 transition-colors">Destination</a></li>
-                    <li><a href="tour.html"
-                            class="nav-link text-white hover:text-pink-400 transition-colors">Tours</a></li>
-                    <li><a href="blog.html" class="nav-link text-white hover:text-pink-400 transition-colors">Blog</a></li>
-                    <li><a href="contact.html"
-                            class="nav-link text-white hover:text-pink-400 transition-colors">Contact</a></li>
-                    <li><a href="aboutus2.html" class="nav-link text-white hover:text-pink-400 transition-colors">About Us</a>
-                    </li>
-                    <li class="lg:hidden"><a href="signup.html"
-                            class="nav-link font-bold text-white hover:text-pink-400 transition-colors">Sign up</a>
-                    </li>
-                </ul>
-            </div>
+ <header id="navbar" class="site-header fixed top-0 z-50 w-full shadow-sm dark:bg-slate-800 bg-slate-500 text-reveal ">
+    <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 md:h-20">
+        
+        <!--  Website Name -->
+        <div class="shrink-0 nav-menu">
+          <a href="#" class="text-2xl font-bold tracking-tight bg-linear-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent dark:from-blue-400 dark:to-pink-400">
+           TravelSet
+          </a>
+        </div>
 
-            <!-- Dark mode toggle Sign Up Hamburger -->
-            <div class="flex items-center gap-3">
+        <!-- Desktop Navigation (large screens) -->
+        <div class="hidden lg:flex lg:items-center lg:space-x-6 xl:space-x-8 uppercase ">
+          <a href="#" class="nav-link text-base font-medium text-white">Home</a>
+          <a href="#" class="nav-link text-base font-medium text-white">Destination</a>
+          <a href="tour2.html" class="nav-link text-base font-medium text-white">Tour</a>
+          <a href="blog.html" class="nav-link text-base font-medium text-white">Blog</a>
+          <a href="contact.html" class="nav-link block py-3 px-2 text-base font-medium rounded-lg text-white">Contact</a>
+          <a href="#" class="nav-link text-base font-medium text-white">About Us</a>
+        </div>
 
-                <!--  Dark Light Mode  -->
-                <button id="theme-toggle" onclick="toggleTheme()"
-                    class="w-10 h-10 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 text-white transition-all duration-300 text-lg"
+        <!-- Right dark mode toggle Login/Register mobile hamburger -->
+        <div class="flex items-center gap-3 md:gap-4">
+            <button id="theme-toggle" onclick="toggleTheme()"
+                    class="w-10 h-10 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 text-white transition-all duration-300 text-xl"
                     title="Toggle dark/light mode">
-                    <!-- Sun icon -->
-                    <i id="icon-sun" class="ri-sun-line hidden"></i>
+            <!-- Sun icon -->
+                    <i id="icon-sun" class="ri-sun-line hidden text-slate-700 dark:text-slate-200"></i>
                     <!-- Moon icon -->
-                    <i id="icon-moon" class="ri-moon-line"></i>
-                </button>
+                    <i id="icon-moon" class="ri-moon-line text-slate-700 dark:text-slate-200"></i>
+            
+          </button>
 
-                <!-- Sign Up -->
-                <a href="signup.html"
-                    class="hidden lg:block nav-link font-bold text-white hover:text-pink-400 transition-colors uppercase text-sm border border-gray-200 px-5 py-3 rounded-full">Sign
-                    up</a>
+          <!-- Desktop: Login\Register buttons-->
+          <div class="hidden lg:flex items-center gap-3">
+            <button class="btn-solid px-4 py-2 rounded-full text-sm font-semibold transition dark:text-white uppercase"><a href="login.html">Log in</a></button>
+            <button class="btn-solid px-4 py-2 rounded-full text-sm font-semibold shadow-sm transition uppercase"><a href="signup.html">Sign up</a></button>
+          </div>
 
-                <!-- Hamburger -->
-                <div class="text-xl sm:text-3xl cursor-pointer z-50 lg:hidden text-white" id="menubutton">
-                    <i class="ri-menu-line"></i>
-                </div>
-            </div>
+          <!-- Mobile menu button -->
+          <button id="menubutton" class="lg:hidden relative w-9 h-9 rounded-lg flex items-center justify-center hover:bg-gray-400 dark:hover:bg-gray-700 transition dark:text-white" aria-label="Open menu">
+             <i class="ri-menu-line "></i>
+          </button>
+        </div>
+      </div>
+    </nav>
 
-        </nav>
-    </header>
+    <!-- Mobile Dropdown Menu -->
+    <div id="nav-menu" class="nav-menu lg:hidden hidden w-full overflow-hidden transition-all duration-300 ease-in-out dark:bg-gray-800">
+      <div class="mobile-menu-panel px-4 py-3 space-y-1 shadow-lg">
+        <a href="#" class="nav-link block py-3 px-2 text-base font-medium rounded-lg dark:text-white">Home</a>
+        <a href="#" class="nav-link block py-3 px-2 text-base font-medium rounded-lg dark:text-white">Destination</a>
+        <a href="tour2.html" class="nav-link block py-3 px-2 text-base font-medium rounded-lg dark:text-white">Tour</a>
+        <a href="blog.html" class="nav-link block py-3 px-2 text-base font-medium rounded-lg dark:text-white">Blog</a>
+        <a href="contact.html" class="nav-link block py-3 px-2 text-base font-medium rounded-lg dark:text-white">Contact</a>
+        <a href="#" class="nav-link block py-3 px-2 text-base font-medium rounded-lg dark:text-white">About Us</a>
+        
+        <!-- divider -->
+        <div class="border-t border-gray-200 dark:border-gray-700 my-2"></div>
+        
+        <!-- mobile Login\Register full width -->
+        <div class="flex flex-col gap-3 pt-2 pb-1 ">
+          <button class="btn-solid w-full py-2.5 rounded-full text-center font-semibold transition uppercase"><a href="login.html" class="text-white uppercase">Log in</a></button>
+          <button class="btn-solid w-full py-2.5 rounded-full text-center font-semibold transition  bg-blue-500 text-white uppercase"><a href="signup.html">Sign up</a></button>
+        </div>
+      </div>
+    </div>
+  </header>
+    <!-- hero -->
+<section class="relative h-[62vh] min-h-105 overflow-hidden grain"
+             aria-labelledby="hero-title">
+      <img src="../img/sereneMountain.jpg"
+           alt="" class="absolute inset-0 w-full h-full object-cover" />
+      <div class="hero-overlay absolute inset-0"></div>
+ 
+      <div class="relative z-10 flex flex-col items-center justify-center h-full text-center px-4 pt-16">
+        <p class="text-reveal text-white  text-xs uppercase tracking-[.25em] mb-3 font-body">
+          TravelSet &rsaquo; Contact
+        </p>
+        <h1 
+            class="text-reveal text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
+         Get in<em class="not-italic text-amber bg-linear-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent dark:from-blue-700 dark:to-pink-600">Touch</em>
+        </h1>
+        <p class="text-reveal mt-4 max-w-md text-cream/70 text-base font-light text-white">
+         We're here to help you plan your perfact journey.
+        </p>
+      </div>
+    </section>
 
-
-    <!-- HERO  -->
-  <section class=" img-blog relative h-72 md:h-96 overflow-hidden ">
-   
-    <div class="hero-overlay absolute inset-0"></div>
-    <div class="relative z-10 h-full flex flex-col items-center justify-center text-center px-6 animate-fade-up">
-      <h1 class="text-white font-display text-4xl md:text-6xl font-bold leading-tight">
-        Contact <span class="text-blue-400">Information</span>
-      </h1>
-  </section>
 
   <!--  INFO CARDS  -->
   <section class="bg-gray-50 py-16 px-6 dark:bg-gray-900">

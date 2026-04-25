@@ -3,151 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creative About Us | ISTAD</title>
-   <link rel="stylesheet" href="../src/output.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" 
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-     <!-- Favicon -->
+    <title>Document</title>
+    <link rel="stylesheet" href="../src/output.css">
+    <!-- Favicon -->
     <link rel="shortcut icon" href="../img/logowebb.PNG" type="image/x-icon">
     <!-- Remix icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.5.0/remixicon.min.css" />
     
-    
+    <link rel="stylesheet" href="../src/output.css">
+
     <style>
-        body { font-family: 'Poppins', sans-serif; }
-    
-        @keyframes blob {
-            0% { transform: translate(0px, 0px) scale(1); }
-            33% { transform: translate(30px, -50px) scale(1.1); }
-            66% { transform: translate(-20px, 20px) scale(0.9); }
-            100% { transform: translate(0px, 0px) scale(1); }
-        }
-        .animate-blob { animation: blob 7s infinite; }
-        .animation-delay-2000 { animation-delay: 2000s; }
-
-        .wrapper {
-    display: inline-flex;
-    list-style: relative;
-}
-
-.wrapper .icon {
-    position: relative;
-    background: #ffffff;
-    border-radius: 50%;
-    margin: 10;
-    padding: 15px;
-    width: 50px;
-    height: 50px;
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-}
-
-.wrapper .tooltip {
-    position: absolute;
-    top: 0;
-    font-size: 14px;
-    background: #fff;
-    gap: 15px;
-    padding: 5px 8px;
-    border-radius: 5px;
-    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
-    opacity: 0;
-    pointer-events: none;
-    transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-}
-
-.wrapper .tooltip::before{
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateY(-50%) rotate(45deg);
-    width: 8px;
-    height: 8px;
-    border-style: solid;
-    border-color: transparent transparent transparent #fff;
-    bottom: -3px;
-    transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-}
-
-.wrapper .icon:hover .tooltip {
-    opacity: 1;
-    pointer-events: none;
-    top: -45px;
-    visibility: visible;
-}
-
-.wrapper .icon:hover span,
-.wrapper .icon:hover .tooltip{
-    text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.1);
-}
-
-.wrapper .facebook:hover,
-.wrapper .facebook:hover .tooltip,
-.wrapper .facebook:hover .tooltip::before{
-    background: #1877f2;
-    color: #fff;
-}
-
-
-
-
-.wrapper .github:hover,
-.wrapper .github:hover .tooltip,
-.wrapper .github:hover .tooltip::before{
-    background: #e1306c;
-    color: #fff;
-}
-
-    .img-blog {
-                    background-image:
-                linear-gradient(to bottom, rgba(19, 18, 18, 0.1) 0%, rgba(20, 20, 20, 0.3) 50%, rgba(10, 10, 10, 0.6) 100%),
-                url(https://i.pinimg.com/1200x/b0/4e/ba/b04ebae47d9239de253bbe9ee29eb7ad.jpg);
-            background-repeat: no-repeat;
-            background-size: cover;
-             width: 100%; 
-             height: 580px;
-             background-position: top;
-        }
-        @media screen and (max-width: 600px) {
-  .img-blog { 
-    width: 100%;
-    height: 320px;
-
-
- }
-        }
-        .btn-outline {
-      border: 1px solid;
-      border-color: rgb(181, 180, 180);
-      transition: all 0.2s;
-    }
-    .btn-outline:hover {
-      background-color: rgba(59,130,246,0.1);
-     }
-        .btn-solid {
-      background-color: #3b82f6;
-      color: white;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-    }
-
-        /*  transition dark mode */
-        * {
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-        }
-
-        /* Mobile menu */
-        #nav-menu.open {
-            left: 0 !important;
-        }
-     @keyframes reveal {
+          @keyframes reveal {
             from {
                 clip-path: inset(0 100% 0 0);
             }
@@ -184,65 +50,50 @@
                 transform: translateX(200%) rotate(45deg);
             }
         }
-     @keyframes slideUp {
-    from {
-        transform: translateY(50px);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-.slide-up {
-    animation: slideUp 0.8s ease forwards;
-}   
-@keyframes slideRightToLeft {
-    from {
-        transform: translateX(50px); 
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0); 
-        opacity: 1;
-    }
-}
-
-.slide-right {
-    animation: slideRightToLeft 0.8s ease forwards;
-}   
-        .shine-effect:hover::before {
-            animation: shine 1.5s;
-        }
-
-        .float-animation {
+        
+         .float-animation {
             animation: float 6s ease-in-out infinite;
         }
-
         .split-reveal {
-            animation: reveal 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+            animation: reveal 0.6s cubic-bezier(0.73, 0, 0.175, 1);
         }
 
         .text-reveal {
             animation: textReveal 0.8s cubic-bezier(0.77, 0, 0.175, 1);
         }
-
-        .scroll-container {
-            scroll-snap-type: y mandatory;
-            -webkit-overflow-scrolling: touch;
+         .img-blog {
+                    background-image:
+                linear-gradient(to bottom, rgba(19, 18, 18, 0.1) 0%, rgba(20, 20, 20, 0.3) 50%, rgba(10, 10, 10, 0.6) 100%),
+                url(https://i.pinimg.com/1200x/b0/4e/ba/b04ebae47d9239de253bbe9ee29eb7ad.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+             width: 100%; 
+             height: 580px;
+             background-position: top;
         }
-
-        .scroll-section {
-            scroll-snap-align: start;
-            scroll-snap-stop: always;
+          .btn-outline {
+      border: 1px solid;
+      border-color: rgb(181, 180, 180);
+      transition: all 0.2s;
+    }
+    .btn-outline:hover {
+      background-color: rgba(59,130,246,0.1);
+     }
+        .btn-solid {
+      background-color: #3b82f6;
+      color: white;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+      /*  transition dark mode */
+        * {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
     </style>
-</head>
 
-<body class="bg-slate-50 relative overflow-x-hidden dark:bg-gray-900">
+</head>
+<body class="bg-gray-50 dark:bg-slate-900">
      <!-- HEADER NAVBAR -->
-      <header id="navbar" class="text-reveal site-header fixed top-0 z-50 w-full shadow-sm dark:bg-slate-800 backdrop-blur-sm">
+     <header id="navbar" class="text-reveal fixed top-0 z-50 w-full shadow-sm dark:bg-slate-800 backdrop-blur-sm">
     <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16 md:h-20">
         
@@ -259,7 +110,7 @@
           <a href="#" class="nav-link text-base font-medium dark:text-white">Destination</a>
           <a href="tour.html" class="nav-link text-base font-medium dark:text-white">Tour</a>
           <a href="blog.html" class="nav-link text-base font-medium dark:text-white">Blog</a>
-          <a href="aboutus2.html" class="nav-link text-base font-medium dark:text-white">About Us</a>
+          <a href="aboutus3.html" class="nav-link text-base font-medium dark:text-white">About Us</a>
         </div>
 
         <!-- Right dark mode toggle Login/Register mobile hamburger -->
@@ -277,7 +128,7 @@
           <!-- Desktop: Login\Register buttons-->
           <div class="hidden lg:flex items-center gap-3">
             <button class="btn-outline px-4 py-2 rounded-full text-sm font-semibold transition uppercase dark:text-white"><a href="login.html">Log in</a></button>
-            <button class="btn-solid px-4 py-2 rounded-full text-sm font-semibold shadow-sm transition"><a href="signup.html">Sign up</a></button>
+            <button class="btn-solid px-4 py-2 rounded-full text-sm font-semibold shadow-sm transition uppercase"><a href="signup.html">Sign up</a></button>
           </div>
 
           <!-- Mobile menu button -->
@@ -295,20 +146,20 @@
         <a href="#" class="nav-link block py-3 px-2 text-base font-medium rounded-lg dark:text-white">Destination</a>
         <a href="tour.html" class="nav-link block py-3 px-2 text-base font-medium rounded-lg dark:text-white">Tour</a>
         <a href="blog.html" class="nav-link block py-3 px-2 text-base font-medium rounded-lg dark:text-white">Blog</a>
-        <a href="aboutus2.html" class="nav-link block py-3 px-2 text-base font-medium rounded-lg dark:text-white">About Us</a>
+        <a href="aboutus3.html" class="nav-link block py-3 px-2 text-base font-medium rounded-lg dark:text-white">About Us</a>
         
         <!-- divider -->
         <div class="border-t border-gray-200 dark:border-gray-700 my-2"></div>
         
         <!-- mobile Login\Register full width -->
         <div class="flex flex-col gap-3 pt-2 pb-1 ">
-          <button class="btn-outline w-full py-2.5 rounded-full text-center font-semibold transition uppercase"><a href="login.html" class="">Log in</a></button>
-          <button class="btn-solid w-full py-2.5 rounded-full text-center font-semibold transition  bg-blue-500 text-white"><a href="signup.html">Sign up</a></button>
+          <button class="btn-outline w-full py-2.5 rounded-full text-center font-semibold transition uppercase"><a href="login.html" class="dark:text-white">Login</a></button>
+          <button class="btn-solid w-full py-2.5 rounded-full text-center font-semibold transition  bg-blue-500 text-white uppercase "><a href="signup.html">Sign up</a></button>
         </div>
       </div>
     </div>
   </header>
-
+   
     
     <section
         class="img-blog h-64 md:h-80 lg:h-96 flex flex-col items-center justify-center text-center relative overflow-hidden pt-16">
@@ -319,18 +170,14 @@
         
     </section>
 
-    <div class="absolute top-0 -left-4 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
-    <div class="absolute top-0 -right-4 w-72 h-72 bg-yellow-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
-    <div class="absolute -bottom-8 left-20 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
-
-    <header class="relative text-center py-16 float-animation">
+ <!-- CONCEPT  -->
+  <header class="relative text-center py-16 float-animation">
         <h1 class="text-5xl md:text-6xl font-bold text-gray-900 tracking-tight dark:text-white">
             About <span class="text-transparent bg-clip-text bg-linear-to-r from-indigo-600 to-pink-500">Us</span>
         </h1>
         <p class="text-gray-500 mt-4 text-lg font-light dark:text-gray-400">Creative minds building digital experiences</p>
     </header>
-
-    <main class="relative z-10">
+   <main class="relative z-10 ">
         <section class="max-w-5xl mx-auto backdrop-blur-md bg-white/80 border border-white/20 rounded-3xl shadow-2xl p-8 md:p-16 mb-20 dark:bg-gray-700">
             <div class="grid md:grid-cols-2 gap-12 items-center">
                 <div class="space-y-6">
@@ -359,14 +206,58 @@
                 </div>
             </div>
         </section>
+        
+  <section  class="py-24 px-6 bg-cream">
+    <div class="max-w-6xl mx-auto">
+ 
+      <div class="text-center mb-16">
+        <p class="text-xs uppercase tracking-widest font-semibold text-coral mb-3 dark:text-white text-reveal">What We're Building</p>
+        <h2 class="font-serif font-bold text-5xl text-ocean dark:text-gray-500 text-reveal">Our Tourism Concept</h2>
+      </div>
+ 
+      <!-- 3 concept cards -->
+      <div class="grid md:grid-cols-3 gap-8">
+ 
+        <div class="bg-white border-l-4 border-coral rounded-2xl p-8 hover:-translate-y-1 hover:shadow-2xl transition-all duration-300 dark:bg-gray-700 text-reveal">
+          <div class="text-4xl mb-5">🌍</div>
+          <h3 class="font-serif font-bold text-xl mb-3 text-ocean dark:text-white">Discover Destinations</h3>
+          <p class="text-sm leading-relaxed text-slate-500 dark:text-gray-400">We design immersive digital experiences that transport users to destinations around the globe — from hidden villages to iconic landmarks — through beautiful storytelling and interactive maps.</p>
+        </div>
+ 
+        <div class="bg-white border-l-4 border-coral rounded-2xl p-8 hover:-translate-y-1 hover:shadow-2xl transition-all duration-300 dark:bg-gray-700 text-reveal">
+          <div class="text-4xl mb-5">🗺️</div>
+          <h3 class="font-serif font-bold text-xl mb-3 text-ocean dark:text-white">Plan & Explore</h3>
+          <p class="text-sm leading-relaxed dark:text-gray-400">Our platform concept helps travellers craft meaningful itineraries — combining local culture, food, and adventure — so every trip becomes a story worth telling.</p>
+        </div>
+ 
+        <div class="bg-white border-l-4 border-coral rounded-2xl p-8 hover:-translate-y-1 hover:shadow-2xl transition-all duration-300 dark:bg-gray-700 text-reveal">
+          <div class="text-4xl mb-5">🤝</div>
+          <h3 class="font-serif font-bold text-xl mb-3 text-ocean dark:text-white">Connect Communities</h3>
+          <p class="text-sm leading-relaxed text-slate-500 dark:text-gray-400">Tourism is about people. Our design philosophy centres on human connection — linking curious travellers with local hosts, guides, and communities in an authentic way.</p>
+        </div>
+      </div>
+ 
+  </section>
 
-         <div class="max-w-4xl mx-auto mb-16 px-4">
+   <!-- ── MENTOR ── -->
+  <section  class="relative bg-ocean py-24 px-6 overflow-hidden">
+    <!-- soft glow -->
+    <div class="absolute inset-0 bg-linear-to-tr from-transparent via-gold/5 to-transparent pointer-events-none"></div>
+ 
+    <div class="max-w-5xl mx-auto relative z-10">
+ 
+      <div class="text-center text-reveal">
+        <p class="text-xs uppercase tracking-widest font-semibold text-gold dark:text-white mt-5 ">Guided By</p>
+        <h2 class="font-serif font-bold text-5xl text-sand dark:text-gray-400 mt-8 text-reveal">Our Mentor</h2>
+      </div>
+        </section>
+         <div class="max-w-4xl mx-auto px-4 mb-12 text-reveal">
     <div class="relative overflow-hidden bg-white/40 backdrop-blur-md border border-white/20 rounded-3xl shadow-2xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-10">
         <div class="absolute top-4 right-4 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">
             Mentor
         </div>
         
-        <div class="relative shrink-0">
+        <div class="relative shrink-0 ">
 
             <div class="absolute inset-0 bg-blue-500 rounded-full blur-2xl opacity-20 animate-pulse"></div>
             <img src="https://cstad.edu.kh/review-from-student/sokcheat.JPG" 
@@ -377,95 +268,113 @@
         <div class="text-center md:text-left">
             <h2 class="text-3xl font-extrabold text-gray-900 mb-2">Ms. Srorng Socheat</h2>
             <p class="text-blue-600 font-semibold text-lg mb-4">Professor of WebDesign & Technology</p>
-            
-            <!-- <div class="mt-6 flex justify-center md:justify-start gap-4">
-                <span class="px-4 py-2 bg-blue-100 text-blue-700 text-sm font-medium rounded-lg">Web Development</span>
-                <span class="px-4 py-2 bg-green-100 text-green-700 text-sm font-medium rounded-lg">IT Research</span>
-            </div> -->
-
-            <ul class="wrapper ">
-                <li class="icon Facebook">
-                    <span class="tooltip ">Facebook</span>
-                    <span><i class="fa-brands fa-facebook mx-3"></i></span>
-                </li>
-                <li class="icon GitHub">
-                    <span class="tooltip">GitHub</span>
-                    <span><i class="fa-brands fa-github"></i></span>
-                </li>
-            </ul>
         </div>
     </div>
 </div>
-
-        <section class="max-w-6xl mx-auto px-6 mb-20">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold text-gray-900 mb-4 dark:text-white">Meet Our Team</h2>
-                <div class="h-1.5 w-24 bg-indigo-600 mx-auto rounded-full"></div>
-                <p class="text-gray-500 mt-6 max-w-2xl mx-auto text-lg dark:text-gray-300">
-                    We are a group of dedicated professionals working together to bring you the best web design experience.
-                </p>
-            </div>
-
-            <div class="grid sm:grid-cols-3 lg:grid-cols-3 gap-10 flex-wrap justify-center">
-                
-                <div class="group bg-white p-8 rounded-2xl shadow-sm hover:shadow-2xl transition-all duration-300 border border-gray-100 text-center dark:bg-gray-700 dark:border-gray-600 ">
-                    <div class="relative w-32 h-32 mx-auto mb-6 ">
-                        <div class="absolute inset-0 bg-indigo-500 rounded-full animate-pulse opacity-20 group-hover:scale-110 transition "></div>
-                        <img src="https://ui-avatars.com/api/?name=Hor+KimChheng&background=6366f1&color=fff" class="relative rounded-full w-full h-full object-cover border-4 border-white shadow-md">
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800 dark:text-white">Hor KimChheng</h3>
-                    <p class="dark:text-indigo-500 text-indigo-600 font-medium uppercase tracking-wider text-sm mt-1">Project Leader</p>
-                </div>
-
-                <div class="group bg-white p-8 rounded-2xl shadow-sm hover:shadow-2xl transition-all duration-300 border border-gray-100 text-center dark:bg-gray-700 dark:border-gray-600">
-                    <div class="relative w-32 h-32 mx-auto mb-6">
-                        <div class="absolute inset-0 bg-pink-500 rounded-full opacity-10 group-hover:scale-110 transition"></div>
-                        <img src="https://ui-avatars.com/api/?name=Chour+Sothirak&background=ec4899&color=fff" class="relative rounded-full w-full h-full object-cover border-4 border-white shadow-md">
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800 dark:text-white">Chour Sothirak</h3>
-                    <p class="text-pink-500 dark:text-pink-400 font-medium uppercase tracking-wider text-sm mt-1">Sub Leader</p>
-                </div>
-            </div>
-
-            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-10 mt-10">
-                <div class="group bg-white p-8 rounded-2xl shadow-sm hover:shadow-2xl transition-all duration-300 border border-gray-100 text-center dark:bg-gray-700 dark:border-gray-600">
-                    <img src="https://ui-avatars.com/api/?name=Kao+Kongkea&background=a855f7&color=fff" class="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-white shadow-md group-hover:grayscale-0 grayscale transition duration-300">
-                    <h3 class="text-xl font-bold text-gray-800 dark:text-white">Kao Kongkea</h3>
-                    <p class="text-purple-500 font-medium uppercase tracking-wider text-sm mt-1">Member</p>
-                </div>
-
-                <div class="group bg-white p-8 rounded-2xl shadow-sm hover:shadow-2xl transition-all duration-300 border border-gray-100 text-center dark:bg-gray-700 dark:border-gray-600">
-                    <img src="https://ui-avatars.com/api/?name=Oeng+Sitong&background=a855f7&color=fff" class="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-white shadow-md group-hover:grayscale-0 grayscale transition duration-300">
-                    <h3 class="text-xl font-bold text-gray-800 dark:text-white">Oeng Sitong</h3>
-                    <p class="text-purple-500 font-medium uppercase tracking-wider text-sm mt-1">Member</p>
-                </div>
-
-                <div class="group bg-white p-8 rounded-2xl shadow-sm hover:shadow-2xl transition-all duration-300 border border-gray-100 text-center dark:bg-gray-700 dark:border-gray-600 ">
-                    <img src="https://ui-avatars.com/api/?name=Sros+Socheata&background=a855f7&color=fff" class="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-white shadow-md group-hover:grayscale-0 grayscale transition duration-300">
-                    <h3 class="text-xl font-bold text-gray-800 dark:text-white">Sros Socheata</h3>
-                    <p class="text-purple-500 font-medium uppercase tracking-wider text-sm mt-1">Member</p>
-                </div>
-            </div>
-
-            </div>
-        </section>
-    </main>
-
-   
-
-   <footer class="bg-sky-950 dark:bg-gray-800 py-14 px-6 md:px-10 lg:px-16">
+  <!-- TEAM -->
+  <section class="py-24 px-6 ">
+    <div class="max-w-6xl mx-auto">
+ 
+      <div class="text-center mb-16 text-reveal">
+        <p class="text-xs uppercase tracking-widest font-semibold text-coral mb-3 dark:text-white">The People Behind It</p>
+        <h2 class="text-reveal font-serif font-bold text-5xl text-ocean dark:text-gray-400">Meet Our Team</h2>
+      </div>
+     <!-- Leader/Sub-Leader -->
+      <div class="grid md:grid-cols-2 gap-8 mb-8">
+ 
+        <!-- LEADER -->
+        <div class="group bg-white rounded-3xl shadow-lg p-8 flex flex-col items-center text-center relative hover:-translate-y-2 transition-transform duration-300 text-reveal dark:bg-gray-700">
+          <span class="absolute top-5 right-5 text-xs uppercase tracking-widest font-bold px-3 py-1 rounded-full bg-gold/15 text-gold text-pink-500 "> Leader</span>
+          <div class="relative mb-5">
+            <div class="absolute -inset-2 rounded-full border-2 border-gold/60 dark:border-gray-100"></div>
+            <div class="w-28 h-28 rounded-full bg-linear-to-br from-gold to-coral flex items-center justify-center text-white font-serif font-bold text-4xl"><img src="../img/kimchheng.jpg" alt="kimchheng" class="rounded-full flex  w-28 h-28"></div>
+          </div>
+          <h3 class="font-serif font-bold text-2xl text-ocean mb-1 dark:text-white">Hor KimChheng</h3>
+          <p class="text-xs uppercase tracking-widest text-gold mb-4 dark:text-gray-400">Leader</p>
+          <div class=" flex gap-2 flex-wrap justify-center">
+            <span class="text-xs px-3 py-1 rounded-full bg-gold/10 text-amber-700">Blog Page</span>
+            <span class="text-xs px-3 py-1 rounded-full bg-gold/10 text-amber-700">Tour Page</span>
+           
+          </div>
+        </div>
+ 
+        <!-- SUB-LEADER -->
+        <div class="text-reveal bg-white rounded-3xl shadow-lg p-8 flex flex-col items-center text-center relative hover:-translate-y-2 transition-transform duration-300 dark:bg-gray-700">
+          <span class="absolute top-5 right-5 text-xs uppercase tracking-widest font-bold px-3 py-1 rounded-full bg-coral/15 text-coral text-blue-500"> Sub-Leader</span>
+          <div class="relative mb-5">
+            <div class="absolute -inset-2 rounded-full border-2 border-coral/60 dark:border-gray-100"></div>
+           <!-- img -->
+            <div class="w-28 h-28 rounded-full bg-linear-to-br from-coral to-red-700 flex items-center justify-center text-white font-serif font-bold text-4xl"><img src="" alt=""></div>
+          </div>
+          <h3 class="font-serif font-bold text-2xl text-ocean mb-1 dark:text-white">Chour Sothirak</h3>
+          <p class="text-xs uppercase tracking-widest text-coral mb-4 dark:text-gray-400">Sub-Leader</p>
+          <div class=" flex gap-2 flex-wrap justify-center">
+            <span class="text-xs px-3 py-1 rounded-full bg-coral/10 text-red-700">Landing Page </span>
+            <span class="text-xs px-3 py-1 rounded-full bg-coral/10 text-red-700">Destination</span>
+          </div>
+        </div>
+      </div>
+ 
+      <!-- 3 Members -->
+      <div class="grid md:grid-cols-3 gap-8">
+ 
+        <!-- Member 1 -->
+        <div class="text-reveal bg-white rounded-3xl shadow-lg p-7 flex flex-col items-center text-center relative hover:-translate-y-2 transition-transform duration-300 dark:bg-gray-700">
+          <span class="absolute top-4 right-4 text-xs uppercase tracking-widest font-bold px-3 py-1 rounded-full bg-sage/20 text-green-700">Member</span>
+          <div class="relative mb-5">
+            <div class="absolute -inset-2 rounded-full border-2 border-sage/60 dark:border-gray-100"></div>
+            <!-- img -->
+            <div class="w-28 h-28 rounded-full bg-linear-to-br from-sage to-green-700 flex items-center justify-center text-white font-serif font-bold text-3xl"><img src="" alt=""></div>
+          </div>
+          <h3 class="font-serif font-bold text-xl text-ocean mb-1 dark:text-white">Kao Kongkea</h3>
+          <p class="text-xs uppercase tracking-widest text-green-700 mb-3">Authentication page</p>
+        </div>
+ 
+        <!-- Member 2 -->
+        <div class="text-reveal bg-white rounded-3xl shadow-lg p-7 flex flex-col items-center text-center relative hover:-translate-y-2 transition-transform duration-300 dark:bg-gray-700">
+          <span class="absolute top-4 right-4 text-xs uppercase tracking-widest font-bold px-3 py-1 rounded-full bg-sage/20 text-green-700">Member</span>
+          <div class="relative mb-5">
+            <div class="absolute -inset-2 rounded-full border-2 border-sage/60 dark:border-gray-100"></div>
+            <!-- img -->
+            <div class="w-28 h-28 rounded-full bg-linear-to-br from-blue-400 to-blue-800 flex items-center justify-center text-white font-serif font-bold text-3xl"><img src="" alt=""></div>
+          </div>
+          <h3 class="font-serif font-bold text-xl text-ocean mb-1 dark:text-white ">Oeng Sitong</h3>
+          <p class="text-xs uppercase tracking-widest text-green-700 mb-3">Contact Page</p>
+        </div>
+ 
+        <!-- Member 3 -->
+        <div class="text-reveal bg-white rounded-3xl shadow-lg p-7 flex flex-col items-center text-center relative hover:-translate-y-2 transition-transform duration-300 dark:bg-gray-700">
+          <span class="absolute top-4 right-4 text-xs uppercase tracking-widest font-bold px-3 py-1 rounded-full bg-sage/20 text-green-700">Member</span>
+          <div class="relative mb-5">
+            <div class="absolute -inset-2 rounded-full border-2 border-sage/60 dark:border-gray-100"></div>
+            <!-- img -->
+            <div class="w-28 h-28 rounded-full bg-linear-to-br from-amber-400 to-amber-700 flex items-center justify-center text-white font-serif font-bold text-3xl"><img src="" alt=""></div>
+          </div>
+          <h3 class="font-serif font-bold text-xl text-ocean mb-1 dark:text-white">Sros Socheata</h3>
+          <p class="text-xs uppercase tracking-widest text-green-700 mb-3">About Us Page</p>
+          
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+ 
+     
+  
+ <!-- FOOTER  -->
+    <footer class="bg-sky-950 dark:bg-gray-800 py-14 px-6 md:px-10 lg:px-16 mt-8">
         <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 mb-10">
-            <div class="mb-32">
-                <img src="../img/logotravel.png" alt="LogoTraZ" width="">
+            <div>
+                <img src="../img/logotravel.png" alt="LogoTraZ" class=" mb-3">
                 <span style="display:none"
                     class="text-2xl font-bold text-white block mb-3">Tra<span class="text-pink-400">Z</span></span>
                 <p class="text-white/40 text-sm leading-relaxed mb-5">Crafting unforgettable journeys for the curious
-                    and the bold since 2009.</p>
+                    and the bold since 2026.</p>
                 <div class="flex gap-3">
-                    <a href="https://www.facebook.com/istad.co" target="_blank"
+                    <a href="https://www.facebook.com" target="_blank"
                         class="w-9 h-9 rounded-full bg-white/10 hover:bg-pink-500 flex items-center justify-center transition-colors text-white/60 hover:text-white text-xs"><i
                             class="ri-facebook-fill"></i></a>
-                    <a href="https://m.youtube.com/@istad7665?fbclid=IwVERDUAQ4zE5leHRuA2FlbQIxMABzcnRjBmFwcF9pZAo2NjI4NTY4Mzc5AAEeGL_QCEd8wqWZizfJiD43C5CMFZf35MqQtN5-x5t2i_pZukelhgDHtyve2wc_aem_ZIiKHglwimxsbV0EwJNpAQ" target="_blank"
+                    <a href="https://www.youtube.com" target="_blank"
                         class="w-9 h-9 rounded-full bg-white/10 hover:bg-pink-500 flex items-center justify-center transition-colors text-white/60 hover:text-white text-xs"><i
                             class="ri-youtube-line"></i></a>
                     <a href="https://cstad.edu.kh" target="_blank"
@@ -478,14 +387,14 @@
                 <ul class="space-y-2.5 text-white/40 text-sm">
                     <li><a href="#" class="hover:text-white transition-colors">About Us</a></li>
                     <li><a href="#" class="hover:text-white transition-colors">Destinations</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Tours</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Blog</a></li>
+                    <li><a href="tour.html" class="hover:text-white transition-colors">Tours</a></li>
+                    <li><a href="blog.html" class="hover:text-white transition-colors">Blog</a></li>
                 </ul>
             </div>
             <div>
                 <p class="text-white font-semibold text-sm uppercase tracking-wider mb-5">Top Destinations</p>
                 <ul class="space-y-2.5 text-white/40 text-sm">
-                    <li><a href="#" class="hover:text-white transition-colors">Maldives</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Cambodia</a></li>
                     <li><a href="#" class="hover:text-white transition-colors">Kyoto, Japan</a></li>
                     <li><a href="#" class="hover:text-white transition-colors">Santorini</a></li>
                     <li><a href="#" class="hover:text-white transition-colors">Patagonia</a></li>
@@ -523,7 +432,6 @@
             </div>
         </div>
     </footer>
-<!-- add javaS -->
- <script src="../src/main.js"></script>
+  <script src="../src/main.js"></script>
 </body>
 </html>
