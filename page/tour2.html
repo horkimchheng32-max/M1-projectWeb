@@ -3,471 +3,418 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Tour</title>
     <link rel="stylesheet" href="../src/output.css">
-      <link rel="shortcut icon" href="../img/logowebb.PNG" type="image/x-icon">
-    <!-- Remix icon -->
+    <link rel="shortcut icon" href="../img/logowebb.PNG" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.5.0/remixicon.min.css" />
-    <!-- add style external -->
  
-
     <style>
-         @keyframes reveal {
-            from {
-                clip-path: inset(0 100% 0 0);
-            }
-            to {
-                clip-path: inset(0 0 0 0);
-            }
+        @keyframes reveal {
+            from { clip-path: inset(0 100% 0 0); }
+            to { clip-path: inset(0 0 0 0); }
         }
-
         @keyframes textReveal {
-            from {
-                transform: translateY(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
+       
+       
+        .split-reveal { animation: reveal 0.6s cubic-bezier(0.73, 0, 0.175, 1); }
+        .text-reveal { animation: textReveal 0.8s cubic-bezier(0.77, 0, 0.175, 1); }
+ 
+        * { transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
+ 
+       
+ 
+        /* card image zoom on hover */
+        .card-img { transition: transform .55s ease; }
+        .tour-card:hover .card-img { transform: scale(1.07); }
+ 
+        /* badge ribbon */
+        .badge-ribbon {
+            clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%);
         }
-
-        @keyframes shine {
-            from {
-                transform: translateX(-100%) rotate(45deg);
-            }
-            to {
-                transform: translateX(200%) rotate(45deg);
-            }
+ 
+        .hero-overlay {
+            background: linear-gradient(to bottom, rgba(19,18,18,0.1) 0%, rgba(20,20,20,0.3) 50%, rgba(10,10,10,0.6) 100%);
         }
+ 
+        .grain::after {
+            content: '';
+            position: absolute; inset: 0;
+            pointer-events: none; border-radius: inherit;
+        }
+ 
+        .pill-active {
+            background: #191a19;
+            color: #faf7f2;
+        }
+      #nav-menu.open { left: 0 !important; }
+        /*navbar style */
+        :root {
+            --nav-bg: #0e486f;          
+            --nav-border: rgba(99,132,170,0.2);
+            --nav-text: #b0bec5;       
+            --nav-text-hover: #e8edf2;  
+            --nav-active: #e8edf2;
+            --nav-accent: #4fc3f7;     
+        }
+ 
+       
+        .nav-link-desktop:hover { color: var(--nav-text-hover); }
+        .nav-link-desktop.active { color: var(--nav-active); }
+      
         
-
-        .split-reveal {
-            animation: reveal 0.6s cubic-bezier(0.73, 0, 0.175, 1);
+ 
+        .btn-signup {
+            padding: 0.4rem 1.1rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: #0d1b2a;
+            background: #4fc3f7;
+            border: 1.5px solid #4fc3f7;
+            transition: background 0.2s, box-shadow 0.2s;
+            display: inline-block;
         }
-
-        .text-reveal {
-            animation: textReveal 0.8s cubic-bezier(0.77, 0, 0.175, 1);
-        }
-
-    
-   /*  transition dark mode */
-        * {
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-        }
-
-        /* Mobile menu */
-        #nav-menu.open {
-            left: 0 !important;
+        .btn-signup:hover {
+            background: #81d4fa;
+            border-color: #81d4fa;
+            box-shadow: 0 0 12px rgba(79,195,247,0.4);
         }
          
-        .btn-solid {
-      background-color: #3b82f6;
-      color: white;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-    }
-    .btn-solid:hover{
-        background-color: #e47cd4;
-      color: white;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-    }
+         
+       .nav-link:hover::after { width: 100%; }
 
-    /* card image zoom on hover */
-    .card-img { transition: transform .55s ease; }
-    .tour-card:hover .card-img { transform: scale(1.07); }
- 
-    /* badge ribbon */
-    .badge-ribbon {
-      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%);
-    }
- 
-    .hero-overlay{
-        background: linear-gradient(to bottom, rgba(19, 18, 18, 0.1) 0%, rgba(20, 20, 20, 0.3) 50%, rgba(10, 10, 10, 0.6) 100%);
-    }
+        /* pill-group nav styles */
+        .nav-pill-group {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            
+            border-radius: 9999px;
+            padding: 4px;
+        }
+        .nav-link-desktop {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            color: var(--nav-text);
+            text-decoration: none;
+            padding: 6px 14px;
+            border-radius: 9999px;
+            transition: background 0.2s ease, color 0.2s ease;
+            white-space: nowrap;
+        }
+        .nav-link-desktop:hover {
+            color: var(--nav-text-hover);
+            background: rgba(79,195,247,0.12);
+        }
+        .nav-link-desktop.active {
+            background: var(--nav-accent);
+            color: #0d1b2a;
+        }
 
-    /* subtle grain overlay */
-    .grain::after {
-      content: '';
-      position: absolute; inset: 0;
-       pointer-events: none; border-radius: inherit;
-    }
-     .pill-active {
-      background: #191a19;
-      color: #faf7f2;
-    }
-  
+
+
     </style>
 </head>
 <body class="dark:bg-slate-900 bg-gray-50">
-     <!-- HEADER NAVBAR -->
-    <header id="navbar" class="site-header fixed top-0 z-50 w-full shadow-sm dark:bg-slate-800 bg-slate-500 text-reveal ">
-    <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16 md:h-20">
-        
-        <!--  Website Name -->
-        <div class="shrink-0 nav-menu">
-          <a href="#" class="text-2xl font-bold tracking-tight bg-linear-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent dark:from-blue-400 dark:to-pink-400">
-           TravelSet
-          </a>
-        </div>
-
-        <!-- Desktop Navigation (large screens) -->
-        <div class="hidden lg:flex lg:items-center lg:space-x-6 xl:space-x-8 uppercase ">
-          <a href="#" class="nav-link text-base font-medium text-white">Home</a>
-          <a href="#" class="nav-link text-base font-medium text-white">Destination</a>
-          <a href="tour2.html" class="nav-link text-base font-medium text-white">Tour</a>
-          <a href="blog.html" class="nav-link text-base font-medium text-white">Blog</a>
-          <a href="contact.html" class="nav-link block py-3 px-2 text-base font-medium rounded-lg text-white">Contact</a>
-          <a href="#" class="nav-link text-base font-medium text-white">About Us</a>
-        </div>
-
-        <!-- Right dark mode toggle Login/Register mobile hamburger -->
-        <div class="flex items-center gap-3 md:gap-4">
-            <button id="theme-toggle" onclick="toggleTheme()"
-                    class="w-10 h-10 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 text-white transition-all duration-300 text-xl"
-                    title="Toggle dark/light mode">
-            <!-- Sun icon -->
-                    <i id="icon-sun" class="ri-sun-line hidden text-slate-700 dark:text-slate-200"></i>
-                    <!-- Moon icon -->
-                    <i id="icon-moon" class="ri-moon-line text-slate-700 dark:text-slate-200"></i>
-            
-          </button>
-
-          <!-- Desktop: Login\Register buttons-->
-          <div class="hidden lg:flex items-center gap-3">
-            <button class="btn-solid px-4 py-2 rounded-full text-sm font-semibold transition dark:text-white uppercase"><a href="login.html">Log in</a></button>
-            <button class="btn-solid px-4 py-2 rounded-full text-sm font-semibold shadow-sm transition uppercase"><a href="signup.html">Sign up</a></button>
-          </div>
-
-          <!-- Mobile menu button -->
-          <button id="menubutton" class="lg:hidden relative w-9 h-9 rounded-lg flex items-center justify-center hover:bg-gray-400 dark:hover:bg-gray-700 transition dark:text-white" aria-label="Open menu">
-             <i class="ri-menu-line "></i>
-          </button>
-        </div>
-      </div>
-    </nav>
-
-    <!-- Mobile Dropdown Menu -->
-    <div id="nav-menu" class="nav-menu lg:hidden hidden w-full overflow-hidden transition-all duration-300 ease-in-out dark:bg-gray-800">
-      <div class="mobile-menu-panel px-4 py-3 space-y-1 shadow-lg">
-        <a href="#" class="nav-link block py-3 px-2 text-base font-medium rounded-lg dark:text-white">Home</a>
-        <a href="#" class="nav-link block py-3 px-2 text-base font-medium rounded-lg dark:text-white">Destination</a>
-        <a href="tour2.html" class="nav-link block py-3 px-2 text-base font-medium rounded-lg dark:text-white">Tour</a>
-        <a href="blog.html" class="nav-link block py-3 px-2 text-base font-medium rounded-lg dark:text-white">Blog</a>
-        <a href="contact.html" class="nav-link block py-3 px-2 text-base font-medium rounded-lg dark:text-white">Contact</a>
-        <a href="#" class="nav-link block py-3 px-2 text-base font-medium rounded-lg dark:text-white">About Us</a>
-        
-        <!-- divider -->
-        <div class="border-t border-gray-200 dark:border-gray-700 my-2"></div>
-        
-        <!-- mobile Login\Register full width -->
-        <div class="flex flex-col gap-3 pt-2 pb-1 ">
-          <button class="btn-solid w-full py-2.5 rounded-full text-center font-semibold transition uppercase"><a href="login.html" class="text-white uppercase">Log in</a></button>
-          <button class="btn-solid w-full py-2.5 rounded-full text-center font-semibold transition  bg-blue-500 text-white uppercase"><a href="signup.html">Sign up</a></button>
-        </div>
-      </div>
-    </div>
-  </header>
+ <!-- navbar -->
+    <header id="navbar" class="site-header fixed top-0 z-50 w-full "  >
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 ">
+            <div class="flex items-center justify-between h-16 md:h-17">
  
+                <!-- Logo -->
+                <a href="#" class="shrink-0 text-2xl font-bold tracking-tight bg-linear-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent dark:from-blue-400 dark:to-pink-400">
+                    TravelSet
+                </a>
  
-  <main>
+                <!-- Desktop nav links — pill group -->
+                <div class="hidden lg:flex ">
+                    <div class="nav-pill-group bg-slate-900/50 ">
+                        <a href="../src/index.html"   class="nav-link-desktop ">Home</a>
+                        <a href="destination-pages.html"  class="nav-link-desktop">Destination</a>
+                        <a href="tour2.html"  class="nav-link-desktop active">Tour</a>
+                        <a href="blog2.html"    class="nav-link-desktop">Blog</a>
+                        <a href="contact.html" class="nav-link-desktop">Contact</a>
+                        <a href="about2.html"     class="nav-link-desktop">About Us</a>
+                    </div>
+                </div>
  
-    <!-- hero -->
-    <section class="relative h-[62vh] min-h-105 overflow-hidden grain"
-             aria-labelledby="hero-title">
-      <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=1600&q=80"
-           alt="Eiffel Tower, Paris"
-           class="absolute inset-0 w-full h-full object-cover" />
-      <div class="hero-overlay absolute inset-0"></div>
+                <!-- Right side -->
+                <div class="flex items-center gap-3">
+                    <!-- Dark / Light toggle -->
+                    <button id="theme-toggle" onclick="toggleTheme()"
+                            class="w-9 h-9 flex items-center justify-center rounded-full bg-slate-800/30 hover:bg-white/20 transition-all text-lg"
+                            title="Toggle dark/light mode">
+                        <i id="icon-sun"  class="ri-sun-line  hidden text-white"></i>
+                        <i id="icon-moon" class="ri-moon-line text-white"></i>
+                    </button>
  
-      <div class="relative z-10 flex flex-col items-center justify-center h-full text-center px-4 pt-16">
-        <p class="text-reveal text-white  text-xs uppercase tracking-[.25em] mb-3 font-body">
-          TravelSet &rsaquo; Popular Tours
-        </p>
-        <h1 
-            class="text-reveal text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
-          Popular Tour<br /><em class="not-italic text-amber bg-linear-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent dark:from-blue-700 dark:to-pink-600">Packages</em>
-        </h1>
-        <p class="text-reveal mt-4 max-w-md text-cream/70 text-base font-light text-gray-300">
-          Hand-picked journeys for the curious traveller. From weekend escapes to epic expeditions.
-        </p>
-      </div>
-    </section>
+                    <!-- Desktop: Log In + Sign Up -->
+                    <div class="hidden lg:flex items-center gap-2">
+                        <a href="../page/signup.html" class="btn-signup">Sign Up</a>
+                    </div>
  
-    <!-- filter bar--->
-    <section aria-label="Filter tours" class=" top-16 z-40 bg-cream/90 backdrop-blur border-b border-slate/10 dark:bg-slate-800 text-reveal">
-      <div class="max-w-6xl mx-auto px-6 py-3 flex gap-2 overflow-x-auto scrollbar-hide">
-        <button class="pill-active badge-ribbon px-5 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-all ">All</button>
-        <button class="px-5 py-1.5 rounded-full text-sm font-medium border border-gray-300 hover:bg-slate/5 whitespace-nowrap transition-all hover:bg-gray-200 dark:text-white dark:bg-gray-700 dark:hover:bg-gray-500">2-3 Days</button>
-        <button class="px-5 py-1.5 rounded-full text-sm font-medium border border-gray-300 hover:bg-slate/5 whitespace-nowrap transition-all hover:bg-gray-200 dark:text-white dark:bg-gray-700 dark:hover:bg-gray-500">4-5 Days</button>
-        <button class="px-5 py-1.5 rounded-full text-sm font-medium border border-gray-300 hover:bg-slate/5 whitespace-nowrap transition-all hover:bg-gray-200 dark:text-white dark:bg-gray-700 dark:hover:bg-gray-500">6-7 Days</button>
-        <button class="px-5 py-1.5 rounded-full text-sm font-medium border border-gray-300 hover:bg-slate/5 whitespace-nowrap transition-all hover:bg-gray-200 dark:text-white dark:bg-gray-700 dark:hover:bg-gray-500">Beach</button>
-        <button class="px-5 py-1.5 rounded-full text-sm font-medium border border-gray-300 hover:bg-slate/5 whitespace-nowrap transition-all hover:bg-gray-200 dark:text-white dark:bg-gray-700 dark:hover:bg-gray-500">Adventure</button>
-        <button class="px-5 py-1.5 rounded-full text-sm font-medium border border-gray-300 hover:bg-slate/5 whitespace-nowrap transition-all hover:bg-gray-200 dark:text-white dark:bg-gray-700 dark:hover:bg-gray-500">Cultural</button>
-      </div>
-    </section>
- 
-    <!-- TOUR GRID -->
-    <section id="tours" aria-labelledby="tours-title" class=" text-reveal max-w-6xl mx-auto px-6 py-16">
-      <header class="flex items-end justify-between mb-10">
-        <div>
-          <p class="text-teal text-xs uppercase tracking-widest font-semibold mb-1 dark:text-white">Explore the world</p>
-          <h2 id="tours-title" class="font-display text-4xl font-bold text-forest dark:text-white">Featured Journeys</h2>
-        </div>
-        <p class="hidden md:block text-sm text-slate/50 dark:text-gray-200">Showing 6 of 24 packages</p>
-      </header>
- 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
- 
-        <!-- Card 1 -->
-        <article class="tour-card group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-400 flex flex-col dark:bg-gray-800 ">
-          <div class="relative overflow-hidden h-56">
-            <img src="https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=800&q=80"
-                 alt="Sailing off Santorini"
-                 class="card-img w-full h-full object-cover" />
-            <span class="absolute top-4 left-0 badge-ribbon bg-white/90 text-forest text-xs font-semibold px-4 py-1.5 shadow-md dark:bg-mist-500 dark:text-white">
-              3 Day 2 Night
-            </span>
-          </div>
-          <div class="p-6 flex flex-col flex-1">
-            <p class="text-teal text-xs font-semibold uppercase tracking-wider mb-1 flex items-center gap-1 dark:text-pink-400 text-blue-600">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 0 20M12 2a15.3 15.3 0 0 0 0 20"/></svg>
-              Santorini, Greece
-            </p>
-            <h3 class="font-display text-xl font-bold text-forest leading-snug mb-3 dark:text-white">
-              Famous for its Whitewashed Villages
-            </h3>
-            <p class="text-sm text-slate/60 leading-relaxed flex-1 dark:text-white">
-              Sail the azure Aegean, explore cliffside villages, and sip wine as the sun melts into the caldera.
-            </p>
-            <div class="mt-5 flex items-center justify-between">
-              <strong class=" dark:text-white">$4,500</strong>
-              <a href="#" class="px-5 py-2 bg-forest text-cream text-sm font-semibold rounded-full hover:bg-teal transition-colors bg-mist-900 text-white hover:bg-blue-700   dark:bg-mist-700 dark:border-mist-600 dark:hover:bg-pink-400">Book Now </a>
+                    <!-- Mobile hamburger -->
+                    <button id="menubutton"
+                            class="lg:hidden w-9 h-9 rounded-lg flex items-center justify-center hover:bg-white/10 transition text-white"
+                            aria-label="Open menu">
+                        <i class="ri-menu-line text-lg"></i>
+                    </button>
+                </div>
             </div>
-          </div>
-        </article>
+        </nav>
  
-        <!-- Card 2 -->
-        <article class="tour-card group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-400 flex flex-col dark:bg-gray-800 ">
-          <div class="relative overflow-hidden h-56">
-            <img src="https://images.unsplash.com/photo-1526392060635-9d6019884377?w=800&q=80"
-                 alt="Machu Picchu ruins"
-                 class="card-img w-full h-full object-cover" />
-            <span class="absolute top-4 left-0 badge-ribbon bg-white/90 text-forest text-xs font-semibold px-4 py-1.5 shadow-md  dark:bg-mist-500 dark:text-white">
-              4 Day 3 Night
-            </span>
-          </div>
-          <div class="p-6 flex flex-col flex-1">
-            <p class="text-teal text-xs font-semibold uppercase tracking-wider mb-1 flex items-center gap-1  dark:text-pink-400 text-blue-600">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 0 20M12 2a15.3 15.3 0 0 0 0 20"/></svg>
-              Machu Picchu, Peru
-            </p>
-            <h3 class="font-display text-xl font-bold text-forest leading-snug mb-3 dark:text-white">
-              An Ancient Incan City in the Clouds
-            </h3>
-            <p class="text-sm text-slate/60 leading-relaxed flex-1 dark:text-white">
-              Trek the Inca Trail at dawn, feel the mist lift off the ruins, and step into a world that time forgot.
-            </p>
-            <div class="mt-5 flex items-center justify-between">
-              <strong class="font-display text-2xl text-forest dark:text-white">$3,500</strong>
-              <a href="#" class="px-5 py-2 bg-forest text-cream text-sm font-semibold rounded-full hover:bg-teal transition-colors bg-mist-900 text-white hover:bg-blue-700   dark:bg-mist-700 dark:border-mist-600 dark:hover:bg-pink-400 ">Book Now</a>
+        <!-- Mobile Dropdown -->
+        <div id="nav-menu" class="nav-menu  lg:hidden hidden w-full overflow-hidden transition-all duration-300 ease-in-out border-t" style="background-color: var(--nav-bg); border-color: var(--nav-border);">
+            <div class="px-4 py-3 space-y-1 ">
+                <a href="../src/index.html"            class="block py-2.5 px-3 text-sm font-medium uppercase tracking-wide rounded-lg transition-colors" style="color: var(--nav-text);" onmouseover="this.style.color='#fff';this.style.background='rgba(255,255,255,0.06)'" onmouseout="this.style.color='var(--nav-text)';this.style.background=''">Home</a>
+                <a href="destination-pages.html"            class="block py-2.5 px-3 text-sm font-medium uppercase tracking-wide rounded-lg transition-colors" style="color: var(--nav-text);" onmouseover="this.style.color='#fff';this.style.background='rgba(255,255,255,0.06)'" onmouseout="this.style.color='var(--nav-text)';this.style.background=''">Destination</a>
+                <a href="tour2.html"   class="block py-2.5 px-3 text-sm font-medium uppercase tracking-wide rounded-lg" style="color: var(--nav-active); background: rgba(79,195,247,0.1);">Tour</a>
+                <a href="blog2.html"    class="block py-2.5 px-3 text-sm font-medium uppercase tracking-wide rounded-lg transition-colors" style="color: var(--nav-text);" onmouseover="this.style.color='#fff';this.style.background='rgba(255,255,255,0.06)'" onmouseout="this.style.color='var(--nav-text)';this.style.background=''">Blog</a>
+                <a href="contact.html" class="block py-2.5 px-3 text-sm font-medium uppercase tracking-wide rounded-lg transition-colors" style="color: var(--nav-text);" onmouseover="this.style.color='#fff';this.style.background='rgba(255,255,255,0.06)'" onmouseout="this.style.color='var(--nav-text)';this.style.background=''">Contact</a>
+                <a href="blog2.html"            class="block py-2.5 px-3 text-sm font-medium uppercase tracking-wide rounded-lg transition-colors" style="color: var(--nav-text);" onmouseover="this.style.color='#fff';this.style.background='rgba(255,255,255,0.06)'" onmouseout="this.style.color='var(--nav-text)';this.style.background=''">About Us</a>
+                <div class="border-t border-white/10 my-2"></div>
+                <div class="flex flex-col gap-2 pt-1 pb-2">
+                    <a href="signup.html" class="btn-signup text-center w-full">Sign Up</a>
+                </div>
             </div>
-          </div>
-        </article>
- 
-        <!-- Card 3 -->
-        <article class="tour-card group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-400 flex flex-col dark:bg-gray-800">
-          <div class="relative overflow-hidden h-56">
-            <img src="https://images.unsplash.com/photo-1546436836-07a91091f160?w=800&q=80"
-                 alt="New York City skyline"
-                 class="card-img w-full h-full object-cover" />
-            <span class="absolute top-4 left-0 badge-ribbon bg-white/90 text-forest text-xs font-semibold px-4 py-1.5 shadow-md dark:bg-mist-500 dark:text-white">
-              5 Day 4 Night
-            </span>
-          </div>
-          <div class="p-6 flex flex-col flex-1">
-            <p class="text-teal text-xs font-semibold uppercase tracking-wider mb-1 flex items-center gap-1 dark:text-pink-400 text-blue-600">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 0 20M12 2a15.3 15.3 0 0 0 0 20"/></svg>
-              New York City, USA
-            </p>
-            <h3 class="font-display text-xl font-bold text-forest leading-snug mb-3 dark:text-white">
-              Famous for its Dazzling Skyscrapers
-            </h3>
-            <p class="text-sm text-slate/60 leading-relaxed flex-1 dark:text-white">
-              From Central Park mornings to Broadway nights — NYC delivers an energy no other city can match.
-            </p>
-            <div class="mt-5 flex items-center justify-between">
-              <strong class="font-display text-2xl text-forest dark:text-white">$5,500</strong>
-              <a href="#" class="px-5 py-2 bg-forest text-cream text-sm font-semibold rounded-full hover:bg-teal transition-colors bg-mist-900 text-white hover:bg-blue-700 dark:bg-mist-700 dark:border-mist-600 dark:hover:bg-pink-400 ">Book Now</a>
-            </div>
-          </div>
-        </article>
- 
-        <!-- Card 4 -->
-        <article class="tour-card group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-400 flex flex-col dark:bg-gray-800">
-          <div class="relative overflow-hidden h-56">
-            <img src="https://images.unsplash.com/photo-1529260830199-42c24126f198?w=800&q=80"
-                 alt="Road trip through Bahamas coastline"
-                 class="card-img w-full h-full object-cover" />
-            <span class="absolute top-4 left-0 badge-ribbon bg-white/90 text-forest text-xs font-semibold px-4 py-1.5 shadow-md dark:bg-mist-500 dark:text-white">
-              6 Day 5 Night
-            </span>
-          </div>
-          <div class="p-6 flex flex-col flex-1">
-            <p class="text-teal text-xs font-semibold uppercase tracking-wider mb-1 flex items-center gap-1 dark:text-pink-400 text-blue-600">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 0 20M12 2a15.3 15.3 0 0 0 0 20"/></svg>
-              Rome, Italy
-            </p>
-            <h3 class="font-display text-xl font-bold text-forest leading-snug mb-3 dark:text-white">
-              Proof That Bahamas Beauty Inspires
-            </h3>
-            <p class="text-sm text-slate/60 leading-relaxed flex-1 dark:text-white">
-              Hit the open road with friends, windows down, chasing golden horizons through Italy's sun-drenched coast.
-            </p>
-            <div class="mt-5 flex items-center justify-between">
-              <strong class="font-display text-2xl text-forest dark:text-white">$6,500</strong>
-              <a href="#" class="px-5 py-2 bg-forest text-cream text-sm font-semibold rounded-full hover:bg-teal transition-colors bg-mist-900 text-white hover:bg-blue-700 dark:bg-mist-700 dark:border-mist-600 dark:hover:bg-pink-400 ">Book Now</a>
-            </div>
-          </div>
-        </article>
- 
-        <!-- Card 5 -->
-        <article class="tour-card group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-400 flex flex-col dark:bg-gray-800">
-          <div class="relative overflow-hidden h-56">
-            <img src="https://images.unsplash.com/photo-1534008897995-27a23e859048?w=800&q=80"
-                 alt="Venice canals"
-                 class="card-img w-full h-full object-cover" />
-            <span class="absolute top-4 left-0 badge-ribbon bg-white/90 text-forest text-xs font-semibold px-4 py-1.5 shadow-md dark:bg-mist-500 dark:text-white">
-              7 Day 6 Night
-            </span>
-          </div>
-          <div class="p-6 flex flex-col flex-1">
-            <p class="text-teal text-xs font-semibold uppercase tracking-wider mb-1 flex items-center gap-1 dark:text-pink-400 text-blue-600">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 0 20M12 2a15.3 15.3 0 0 0 0 20"/></svg>
-              Paris, France
-            </p>
-            <h3 class="font-display text-xl font-bold text-forest leading-snug mb-3 dark:text-white">
-              Believe In Your Mexico — And Venice
-            </h3>
-            <p class="text-sm text-slate/60 leading-relaxed flex-1 dark:text-white">
-              Drift down grand canals at dusk, discover hidden backcari, and lose yourself in the city built on water.
-            </p>
-            <div class="mt-5 flex items-center justify-between">
-              <strong class="font-display text-2xl text-forest dark:text-white">$3,500</strong>
-              <a href="#" class="px-5 py-2 bg-forest text-cream text-sm font-semibold rounded-full hover:bg-teal transition-colors bg-mist-900 text-white hover:bg-blue-700 dark:bg-mist-700 dark:border-mist-600 dark:hover:bg-pink-400 ">Book Now</a>
-            </div>
-          </div>
-        </article>
- 
-        <!-- Card 6 -->
-        <article class="tour-card group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-400 flex flex-col dark:bg-gray-800">
-          <div class="relative overflow-hidden h-56">
-            <img src="https://images.unsplash.com/photo-1505118380757-91f5f5632de0?w=800&q=80"
-                 alt="Turquoise waters of Thailand"
-                 class="card-img w-full h-full object-cover" />
-            <span class="absolute top-4 left-0 badge-ribbon bg-white/90 text-forest text-xs font-semibold px-4 py-1.5 shadow-md dark:bg-mist-500 dark:text-white">
-              2 Day 1 Night
-            </span>
-          </div>
-          <div class="p-6 flex flex-col flex-1">
-            <p class="text-teal text-xs font-semibold uppercase tracking-wider mb-1 flex items-center gap-1 dark:text-pink-400 text-blue-600">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 0 20M12 2a15.3 15.3 0 0 0 0 20"/></svg>
-              Africa Portugal Mexico
-            </p>
-            <h3 class="font-display text-xl font-bold text-forest leading-snug mb-3 dark:text-white">
-              Beauty of Solomon Island Escape
-            </h3>
-            <p class="text-sm text-slate/60 leading-relaxed flex-1 dark:text-white">
-              Kayak through limestone cliffs into hidden lagoons with crystal-clear water you never want to leave.
-            </p>
-            <div class="mt-5 flex items-center justify-between">
-              <strong class="font-display text-2xl text-forest dark:text-white">$4,500</strong>
-              <a href="#" class="px-5 py-2 bg-forest text-cream text-sm font-semibold rounded-full hover:bg-teal transition-colors bg-mist-900 text-white hover:bg-blue-700 dark:bg-mist-700 dark:border-mist-600 dark:hover:bg-pink-400 ">Book Now</a>
-            </div>
-          </div>
-        </article>
- 
-      </div>
- 
-      <!-- Load More -->
-      <div class="mt-12 text-center">
-        <button class="inline-flex items-center gap-2 px-8 py-3.5 border border-forest text-forest rounded-full font-semibold text-sm hover:bg-forest hover:text-cream transition-all duration-300 hover:bg-blue-500 dark:border-gray-500 dark:bg-gray-600 dark:text-white border-gray-300 bg-gray-300 dark:hover:bg-pink-400">
-          Load More Packages
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-            <path d="M19 9l-7 7-7-7"/>
-          </svg>
-        </button>
-      </div>
-    </section>
- 
-    <!--why us strip -->
-    <aside aria-label="Why choose us" class="text-reveal bg-forest text-cream py-14 px-6">
-      <div class="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-        <div>
-          <p class="font-display text-4xl font-bold text-amber mb-1 dark:text-white">500+</p>
-          <p class="text-sm text-cream/60 uppercase tracking-wider dark:text-gray-300">Destinations</p>
         </div>
-        <div>
-          <p class="font-display text-4xl font-bold text-amber mb-1 dark:text-white">12k</p>
-          <p class="text-sm text-cream/60 uppercase tracking-wider dark:text-gray-300">Happy Travellers</p>
-        </div>
-        <div>
-          <p class="font-display text-4xl font-bold text-amber mb-1 dark:text-white">98%</p>
-          <p class="text-sm text-cream/60 uppercase tracking-wider dark:text-gray-300">Satisfaction Rate</p>
-        </div>
-        <div>
-          <p class="font-display text-4xl font-bold text-amber mb-1 dark:text-white">15yr</p>
-          <p class="text-sm text-cream/60 uppercase tracking-wider dark:text-gray-300">Experience</p>
-        </div>
-      </div>
-    </aside>
+    </header>
+    <!-- end nav -->
+   
  
-  </main>
- <footer class="bg-sky-950 dark:bg-gray-800 py-14 px-6 md:px-10 lg:px-16">
+ 
+    <main>
+        <!-- hero -->
+        <section class="relative h-[62vh] min-h-105 overflow-hidden grain" aria-labelledby="hero-title">
+            <img src="../img/paris2.jpg" alt="Eiffel Tower, Paris" class="absolute inset-0 w-full h-full object-cover" />
+            <div class="hero-overlay absolute inset-0"></div>
+            <div class="relative z-10 flex flex-col items-center justify-center h-full text-center px-4 pt-16">
+                <p class="text-reveal text-white text-xs uppercase tracking-[.25em] mb-3 font-body">TravelSet > Popular Tours</p>
+                <h1 class="text-reveal text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
+                    Popular Tour<br /><em class="not-italic bg-linear-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">Packages</em>
+                </h1>
+                <p class="text-reveal mt-4 max-w-md text-gray-300 text-base font-light">
+                    Hand-picked journeys for the curious traveller. From weekend escapes to epic expeditions.
+                </p>
+            </div>
+        </section>
+ 
+        <!-- filter bar -->
+        <section aria-label="Filter tours" class="top-16 z-40 bg-cream/90 backdrop-blur border-b border-slate/10 dark:bg-slate-800 text-reveal">
+            <div class="max-w-6xl mx-auto px-6 py-3 flex gap-2 overflow-x-auto scrollbar-hide">
+                <button class="pill-active badge-ribbon px-5 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-all">All</button>
+                <button class="px-5 py-1.5 rounded-full text-sm font-medium border border-gray-300 hover:bg-gray-200 whitespace-nowrap transition-all dark:text-white dark:bg-gray-700 dark:hover:bg-gray-500">2-3 Days</button>
+                <button class="px-5 py-1.5 rounded-full text-sm font-medium border border-gray-300 hover:bg-gray-200 whitespace-nowrap transition-all dark:text-white dark:bg-gray-700 dark:hover:bg-gray-500">4-5 Days</button>
+                <button class="px-5 py-1.5 rounded-full text-sm font-medium border border-gray-300 hover:bg-gray-200 whitespace-nowrap transition-all dark:text-white dark:bg-gray-700 dark:hover:bg-gray-500">6-7 Days</button>
+                <button class="px-5 py-1.5 rounded-full text-sm font-medium border border-gray-300 hover:bg-gray-200 whitespace-nowrap transition-all dark:text-white dark:bg-gray-700 dark:hover:bg-gray-500">Beach</button>
+                <button class="px-5 py-1.5 rounded-full text-sm font-medium border border-gray-300 hover:bg-gray-200 whitespace-nowrap transition-all dark:text-white dark:bg-gray-700 dark:hover:bg-gray-500">Adventure</button>
+                <button class="px-5 py-1.5 rounded-full text-sm font-medium border border-gray-300 hover:bg-gray-200 whitespace-nowrap transition-all dark:text-white dark:bg-gray-700 dark:hover:bg-gray-500">Cultural</button>
+            </div>
+        </section>
+ 
+        <!-- TOUR GRID -->
+        <section id="tours" aria-labelledby="tours-title" class="text-reveal max-w-6xl mx-auto px-6 py-16">
+            <header class="flex items-end justify-between mb-10">
+                <div>
+                    <p class="text-xs uppercase tracking-widest font-semibold mb-1 text-blue-600 dark:text-white">Explore the world</p>
+                    <h2 id="tours-title" class="font-display text-4xl font-bold dark:text-white">Featured Journeys</h2>
+                </div>
+                <p class="hidden md:block text-sm text-gray-500 dark:text-gray-200">Showing 6 of 24 packages</p>
+            </header>
+ 
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+ 
+                <!-- Card 1 -->
+                <article class="tour-card group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-400 flex flex-col dark:bg-gray-800">
+                    <div class="relative overflow-hidden h-56">
+                        <img src="../img/santorini greece.jpg" alt="Sailing off Santorini" class="card-img w-full h-full object-cover" />
+                        <span class="absolute top-4 left-0 badge-ribbon bg-white/90 text-xs font-semibold px-4 py-1.5 shadow-md dark:text-white">3 Day 2 Night</span>
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <p class="text-xs font-semibold uppercase tracking-wider mb-1 flex items-center gap-1 text-blue-600 dark:text-pink-400">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 0 20M12 2a15.3 15.3 0 0 0 0 20"/></svg>
+                            Santorini, Greece
+                        </p>
+                        <h3 class="text-xl font-bold leading-snug mb-3 dark:text-white">Famous for its Whitewashed Villages</h3>
+                        <p class="text-sm text-gray-500 leading-relaxed flex-1 dark:text-white">Sail the azure Aegean, explore cliffside villages, and sip wine as the sun melts into the caldera.</p>
+                        <div class="mt-5 flex items-center justify-between">
+                            <strong class="text-2xl font-bold dark:text-white">$4,500</strong>
+                            <a href="#" class="px-5 py-2 bg-blue-600 text-white text-sm font-semibold rounded-full hover:bg-blue-700 transition-colors dark:hover:bg-pink-400">Book Now</a>
+                        </div>
+                    </div>
+                </article>
+ 
+                <!-- Card 2 -->
+                <article class="tour-card group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-400 flex flex-col dark:bg-gray-800">
+                    <div class="relative overflow-hidden h-56">
+                        <img src="../img/peru.jpg" alt="Machu Picchu ruins" class="card-img w-full h-full object-cover" />
+                        <span class="absolute top-4 left-0 badge-ribbon bg-white/90 text-xs font-semibold px-4 py-1.5 shadow-md dark:text-white">4 Day 3 Night</span>
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <p class="text-xs font-semibold uppercase tracking-wider mb-1 flex items-center gap-1 text-blue-600 dark:text-pink-400">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 0 20M12 2a15.3 15.3 0 0 0 0 20"/></svg>
+                            Machu Picchu, Peru
+                        </p>
+                        <h3 class="text-xl font-bold leading-snug mb-3 dark:text-white">An Ancient Incan City in the Clouds</h3>
+                        <p class="text-sm text-gray-500 leading-relaxed flex-1 dark:text-white">Trek the Inca Trail at dawn, feel the mist lift off the ruins, and step into a world that time forgot.</p>
+                        <div class="mt-5 flex items-center justify-between">
+                            <strong class="text-2xl font-bold dark:text-white">$3,500</strong>
+                            <a href="#" class="px-5 py-2 bg-blue-600 text-white text-sm font-semibold rounded-full hover:bg-blue-700 transition-colors dark:hover:bg-pink-400">Book Now</a>
+                        </div>
+                    </div>
+                </article>
+ 
+                <!-- Card 3 -->
+                <article class="tour-card group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-400 flex flex-col dark:bg-gray-800">
+                    <div class="relative overflow-hidden h-56">
+                        <img src="../img/newyork ,usa.jpg" alt="New York City skyline" class="card-img w-full h-full object-cover" />
+                        <span class="absolute top-4 left-0 badge-ribbon bg-white/90 text-xs font-semibold px-4 py-1.5 shadow-md dark:text-white">5 Day 4 Night</span>
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <p class="text-xs font-semibold uppercase tracking-wider mb-1 flex items-center gap-1 text-blue-600 dark:text-pink-400">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 0 20M12 2a15.3 15.3 0 0 0 0 20"/></svg>
+                            New York City, USA
+                        </p>
+                        <h3 class="text-xl font-bold leading-snug mb-3 dark:text-white">Famous for its Dazzling Skyscrapers</h3>
+                        <p class="text-sm text-gray-500 leading-relaxed flex-1 dark:text-white">From Central Park mornings to Broadway nights — NYC delivers an energy no other city can match.</p>
+                        <div class="mt-5 flex items-center justify-between">
+                            <strong class="text-2xl font-bold dark:text-white">$5,500</strong>
+                            <a href="#" class="px-5 py-2 bg-blue-600 text-white text-sm font-semibold rounded-full hover:bg-blue-700 transition-colors dark:hover:bg-pink-400">Book Now</a>
+                        </div>
+                    </div>
+                </article>
+ 
+                <!-- Card 4 -->
+                <article class="tour-card group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-400 flex flex-col dark:bg-gray-800">
+                    <div class="relative overflow-hidden h-56">
+                        <img src="../img/italy.jpg" alt="Italy coastline" class="card-img w-full h-full object-cover" />
+                        <span class="absolute top-4 left-0 badge-ribbon bg-white/90 text-xs font-semibold px-4 py-1.5 shadow-md dark:text-white">6 Day 5 Night</span>
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <p class="text-xs font-semibold uppercase tracking-wider mb-1 flex items-center gap-1 text-blue-600 dark:text-pink-400">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 0 20M12 2a15.3 15.3 0 0 0 0 20"/></svg>
+                            Rome, Italy
+                        </p>
+                        <h3 class="text-xl font-bold leading-snug mb-3 dark:text-white">Proof That Bahamas Beauty Inspires</h3>
+                        <p class="text-sm text-gray-500 leading-relaxed flex-1 dark:text-white">Hit the open road with friends, windows down, chasing golden horizons through Italy's sun-drenched coast.</p>
+                        <div class="mt-5 flex items-center justify-between">
+                            <strong class="text-2xl font-bold dark:text-white">$6,500</strong>
+                            <a href="#" class="px-5 py-2 bg-blue-600 text-white text-sm font-semibold rounded-full hover:bg-blue-700 transition-colors dark:hover:bg-pink-400">Book Now</a>
+                        </div>
+                    </div>
+                </article>
+ 
+                <!-- Card 5 -->
+                <article class="tour-card group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-400 flex flex-col dark:bg-gray-800">
+                    <div class="relative overflow-hidden h-56">
+                        <img src="../img/paris,france.jpg" alt="Paris France" class="card-img w-full h-full object-cover" />
+                        <span class="absolute top-4 left-0 badge-ribbon bg-white/90 text-xs font-semibold px-4 py-1.5 shadow-md dark:text-white">7 Day 6 Night</span>
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <p class="text-xs font-semibold uppercase tracking-wider mb-1 flex items-center gap-1 text-blue-600 dark:text-pink-400">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 0 20M12 2a15.3 15.3 0 0 0 0 20"/></svg>
+                            Paris, France
+                        </p>
+                        <h3 class="text-xl font-bold leading-snug mb-3 dark:text-white">Believe In Your Mexico — And Venice</h3>
+                        <p class="text-sm text-gray-500 leading-relaxed flex-1 dark:text-white">Drift down grand canals at dusk, discover hidden backcari, and lose yourself in the city built on water.</p>
+                        <div class="mt-5 flex items-center justify-between">
+                            <strong class="text-2xl font-bold dark:text-white">$3,500</strong>
+                            <a href="#" class="px-5 py-2 bg-blue-600 text-white text-sm font-semibold rounded-full hover:bg-blue-700 transition-colors dark:hover:bg-pink-400">Book Now</a>
+                        </div>
+                    </div>
+                </article>
+ 
+                <!-- Card 6 -->
+                <article class="tour-card group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-400 flex flex-col dark:bg-gray-800">
+                    <div class="relative overflow-hidden h-56">
+                        <img src="../img/mexico.jpg" alt="Mexico" class="card-img w-full h-full object-cover" />
+                        <span class="absolute top-4 left-0 badge-ribbon bg-white/90 text-xs font-semibold px-4 py-1.5 shadow-md dark:text-white">2 Day 1 Night</span>
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <p class="text-xs font-semibold uppercase tracking-wider mb-1 flex items-center gap-1 text-blue-600 dark:text-pink-400">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 0 20M12 2a15.3 15.3 0 0 0 0 20"/></svg>
+                            Africa Portugal Mexico
+                        </p>
+                        <h3 class="text-xl font-bold leading-snug mb-3 dark:text-white">Beauty of Solomon Island Escape</h3>
+                        <p class="text-sm text-gray-500 leading-relaxed flex-1 dark:text-white">Kayak through limestone cliffs into hidden lagoons with crystal-clear water you never want to leave.</p>
+                        <div class="mt-5 flex items-center justify-between">
+                            <strong class="text-2xl font-bold dark:text-white">$4,500</strong>
+                            <a href="#" class="px-5 py-2 bg-blue-600 text-white text-sm font-semibold rounded-full hover:bg-blue-700 transition-colors dark:hover:bg-pink-400">Book Now</a>
+                        </div>
+                    </div>
+                </article>
+ 
+            </div>
+ 
+            <!-- Load More -->
+            <div class="mt-12 text-center">
+                <button class="inline-flex items-center gap-2 px-8 py-3.5 border border-gray-300 bg-gray-300 text-gray-800 rounded-full font-semibold text-sm hover:bg-blue-500 hover:text-white hover:border-blue-500 transition-all duration-300 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:hover:bg-pink-400">
+                    Load More Packages
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+                </button>
+            </div>
+        </section>
+ 
+        <!-- why us strip -->
+        <aside aria-label="Why choose us" class="text-reveal bg-gray-900 text-white py-14 px-6">
+            <div class="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div>
+                    <p class="text-4xl font-bold text-amber-400 mb-1">500+</p>
+                    <p class="text-sm text-gray-400 uppercase tracking-wider">Destinations</p>
+                </div>
+                <div>
+                    <p class="text-4xl font-bold text-amber-400 mb-1">12k</p>
+                    <p class="text-sm text-gray-400 uppercase tracking-wider">Happy Travellers</p>
+                </div>
+                <div>
+                    <p class="text-4xl font-bold text-amber-400 mb-1">98%</p>
+                    <p class="text-sm text-gray-400 uppercase tracking-wider">Satisfaction Rate</p>
+                </div>
+                <div>
+                    <p class="text-4xl font-bold text-amber-400 mb-1">15yr</p>
+                    <p class="text-sm text-gray-400 uppercase tracking-wider">Experience</p>
+                </div>
+            </div>
+        </aside>
+    </main>
+ 
+     <footer class="bg-sky-950 dark:bg-gray-800 py-14 px-6 md:px-10 lg:px-16">
         <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 mb-10">
             <div>
-                <a href="#" class="text-2xl font-bold tracking-tight bg-linear-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent dark:from-blue-400 dark:to-pink-400">
-            TravelSet
-          </a>
-                <p class="text-white/40 text-sm leading-relaxed mb-5">Crafting unforgettable journeys for the curious
-                    and the bold since 2009.</p>
+                <a href="#" class="text-2xl font-bold tracking-tight bg-linear-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent dark:from-blue-400 dark:to-pink-400">TravelSet</a>
+                <p class="text-white/40 text-sm leading-relaxed mb-5 mt-2">Crafting unforgettable journeys for the curious and the bold since 2026.</p>
                 <div class="flex gap-3">
-                    <a href="https://www.facebook.com" target="_blank"
-                        class="w-9 h-9 rounded-full bg-white/10 hover:bg-pink-500 flex items-center justify-center transition-colors text-white/60 hover:text-white text-xs"><i
-                            class="ri-facebook-fill"></i></a>
-                    <a href="https://www.youtube.com" target="_blank"
-                        class="w-9 h-9 rounded-full bg-white/10 hover:bg-pink-500 flex items-center justify-center transition-colors text-white/60 hover:text-white text-xs"><i
-                            class="ri-youtube-line"></i></a>
-                    <a href="https://cstad.edu.kh" target="_blank"
-                        class="w-9 h-9 rounded-full bg-white/10 hover:bg-pink-500 flex items-center justify-center transition-colors text-white/60 hover:text-white text-xs"><i
-                            class="ri-global-line"></i></a>
+                    <a href="https://www.facebook.com/istad.co/" target="_blank" class="w-9 h-9 rounded-full bg-white/10 hover:bg-pink-500 flex items-center justify-center transition-colors text-white/60 hover:text-white text-xs"><i class="ri-facebook-fill"></i></a>
+                    <a href="http://www.youtube.com/@istad7665" target="_blank" class="w-9 h-9 rounded-full bg-white/10 hover:bg-pink-500 flex items-center justify-center transition-colors text-white/60 hover:text-white text-xs"><i class="ri-youtube-line"></i></a>
+                    <a href="https://cstad.edu.kh" target="_blank" class="w-9 h-9 rounded-full bg-white/10 hover:bg-pink-500 flex items-center justify-center transition-colors text-white/60 hover:text-white text-xs"><i class="ri-global-line"></i></a>
                 </div>
             </div>
             <div>
                 <p class="text-white font-semibold text-sm uppercase tracking-wider mb-5">Quick Links</p>
                 <ul class="space-y-2.5 text-white/40 text-sm">
-                    <li><a href="#" class="hover:text-white transition-colors">About Us</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Destinations</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Tours</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Blog</a></li>
+                    <li><a href="../src/index.html" class="hover:text-white transition-colors">Home</a></li>
+                    <li><a href="destination-pages.html" class="hover:text-white transition-colors">Destinations</a></li>
+                    <li><a href="tour2.html" class="hover:text-white transition-colors">Tours</a></li>
+                    <li><a href="blog2.html" class="hover:text-white transition-colors">Blog</a></li>
+                    <li><a href="contact.html" class="hover:text-white transition-colors">Contact</a></li>
+                    <li><a href="about2.html" class="hover:text-white transition-colors">About Us</a></li>
+
                 </ul>
             </div>
             <div>
                 <p class="text-white font-semibold text-sm uppercase tracking-wider mb-5">Top Destinations</p>
                 <ul class="space-y-2.5 text-white/40 text-sm">
-                    <li><a href="#" class="hover:text-white transition-colors">Maldives</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Kyoto, Japan</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Santorini</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Patagonia</a></li>
+                    <li><a href="destination-pages.html" class="hover:text-white transition-colors">Maldives</a></li>
+                    <li><a href="destination-pages.html" class="hover:text-white transition-colors">Kyoto, Japan</a></li>
+                    <li><a href="destination-pages.html" class="hover:text-white transition-colors">Santorini</a></li>
+                    <li><a href="destination-pages.html" class="hover:text-white transition-colors">Patagonia</a></li>
                 </ul>
             </div>
             <div>
@@ -475,26 +422,24 @@
                 <ul class="space-y-3 text-white/40 text-sm">
                     <li class="flex gap-2 items-start">
                         <span class="mt-0.5 text-white"><i class="ri-map-pin-line"></i></span>
-                        <span class="hover:text-white">123 Explorer Ave, New York, NY 10001</span>
+                        <span>123 Explorer Ave, New York, NY 10001</span>
                     </li>
                     <li class="flex gap-2 items-center">
                         <span><i class="ri-phone-line text-white"></i></span>
-                        <a href="tel:+81239857" class="hover:text-white transition-colors">+8 (123) 987 467</a>
+                        <a href="tel:+81239857" class="hover:text-white">+8 (123) 987 467</a>
                     </li>
                     <li class="flex gap-2 items-center">
                         <span><i class="ri-mail-line text-white"></i></span>
-                        <a href="mailto:info@traz.com" class="hover:text-white transition-colors">info@travelset.com</a>
+                        <a href="mailto:info@travelset.com" class="hover:text-white">info@travelset.com</a>
                     </li>
                 </ul>
             </div>
             <div>
-                <img src="../img/New Logo iSTAD Full-12 (2).png" alt="#ISTAD"
-                    onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                <img src="../img/New Logo iSTAD Full-12 (2).png" alt="#ISTAD" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
                 <span style="display:none" class="text-white font-bold">iSTAD</span>
             </div>
         </div>
-        <div
-            class="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-white/25 text-xs">
+        <div class="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-white/25 text-xs">
             <p>© 2026 TravelSet. All rights reserved.</p>
             <div class="flex gap-5">
                 <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
@@ -502,7 +447,7 @@
             </div>
         </div>
     </footer>
-<!-- add javascrip -->
- <script src="../src/main.js"></script>
+ 
+    <script src="../src/main.js"></script>
 </body>
 </html>

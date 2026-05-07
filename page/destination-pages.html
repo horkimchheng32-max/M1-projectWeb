@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Travelset - Destinations</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { darkMode: 'class' }</script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.5.0/remixicon.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet"/>
+
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--page-bg);
+            color: var(--page-text);
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Hero background */
+        #hero-bg {
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: opacity 0.5s ease;
+            will-change: background-image;
+        }
+        @keyframes bgFade { from { opacity: 0.15; } to { opacity: 1; } }
+        .bg-fade { animation: bgFade 0.6s ease both; }
+        .hero-text { transition: opacity 0.35s ease, transform 0.35s ease; }
+
+        #dest-watermark {
+            font-family: 'Playfair Display', serif;
+            font-size: 10vw; font-weight: 900;
+            color: rgba(255,255,255,0.06);
+            letter-spacing: 0.05em;
+            pointer-events: none; user-select: none;
+            transition: opacity 0.4s ease;
+            position: absolute; bottom: 1.5rem; left: 2rem;
+            white-space: nowrap;
+        }
+
+        /* Destination cards */
+        .dest-card {
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            border: 2px solid transparent; flex-shrink: 0;
+        }
+        .dest-card:hover { transform: translateY(-5px); }
+        .dest-card.active {
+            border-color: #38bdf8;
+            box-shadow: 0 0 0 3px rgba(56,189,248,0.25);
+        }
+        .dest-card .card-img { transition: transform 0.5s ease; }
+        .dest-card:hover .card-img { transform: scale(1.06); }
+
+        /* Sidebar dots */
+        .dot {
+            width: 6px; height: 6px; border-radius: 50%;
+            background: rgba(255,255,255,0.25);
+            transition: background 0.3s, height 0.3s, border-radius 0.3s;
+            position: relative;
+        }
+        .dot.active { background: white; height: 22px; border-radius: 3px; }
+        .dot.active::after {
+            content: ''; position: absolute; inset: -4px;
+            border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.35);
+            animation: pulseRing 1.6s ease-out infinite;
+        }
+        @keyframes pulseRing {
+            0%   { transform: scale(1);   opacity: 0.7; }
+            100% { transform: scale(2.4); opacity: 0; }
+        }
+
+        #cards-row { scrollbar-width: none; overflow-x: auto; scroll-behavior: smooth; }
+        #cards-row::-webkit-scrollbar { display: none; }
+
+        /* Arrow buttons */
+        .arrow-btn {
+            width: 40px; height: 40px; border-radius: 50%; border: none;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0; transition: all 0.2s ease; backdrop-filter: blur(8px);
+        }
+        .arrow-btn-prev { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); }
+        .arrow-btn-prev:hover { background: rgba(255,255,255,0.3); }
+        .arrow-btn-next { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); }
+        .arrow-btn-next:hover { background: rgba(255,255,255,0.3); }
+
+        /* Banner */
+        .banner-hero {
+            position: relative; width: 100%;
+            background-size: cover; background-position: center;
+            display: flex; align-items: center; justify-content: center;
+            text-align: center; overflow: hidden;
+        }
+        .banner-hero::before {
+            content: ''; position: absolute; inset: 0;
+            background: rgba(0,0,0,0.48); z-index: 1;
+        }
+        .banner-hero .banner-content { position: relative; z-index: 2; }
+
+        /* Grid cards */
+        .grid-card {
+            position: relative; border-radius: 16px;
+            overflow: hidden; cursor: pointer;
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
+            background: #cbd5e1;
+        }
+        html.dark .grid-card { background: #1e293b; }
+        .grid-card:hover { transform: translateY(-6px); box-shadow: 0 24px 50px rgba(0,0,0,0.22); }
+        .grid-card img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
+        .grid-card:hover img { transform: scale(1.06); }
+        .grid-card .card-label {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            padding: 28px 20px 18px;
+            background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, transparent 100%);
+        }
+        .grid-card .card-label h3 { font-size: 1.25rem; font-weight: 700; color: white; margin-bottom: 4px; }
+        .grid-card .card-label p { font-size: 0.78rem; color: rgba(255,255,255,0.7); }
+        .grid-card .trip-badge {
+            position: absolute; top: 12px; right: 12px;
+            background: rgba(255,255,255,0.18); backdrop-filter: blur(6px);
+            border: 1px solid rgba(255,255,255,0.3); color: white;
+            font-size: 0.65rem; font-weight: 700; padding: 4px 10px;
+            border-radius: 999px; letter-spacing: 0.05em;
+        }
+
+        /* Scroll animations */
+        [data-anim] { opacity: 0; will-change: transform, opacity; }
+        [data-anim="fade-up"]    { transform: translateY(44px); }
+        [data-anim="fade-left"]  { transform: translateX(-64px); }
+        [data-anim="fade-right"] { transform: translateX(64px); }
+        [data-anim="scale-up"]   { transform: scale(0.78); }
+        [data-anim="flip-y"]     { transform: perspective(700px) rotateY(28deg) translateX(40px); }
+        [data-anim="flip-x"]     { transform: perspective(700px) rotateX(22deg) translateY(40px); }
+        [data-anim="blur-in"]    { transform: translateY(22px); filter: blur(12px); }
+        [data-anim="rotate-in"]  { transform: rotate(-6deg) translateY(52px); }
+
+        [data-anim].visible {
+            opacity: 1; transform: none; filter: none;
+            transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1), filter 0.7s ease;
+        }
+        [data-anim].d1 { transition-delay: 0.05s; }
+        [data-anim].d2 { transition-delay: 0.15s; }
+        [data-anim].d3 { transition-delay: 0.25s; }
+        [data-anim].d4 { transition-delay: 0.35s; }
+        [data-anim].d5 { transition-delay: 0.45s; }
+        [data-anim].d6 { transition-delay: 0.55s; }
+        [data-anim].d7 { transition-delay: 0.65s; }
+        [data-anim].d8 { transition-delay: 0.75s; }
+
+        .heading-line {
+            height: 3px; width: 60px; border-radius: 999px;
+            background: linear-gradient(to right, #0ea5e9, #38bdf8);
+            transform: scaleX(0); transform-origin: left;
+            transition: transform 0.8s cubic-bezier(0.22,1,0.36,1);
+            margin-top: 10px;
+        }
+        .heading-line.visible { transform: scaleX(1); }
+
+        @keyframes badgePop {
+            0%   { transform: scale(0) rotate(-15deg); opacity: 0; }
+            65%  { transform: scale(1.18) rotate(4deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0); opacity: 1; }
+        }
+        [data-anim].visible .trip-badge {
+            animation: badgePop 0.55s cubic-bezier(0.34,1.56,0.64,1) 0.4s both;
+        }
+
+        .shimmer-text {
+            background: linear-gradient(90deg, #fff 25%, #fcfcfc 50%, #fff 75%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 4s linear infinite;
+        }
+        @keyframes shimmer { to { background-position: 200% center; } }
+
+        @keyframes heroCardsIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        #cards-row { animation: heroCardsIn 0.9s cubic-bezier(0.22,1,0.36,1) 0.4s both; }
+
+        #dest-title::after {
+            content: '';
+            display: inline-block; width: 3px; height: 0.85em;
+            background: #38bdf8; margin-left: 6px; vertical-align: middle;
+            animation: cursorBlink 0.9s step-end infinite;
+        }
+        @keyframes cursorBlink { 0%,100% { opacity:1; } 50% { opacity:0; } }
+
+        #extra-destinations {
+            display: none; opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        @keyframes btnPulse {
+            0%,100% { box-shadow: 0 6px 20px rgba(14,165,233,0.3); }
+            50%      { box-shadow: 0 6px 32px rgba(14,165,233,0.6); }
+        }
+        #load-more-btn { animation: btnPulse 2.5s ease-in-out infinite; }
+   #nav-menu.open { left: 0 !important; }
+        /*navbar style */
+        :root {
+            --nav-bg: #0e486f;          
+            --nav-border: rgba(99,132,170,0.2);
+            --nav-text: #b0bec5;       
+            --nav-text-hover: #e8edf2;  
+            --nav-active: #e8edf2;
+            --nav-accent: #4fc3f7;
+            --page-bg: #f0f9ff;
+            --page-text: #0f172a;
+            --section-header-color: #0f172a;
+        }
+        html.dark {
+            --nav-border: rgba(255,255,255,0.08);
+            --nav-text: #94a3b8;
+            --nav-text-hover: #e2e8f0;
+            --nav-active: #e2e8f0;
+            --nav-accent: #38bdf8;
+            --page-bg: #0f172a;
+            --page-text: #e2e8f0;
+            --section-header-color: #f1f5f9;
+        }
+ 
+       
+        .nav-link-desktop:hover { color: var(--nav-text-hover); }
+        .nav-link-desktop.active { color: var(--nav-active); }
+      
+        
+ 
+        .btn-signup {
+            padding: 0.4rem 1.1rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: #0d1b2a;
+            background: #4fc3f7;
+            border: 1.5px solid #4fc3f7;
+            transition: background 0.2s, box-shadow 0.2s;
+            display: inline-block;
+        }
+        .btn-signup:hover {
+            background: #81d4fa;
+            border-color: #81d4fa;
+            box-shadow: 0 0 12px rgba(79,195,247,0.4);
+        }
+         
+         
+       .nav-link:hover::after { width: 100%; }
+
+        /* pill-group nav styles */
+        .nav-pill-group {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            
+            border-radius: 9999px;
+            padding: 4px;
+        }
+        .nav-link-desktop {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            color: var(--nav-text);
+            text-decoration: none;
+            padding: 6px 14px;
+            border-radius: 9999px;
+            transition: background 0.2s ease, color 0.2s ease;
+            white-space: nowrap;
+        }
+        .nav-link-desktop:hover {
+            color: var(--nav-text-hover);
+            background: rgba(79,195,247,0.12);
+        }
+        .nav-link-desktop.active {
+            background: var(--nav-accent);
+            color: #0d1b2a;
+        }
+
+        
+    </style>
+</head>
+<body>
+ <!-- navbar -->
+    <header id="navbar" class="site-header fixed top-0 z-50 w-full  "  >
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 dark:">
+            <div class="flex items-center justify-between h-16 md:h-17">
+ 
+                <!-- Logo -->
+                  <a href="#" class="shrink-0 text-2xl font-bold tracking-tight bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
+                    TravelSet
+                </a>
+ 
+                <!-- Desktop nav links — pill group -->
+                <div class="hidden lg:flex">
+                    <div class="nav-pill-group bg-slate-900/50  dark:border  dark:border-white/10">
+                        <a href="../src/index.html"   class="nav-link-desktop ">Home</a>
+                        <a href="destination-pages.html"  class="nav-link-desktop active">Destination</a>
+                        <a href="tour2.html"  class="nav-link-desktop ">Tour</a>
+                        <a href="blog2.html"    class="nav-link-desktop">Blog</a>
+                        <a href="contact.html" class="nav-link-desktop">Contact</a>
+                        <a href="about2.html"     class="nav-link-desktop">About Us</a>
+                    </div>
+                </div>
+ 
+                <!-- Right side -->
+                <div class="flex items-center gap-3">
+                    <!-- Dark / Light toggle -->
+                    <button id="theme-toggle" onclick="toggleTheme()"
+                            class="w-9 h-9 flex items-center justify-center rounded-full bg-slate-800/30 hover:bg-white/20 dark:bg-white/10 dark:hover:bg-white/20 transition-all text-lg"
+                            title="Toggle dark/light mode">
+                        <i id="icon-sun"  class="ri-sun-line  hidden text-white"></i>
+                        <i id="icon-moon" class="ri-moon-line text-white"></i>
+                    </button>
+ 
+                    <!-- Desktop: Log In + Sign Up -->
+                    <div class="hidden lg:flex items-center gap-2">
+                        <a href="../page/signup.html" class="btn-signup">Sign Up</a>
+                    </div>
+ 
+                    <!-- Mobile hamburger -->
+                    <button id="menubutton"
+                            class="lg:hidden w-9 h-9 rounded-lg flex items-center justify-center hover:bg-white/10 transition text-white"
+                            aria-label="Open menu">
+                        <i class="ri-menu-line text-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+ 
+        <!-- Mobile Dropdown -->
+        <div id="nav-menu" class="nav-menu  lg:hidden hidden w-full overflow-hidden transition-all duration-300 ease-in-out border-t" style="background-color: var(--nav-bg); border-color: var(--nav-border);">
+            <div class="px-4 py-3 space-y-1 ">
+                <a href="../src/index.html"            class="block py-2.5 px-3 text-sm font-medium uppercase tracking-wide rounded-lg transition-colors" style="color: var(--nav-text);" onmouseover="this.style.color='#fff';this.style.background='rgba(255,255,255,0.06)'" onmouseout="this.style.color='var(--nav-text)';this.style.background=''">Home</a>
+                <a href="destination-pages.html"            class="block py-2.5 px-3 text-sm font-medium uppercase tracking-wide rounded-lg transition-colors" style="color: var(--nav-active); background: rgba(79,195,247,0.1);" >Destination</a>
+                <a href="tour2.html"   class="block py-2.5 px-3 text-sm font-medium uppercase tracking-wide rounded-lg" style="color: var(--nav-text);"onmouseover="this.style.color='#fff';this.style.background='rgba(255,255,255,0.06)'" onmouseout="this.style.color='var(--nav-text)';this.style.background=''">Tour</a>
+                <a href="blog2.html"    class="block py-2.5 px-3 text-sm font-medium uppercase tracking-wide rounded-lg transition-colors" style="color: var(--nav-text);" onmouseover="this.style.color='#fff';this.style.background='rgba(255,255,255,0.06)'" onmouseout="this.style.color='var(--nav-text)';this.style.background=''">Blog</a>
+                <a href="contact.html" class="block py-2.5 px-3 text-sm font-medium uppercase tracking-wide rounded-lg transition-colors" style="color: var(--nav-text);" onmouseover="this.style.color='#fff';this.style.background='rgba(255,255,255,0.06)'" onmouseout="this.style.color='var(--nav-text)';this.style.background=''">Contact</a>
+                <a href="blog2.html"            class="block py-2.5 px-3 text-sm font-medium uppercase tracking-wide rounded-lg transition-colors" style="color: var(--nav-text);" onmouseover="this.style.color='#fff';this.style.background='rgba(255,255,255,0.06)'" onmouseout="this.style.color='var(--nav-text)';this.style.background=''">About Us</a>
+                <div class="border-t border-white/10 my-2"></div>
+                <div class="flex flex-col gap-2 pt-1 pb-2">
+                    <a href="signup.html" class="btn-signup text-center w-full">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- end nav -->
+   
+   
+    <!-- ── Hero Section ── -->
+    <section class="relative  h-screen overflow-hidden bg-slate-900 w-full">
+
+        <div id="hero-bg" style="background-image:url('images/angkor.jpg');"></div>
+
+        <!-- Overlays -->
+        <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(to right,rgba(0,0,0,0.82) 0%,rgba(0,0,0,0.45) 55%,rgba(0,0,0,0.12) 100%);"></div>
+        <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(to top,rgba(0,0,0,0.55) 0%,transparent 55%);"></div>
+
+        <div id="dest-watermark" class="hidden md:block">Angkor Wat</div>
+
+        <!-- Sidebar dots — hidden on mobile -->
+        <div class="hidden sm:flex absolute right-8 top-1/2 -translate-y-1/2 z-30 flex-col gap-2 items-center">
+            <div class="dot active" data-dot="0"></div>
+            <div class="dot" data-dot="1"></div>
+            <div class="dot" data-dot="2"></div>
+            <div class="dot" data-dot="3"></div>
+            <div class="dot" data-dot="4"></div>
+        </div>
+
+        <!-- Hero content -->
+        <div class="relative z-20 flex h-full w-full items-end
+                    px-4 pb-6 pt-20
+                    sm:px-8 sm:pb-10
+                    md:px-12 md:pb-12
+                    lg:px-20 lg:pb-14">
+
+            <div class="flex flex-col lg:flex-row lg:items-end gap-6 lg:gap-10 w-full">
+
+                <!-- Left text -->
+                <div class="flex-1 min-w-0">
+                    <p class="text-sky-400 text-xs font-semibold tracking-widest uppercase mb-3">
+                        <span id="dest-counter">01</span> / 05
+                    </p>
+                    <h1 id="dest-title" class="hero-text text-white font-bold leading-none mb-4"
+                        style="font-size:clamp(2.2rem,6vw,5rem);">
+                        CAMBODIA
+                    </h1>
+                    <p id="dest-desc" class="hero-text text-white/70 text-sm leading-relaxed mb-6 max-w-sm">
+                        Cambodia is the best country that has multiple temples. Cambodia blends sacred spirituality with vibrant street life and legendary cuisine.
+                    </p>
+                    <a href="#destinations-grid"
+                       class="inline-flex items-center gap-3 bg-blue-500 hover:bg-blue-600 text-white font-bold text-sm px-6 py-3 rounded-xl transition-all hover:-translate-y-0.5">
+                        Explore more
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-4 h-4" fill="white">
+                            <path d="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l370.7 0-105.4 105.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/>
+                        </svg>
+                    </a>
+                </div>
+
+                <!-- Cards row + arrows -->
+                <div class="flex items-end gap-2 w-full lg:max-w-[58%]">
+
+                    <!-- Left arrow -->
+                    <button class="arrow-btn arrow-btn-prev self-center mb-0 sm:mb-16" onclick="scrollCards(-1)" title="Previous">
+                        <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/>
+                        </svg>
+                    </button>
+
+                    <div id="cards-row" class="flex gap-4 pb-2 overflow-x-auto flex-1 min-w-0">
+
+                        <!-- Card 1 – Cambodia -->
+                        <div class="dest-card active rounded-2xl overflow-hidden bg-gray-800 w-40 shrink-0"
+                             data-index="0" data-title="CAMBODIA"
+                             data-desc="Cambodia is the best country that has multiple temples. Cambodia blends sacred spirituality with vibrant street life and legendary cuisine."
+                             data-bg="images/angkor.jpg" data-watermark="angkor wat">
+                            <div class="relative h-52 overflow-hidden">
+                                <div class="card-img absolute inset-0 bg-cover bg-center" style="background-image:url('images/angkor-wat1.jpg');"></div>
+                                <div class="absolute top-2.5 inset-x-0 text-center">
+                                    <span class="text-[0.6rem] font-bold tracking-widest text-white/85 uppercase">CAMBODIA</span>
+                                </div>
+                            </div>
+                            <div class="p-3">
+                                <p class="text-xs font-semibold text-white">Angkor Wat Temple</p>
+                                <p class="text-[0.7rem] text-white/50">Cambodia</p>
+                            </div>
+                        </div>
+
+                        <!-- Card 2 – Bali -->
+                        <div class="dest-card rounded-2xl overflow-hidden bg-gray-800 w-40 shrink-0"
+                             data-index="1" data-title="BALI"
+                             data-desc="A tropical paradise of emerald rice terraces, ancient Hindu temples, and legendary surf breaks. Bali enchants every soul that arrives on its shores."
+                             data-bg="images/bali2.png" data-watermark="Bali">
+                            <div class="relative h-52 overflow-hidden">
+                                <div class="card-img absolute inset-0 bg-cover bg-center" style="background-image:url('images/bali.jpg');"></div>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <span style="font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;color:rgba(255,255,255,0.55);">BALI</span>
+                                </div>
+                                <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(0,0,0,0.6),transparent);"></div>
+                            </div>
+                            <div class="p-3">
+                                <p class="text-xs font-semibold text-white">Bali</p>
+                                <p class="text-[0.7rem] text-white/50">Indonesia</p>
+                            </div>
+                        </div>
+
+                        <!-- Card 3 – Broken Beach -->
+                        <div class="dest-card rounded-2xl overflow-hidden bg-gray-800 w-40 shrink-0"
+                             data-index="2" data-title="BROKEN BEACH"
+                             data-desc="A stunning natural arch over turquoise waters in Nusa Penida. One of Bali's most dramatic and jaw-dropping natural formations."
+                             data-bg="images/brokenbeach.png" data-watermark="Nusa Penida">
+                            <div class="relative h-52 overflow-hidden">
+                                <div class="card-img absolute inset-0 bg-cover bg-center" style="background-image:url('images/brokenbeach.jpg');"></div>
+                                <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(0,0,0,0.6),transparent);"></div>
+                            </div>
+                            <div class="p-3">
+                                <p class="text-xs font-semibold text-white">Broken Beach</p>
+                                <p class="text-[0.7rem] text-white/50">Nusa Penida, Bali</p>
+                            </div>
+                        </div>
+
+                        <!-- Card 4 – Maldives -->
+                        <div class="dest-card rounded-2xl overflow-hidden bg-gray-800 w-44 shrink-0"
+                             data-index="3" data-title="Maldives"
+                             data-desc="Crystal clear waters, overwater bungalows, and pristine white sand beaches. The Maldives is the ultimate tropical escape for those seeking paradise."
+                             data-bg="images/maldive1.png" data-watermark="Maldives">
+                            <div class="relative h-52 overflow-hidden">
+                                <div class="card-img absolute inset-0 bg-cover bg-center" style="background-image:url('images/maldive.png');"></div>
+                                <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(0,0,0,0.6),transparent);"></div>
+                            </div>
+                            <div class="p-3">
+                                <p class="text-xs font-semibold text-white">MALDIVES</p>
+                                <p class="text-[0.7rem] text-white/50">Maldives</p>
+                            </div>
+                        </div>
+
+                        <!-- Card 5 – Paris -->
+                        <div class="dest-card rounded-2xl overflow-hidden bg-gray-800 w-40 shrink-0"
+                             data-index="4" data-title="PARIS"
+                             data-desc="The City of Light glows with Haussmann boulevards, world-class art, and the iron lace of the Eiffel Tower. Paris is romance written in stone and light."
+                             data-bg="images/paris-background.png" data-watermark="Paris">
+                            <div class="relative h-52 overflow-hidden">
+                                <div class="card-img absolute inset-0 bg-cover bg-center" style="background-image:url('images/paris.jpg');"></div>
+                                <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(0,0,0,0.6),transparent);"></div>
+                            </div>
+                            <div class="p-3">
+                                <p class="text-xs font-semibold text-white">Paris</p>
+                                <p class="text-[0.7rem] text-white/50">France</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Right arrow -->
+                    <button class="arrow-btn arrow-btn-next self-center mb-0 sm:mb-16" onclick="scrollCards(1)" title="Next">
+                        <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+
+                </div>
+            </div>
+
+            <!-- Slide counter — hidden on mobile -->
+            <div class="hidden sm:flex absolute bottom-5 right-8 items-center gap-2 z-20"
+                 style="color:rgba(255,255,255,0.35);font-size:0.7rem;font-weight:700;letter-spacing:0.15em;">
+                <span id="slide-num">01</span>
+                <span class="block w-10 h-px bg-white/20"></span>
+                05
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Banner ── -->
+    <section class="banner-hero h-44 sm:h-64 md:h-96 lg:h-105" id="destinations-grid"
+             style="background-image:url('images/forpopular.png');">
+        <div class="banner-content px-4">
+            <h2 class="font-bold mb-3" style="font-size:clamp(1.5rem,5vw,3.8rem);">
+                <span class="shimmer-text">Explore More Popular Destination</span>
+            </h2>
+            <p class="text-white/82 tracking-wide text-sm sm:text-base">
+                Modern &amp; Beautiful Travel Theme
+            </p>
+        </div>
+    </section>
+
+    <!-- ── Destinations Grid ── -->
+    <section class="px-4 py-10 sm:px-8 sm:py-12 md:px-12 md:py-14 lg:px-16 lg:py-16 xl:px-20 bg-sky-50 dark:bg-gray-950 transition-colors duration-300" style="background:var(--page-bg);">
+
+        <!-- Header -->
+        <div class="mb-8 sm:mb-10">
+            <p data-anim="fade-left"
+               class="text-sky-500 text-xs font-bold tracking-widest uppercase mb-1.5">
+                Explore the world
+            </p>
+            <h2 data-anim="fade-left" class="d2 text-3xl sm:text-4xl font-bold text-slate-900 dark:text-slate-100" style="color:var(--section-header-color);">
+                All Destinations
+            </h2>
+            <div class="heading-line"></div>
+        </div>
+
+        <!-- Row 1: 1 + 2 cols → single col on mobile -->
+        <div class="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-4 sm:gap-5 mb-4 sm:mb-5">
+            <div class="grid-card h-56 sm:h-72 md:h-85" data-anim="flip-y">
+                <img src="images/angkor-wat2.jpg" alt="Angkor Wat"
+                     onerror="this.parentElement.style.background='#bae6fd';this.style.display='none'"/>
+                <span class="trip-badge">168 Trips</span>
+                <div class="card-label"><h3>Angkor Wat Temple</h3><p>Cambodia</p></div>
+            </div>
+            <div class="grid-card h-56 sm:h-72 md:h-82.5 d2" data-anim="fade-right">
+                <img src="images/pyramid-paris.jpg" alt="Musée du Louvre"
+                     onerror="this.parentElement.style.background='#bae6fd';this.style.display='none'"/>
+                <span class="trip-badge">84 Trips</span>
+                <div class="card-label"><h3>Musée du Louvre</h3><p>Paris, France</p></div>
+            </div>
+        </div>
+
+        <!-- Row 2: 3 cols → 1 on mobile, 2 on sm, 3 on md -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5 mb-4 sm:mb-5">
+            <div class="grid-card h-52 sm:h-64 md:h-75 d1" data-anim="scale-up">
+                <img src="images/greece1.png" alt="Santorini"
+                     onerror="this.parentElement.style.background='#bae6fd';this.style.display='none'"/>
+                <span class="trip-badge">82 Trips</span>
+                <div class="card-label"><h3>Santorini</h3><p>Greece</p></div>
+            </div>
+            <div class="grid-card h-52 sm:h-64 md:h-75 d3" data-anim="scale-up">
+                <img src="images/newyork.png" alt="New York City"
+                     onerror="this.parentElement.style.background='#bae6fd';this.style.display='none'"/>
+                <span class="trip-badge">60 Trips</span>
+                <div class="card-label"><h3>New York City</h3><p>United States</p></div>
+            </div>
+            <div class="grid-card h-52 sm:h-64 md:h-75 d5" data-anim="scale-up">
+                <img src="images/shanghai.png" alt="Shanghai"
+                     onerror="this.parentElement.style.background='#bae6fd';this.style.display='none'"/>
+                <span class="trip-badge">50 Trips</span>
+                <div class="card-label"><h3>Shanghai</h3><p>China</p></div>
+            </div>
+        </div>
+
+        <!-- Row 3: 2 cols → 1 on mobile -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 mb-4 sm:mb-5">
+            <div class="grid-card h-52 sm:h-64 md:h-70" data-anim="rotate-in">
+                <img src="images/maldive2.png" alt="Maldives"
+                     onerror="this.parentElement.style.background='#bae6fd';this.style.display='none'"/>
+                <span class="trip-badge">100 Trips</span>
+                <div class="card-label"><h3>Maldives</h3><p>Maldives</p></div>
+            </div>
+            <div class="grid-card h-52 sm:h-64 md:h-70 d3" data-anim="flip-x">
+                <img src="images/broken-beach.jpg" alt="Broken Beach"
+                     onerror="this.parentElement.style.background='#bae6fd';this.style.display='none'"/>
+                <span class="trip-badge">18 Trips</span>
+                <div class="card-label"><h3>Broken Beach</h3><p>Nusa Penida, Bali</p></div>
+            </div>
+        </div>
+
+        <!-- Extra destinations -->
+        <div id="extra-destinations">
+
+            <!-- Extra row 1 – 3 cols -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5 mt-4 sm:mt-5 mb-4 sm:mb-5">
+                <div class="grid-card h-52 sm:h-64 md:h-70 d1" data-anim="scale-up">
+                    <img src="images/sydney-2.png" alt="Sydney Opera House"
+                         onerror="this.parentElement.style.background='#bae6fd';this.style.display='none'"/>
+                    <span class="trip-badge">42 Trips</span>
+                    <div class="card-label"><h3>Sydney Opera House</h3><p>Sydney, Australia</p></div>
+                </div>
+                <div class="grid-card h-52 sm:h-64 md:h-70 d3" data-anim="scale-up">
+                    <img src="images/dubai.jpg" alt="Burj Khalifa"
+                         onerror="this.parentElement.style.background='#bae6fd';this.style.display='none'"/>
+                    <span class="trip-badge">61 Trips</span>
+                    <div class="card-label"><h3>Burj Khalifa</h3><p>Dubai, UAE</p></div>
+                </div>
+                <div class="grid-card h-52 sm:h-64 md:h-70 d5" data-anim="scale-up">
+                    <img src="images/tokyo-1.png" alt="Tokyo"
+                         onerror="this.parentElement.style.background='#bae6fd';this.style.display='none'"/>
+                    <span class="trip-badge">30 Trips</span>
+                    <div class="card-label"><h3>Tokyo City</h3><p>Tokyo, Japan</p></div>
+                </div>
+            </div>
+
+            <!-- Extra row 2: 2+1 cols → 1 on mobile -->
+            <div class="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-4 sm:gap-5 mb-4 sm:mb-5">
+                <div class="grid-card h-52 sm:h-64 md:h-75" data-anim="fade-left">
+                    <img src="images/rome.png" alt="Colosseum"
+                         onerror="this.parentElement.style.background='#bae6fd';this.style.display='none'"/>
+                    <span class="trip-badge">55 Trips</span>
+                    <div class="card-label"><h3>Colosseum</h3><p>Rome, Italy</p></div>
+                </div>
+                <div class="grid-card h-52 sm:h-64 md:h-75 d3" data-anim="flip-y">
+                    <img src="images/china-greatwall.png" alt="Great Wall"
+                         onerror="this.parentElement.style.background='#bae6fd';this.style.display='none'"/>
+                    <span class="trip-badge">78 Trips</span>
+                    <div class="card-label"><h3>Great Wall</h3><p>Wuxi, China</p></div>
+                </div>
+            </div>
+
+            <!-- Extra row 3: 2 cols → 1 on mobile -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 mb-4 sm:mb-5">
+                <div class="grid-card h-52 sm:h-64 md:h-70 d1" data-anim="rotate-in">
+                    <img src="images/london-1.jpg" alt="Big Ben"
+                         onerror="this.parentElement.style.background='#bae6fd';this.style.display='none'"/>
+                    <span class="trip-badge">46 Trips</span>
+                    <div class="card-label"><h3>Big Ben</h3><p>London, UK</p></div>
+                </div>
+                <div class="grid-card h-52 sm:h-64 md:h-70 d4" data-anim="rotate-in">
+                    <img src="images/luxury-maldive.png" alt="Maldives Resort"
+                         onerror="this.parentElement.style.background='#bae6fd';this.style.display='none'"/>
+                    <span class="trip-badge">33 Trips</span>
+                    <div class="card-label"><h3>Luxury Sonevajani Resort</h3><p>Maldives</p></div>
+                </div>
+            </div>
+
+            <!-- Extra row 4: 3 cols → 1 on mobile, 2 on sm -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5 mb-4 sm:mb-5">
+                <div class="grid-card h-52 sm:h-60 md:h-65 d1" data-anim="blur-in">
+                    <img src="images/greece-sunset.png" alt="Santorini Sunset"
+                         onerror="this.parentElement.style.background='#bae6fd';this.style.display='none'"/>
+                    <span class="trip-badge">28 Trips</span>
+                    <div class="card-label"><h3>Santorini Sunset</h3><p>Oia, Greece</p></div>
+                </div>
+                <div class="grid-card h-52 sm:h-60 md:h-65 d4" data-anim="blur-in">
+                    <img src="images/bali-ubud.png" alt="Cretya Ubud"
+                         onerror="this.parentElement.style.background='#bae6fd';this.style.display='none'"/>
+                    <span class="trip-badge">39 Trips</span>
+                    <div class="card-label"><h3>Cretya Ubud</h3><p>Ubud, Bali</p></div>
+                </div>
+                <div class="grid-card h-52 sm:h-60 md:h-65 d7" data-anim="blur-in">
+                    <img src="images/newyork-timesquare.png" alt="Times Square"
+                         onerror="this.parentElement.style.background='#bae6fd';this.style.display='none'"/>
+                    <span class="trip-badge">52 Trips</span>
+                    <div class="card-label"><h3>Times Square</h3><p>New York, USA</p></div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Load more -->
+        <div class="text-center mt-10 sm:mt-12">
+            <button id="load-more-btn" onclick="toggleMore()"
+                class="bg-sky-500 hover:bg-sky-600 dark:bg-sky-600 dark:hover:bg-sky-500 text-white font-bold text-sm px-10 py-3.5 rounded-2xl cursor-pointer tracking-widest transition-all hover:-translate-y-0.5 border-none">
+                Load More Destinations
+            </button>
+        </div>
+
+    </section>
+
+    <!-- ── Footer ── -->
+      <footer class="bg-sky-950 dark:bg-gray-800 py-14 px-6 md:px-10 lg:px-16">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 mb-10">
+            <div>
+                <a href="#" class="text-2xl font-bold tracking-tight bg-linear-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent dark:from-blue-400 dark:to-pink-400">TravelSet</a>
+                <p class="text-white/40 text-sm leading-relaxed mb-5 mt-2">Crafting unforgettable journeys for the curious and the bold since 2026.</p>
+                <div class="flex gap-3">
+                    <a href="https://www.facebook.com/istad.co/" target="_blank" class="w-9 h-9 rounded-full bg-white/10 hover:bg-pink-500 flex items-center justify-center transition-colors text-white/60 hover:text-white text-xs"><i class="ri-facebook-fill"></i></a>
+                    <a href="http://www.youtube.com/@istad7665" target="_blank" class="w-9 h-9 rounded-full bg-white/10 hover:bg-pink-500 flex items-center justify-center transition-colors text-white/60 hover:text-white text-xs"><i class="ri-youtube-line"></i></a>
+                    <a href="https://cstad.edu.kh" target="_blank" class="w-9 h-9 rounded-full bg-white/10 hover:bg-pink-500 flex items-center justify-center transition-colors text-white/60 hover:text-white text-xs"><i class="ri-global-line"></i></a>
+                </div>
+            </div>
+            <div>
+                <p class="text-white font-semibold text-sm uppercase tracking-wider mb-5">Quick Links</p>
+                <ul class="space-y-2.5 text-white/40 text-sm">
+                    <li><a href="../src/index.html" class="hover:text-white transition-colors">Home</a></li>
+                    <li><a href="destination-pages.html" class="hover:text-white transition-colors">Destinations</a></li>
+                    <li><a href="tour2.html" class="hover:text-white transition-colors">Tours</a></li>
+                    <li><a href="blog2.html" class="hover:text-white transition-colors">Blog</a></li>
+                    <li><a href="contact.html" class="hover:text-white transition-colors">Contact</a></li>
+                    <li><a href="about2.html" class="hover:text-white transition-colors">About Us</a></li>
+
+                </ul>
+            </div>
+            <div>
+                <p class="text-white font-semibold text-sm uppercase tracking-wider mb-5">Top Destinations</p>
+                <ul class="space-y-2.5 text-white/40 text-sm">
+                    <li><a href="destination-pages.html" class="hover:text-white transition-colors">Maldives</a></li>
+                    <li><a href="destination-pages.html" class="hover:text-white transition-colors">Kyoto, Japan</a></li>
+                    <li><a href="destination-pages.html" class="hover:text-white transition-colors">Santorini</a></li>
+                    <li><a href="destination-pages.html" class="hover:text-white transition-colors">Patagonia</a></li>
+                </ul>
+            </div>
+            <div>
+                <p class="text-white font-semibold text-sm uppercase tracking-wider mb-5">Contact</p>
+                <ul class="space-y-3 text-white/40 text-sm">
+                    <li class="flex gap-2 items-start">
+                        <span class="mt-0.5 text-white"><i class="ri-map-pin-line"></i></span>
+                        <span>123 Explorer Ave, New York, NY 10001</span>
+                    </li>
+                    <li class="flex gap-2 items-center">
+                        <span><i class="ri-phone-line text-white"></i></span>
+                        <a href="tel:+81239857" class="hover:text-white">+8 (123) 987 467</a>
+                    </li>
+                    <li class="flex gap-2 items-center">
+                        <span><i class="ri-mail-line text-white"></i></span>
+                        <a href="mailto:info@travelset.com" class="hover:text-white">info@travelset.com</a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <img src="../img/New Logo iSTAD Full-12 (2).png" alt="#ISTAD" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                <span style="display:none" class="text-white font-bold">iSTAD</span>
+            </div>
+        </div>
+        <div class="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-white/25 text-xs">
+            <p>© 2026 TravelSet. All rights reserved.</p>
+            <div class="flex gap-5">
+                <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+ 
+
+    <script>
+    // ── Dark / Light Mode ─────────────────────────────────────────
+    function applyTheme(dark) {
+        const html = document.documentElement;
+        if (dark) {
+            html.classList.add('dark');
+            document.getElementById('icon-sun').classList.remove('hidden');
+            document.getElementById('icon-moon').classList.add('hidden');
+        } else {
+            html.classList.remove('dark');
+            document.getElementById('icon-sun').classList.add('hidden');
+            document.getElementById('icon-moon').classList.remove('hidden');
+        }
+    }
+    function toggleTheme() {
+        const isDark = document.documentElement.classList.contains('dark');
+        localStorage.setItem('theme', isDark ? 'light' : 'dark');
+        applyTheme(!isDark);
+    }
+    (function () {
+        const saved = localStorage.getItem('theme');
+        if (saved) { applyTheme(saved === 'dark'); }
+        else { applyTheme(window.matchMedia('(prefers-color-scheme: dark)').matches); }
+    })();
+
+    // ── Hero Interactive Cards ────────────────────────────────────
+    const heroBg      = document.getElementById('hero-bg');
+    const destTitle   = document.getElementById('dest-title');
+    const destDesc    = document.getElementById('dest-desc');
+    const destCounter = document.getElementById('dest-counter');
+    const slideNum    = document.getElementById('slide-num');
+    const watermark   = document.getElementById('dest-watermark');
+    const cards       = document.querySelectorAll('.dest-card');
+    const dots        = document.querySelectorAll('.dot');
+
+    function activateCard(index) {
+        cards.forEach(c => c.classList.remove('active'));
+        dots.forEach(d => d.classList.remove('active'));
+        const card = cards[index];
+        card.classList.add('active');
+        if (dots[index]) dots[index].classList.add('active');
+        const num = String(index + 1).padStart(2, '0');
+        destCounter.textContent = num;
+        if (slideNum) slideNum.textContent = num;
+        destTitle.style.opacity = '0'; destTitle.style.transform = 'translateY(10px)';
+        destDesc.style.opacity  = '0'; destDesc.style.transform  = 'translateY(10px)';
+        setTimeout(() => {
+            destTitle.textContent   = card.dataset.title;
+            destDesc.textContent    = card.dataset.desc;
+            destTitle.style.opacity = '1'; destTitle.style.transform = 'none';
+            destDesc.style.opacity  = '1'; destDesc.style.transform  = 'none';
+        }, 200);
+        heroBg.classList.remove('bg-fade');
+        void heroBg.offsetWidth;
+        heroBg.style.backgroundImage = `url('${card.dataset.bg}')`;
+        heroBg.classList.add('bg-fade');
+        if (watermark) watermark.textContent = card.dataset.watermark || card.dataset.title;
+    }
+
+    cards.forEach((card, i) => card.addEventListener('click', () => activateCard(i)));
+    dots.forEach((dot, i)   => dot.addEventListener('click',  () => activateCard(i)));
+
+    function scrollCards(dir) {
+        document.getElementById('cards-row').scrollBy({ left: dir * 200, behavior: 'smooth' });
+    }
+
+    // ── Load More ─────────────────────────────────────────────────
+    let extraVisible = false;
+    const btn   = document.getElementById('load-more-btn');
+    const extra = document.getElementById('extra-destinations');
+
+    function toggleMore() {
+        extraVisible = !extraVisible;
+        if (extraVisible) {
+            extra.style.display = 'block';
+            requestAnimationFrame(() => { extra.style.opacity = '1'; extra.style.transform = 'none'; });
+            btn.textContent = 'Show Less';
+            observeNewCards();
+        } else {
+            extra.style.opacity = '0'; extra.style.transform = 'translateY(20px)';
+            setTimeout(() => { extra.style.display = 'none'; }, 500);
+            btn.textContent = 'Load More Destinations';
+        }
+    }
+
+    // ── Scroll Reveal ─────────────────────────────────────────────
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+            if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+        });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('[data-anim], .heading-line').forEach(el => observer.observe(el));
+
+    function observeNewCards() {
+        extra.querySelectorAll('[data-anim]').forEach(el => { el.classList.remove('visible'); observer.observe(el); });
+    }
+
+    // ── Mobile Menu ───────────────────────────────────────────────
+    const menuBtn = document.getElementById('menubutton');
+    const navMenu = document.getElementById('nav-menu');
+    if (menuBtn && navMenu) {
+        menuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('hidden');
+            const icon = menuBtn.querySelector('i');
+            icon.className = navMenu.classList.contains('hidden') ? 'ri-menu-line text-lg' : 'ri-close-line text-lg';
+        });
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.add('hidden');
+                const icon = menuBtn.querySelector('i');
+                if (icon) icon.className = 'ri-menu-line text-lg';
+            });
+        });
+    }
+    </script>
+
+</body>
+</html>

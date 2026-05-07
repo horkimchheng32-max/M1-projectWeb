@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travelset.co.Ltd</title>
+    <link rel="stylesheet" href="/src/output.css">
+     <link rel="shortcut icon" href="../img/logowebb.PNG" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.5.0/remixicon.min.css" />
+ 
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&family=Dancing+Script:wght@600&display=swap" rel="stylesheet"/>
+    <style>
+        /* color */
+        :root {
+            --blue:        #0ea5e9;   /* sky-500 somrab main accent */
+            --blue-dark:   #0284c7;   /* sky-600 somrab hover state */
+            --blue-light:  #e0f2fe;   /* sky-100 somrab soft backgrounds */
+            --blue-mid:    #38bdf8;   /* sky-400 somrab icons, glows */
+            --white:       #ffffff;
+            --gray-text:   #6b7280;
+            --dark:        #0f172a;
+        }
+
+        body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--dark); }
+
+        /* navbar underline */
+        .nav-link { position: relative; }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -3px; left: 0;
+            width: 0; height: 2px;
+            background: var(--blue-mid);
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after { width: 100%; }
+
+        /* pill-group nav styles */
+        .nav-pill-group {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            
+            border-radius: 9999px;
+            padding: 4px;
+        }
+        .nav-link-desktop {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            color: var(--nav-text);
+            text-decoration: none;
+            padding: 6px 14px;
+            border-radius: 9999px;
+            transition: background 0.2s ease, color 0.2s ease;
+            white-space: nowrap;
+        }
+        .nav-link-desktop:hover {
+            color: var(--nav-text-hover);
+            background: rgba(79,195,247,0.12);
+        }
+        .nav-link-desktop.active {
+            background: var(--nav-accent);
+            color: #0d1b2a;
+        }
+
+        /* search bar glass */
+        .search-bar {
+            backdrop-filter: blur(14px);
+            background: rgba(255,255,255,0.13);
+            border: 1px solid rgba(255,255,255,0.28);
+        }
+        .search-divider { border-left: 1px solid rgba(255,255,255,0.3); }
+
+        /*fade up animation */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .fade-up  { animation: fadeUp 0.9s ease both; }
+        .delay-1  { animation-delay: 0.15s; }
+        .delay-2  { animation-delay: 0.35s; }
+        .delay-3  { animation-delay: 0.55s; }
+        .delay-4  { animation-delay: 0.75s; }
+
+        /*italic badge */
+        .section-badge {
+            font-family: 'Dancing Script', cursive;
+            display: inline-block;
+            color: var(--blue);
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        /*blue accent button */
+        .btn-blue {
+            background: var(--blue);
+            color: white;
+            font-weight: 600;
+            transition: background 0.25s ease, transform 0.2s ease;
+        }
+        .btn-blue:hover {
+            background: var(--blue-dark);
+            transform: translateY(-1px);
+        }
+
+        /* service card */
+        .service-card {
+            border: 1.5px solid #e0f2fe;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 40px rgba(14,165,233,0.12);
+            border-color: var(--blue);
+        }
+
+        /* feature tour */
+        .tour-card { transition: transform 0.3s ease; }
+        .tour-card:hover { transform: scale(1.03); }
+        .tour-card .tour-img { transition: transform 0.5s ease; }
+        .tour-card:hover .tour-img { transform: scale(1.08); }
+
+        /* popular place */
+        .place-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .place-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .place-card .card-img { transition: transform 0.5s ease; }
+        .place-card:hover .card-img { transform: scale(1.07); }
+
+        /* gallary */
+        .gallery-img {
+            transition: transform 0.4s ease, filter 0.4s ease;
+            filter: brightness(0.93);
+        }
+        .gallery-img:hover { transform: scale(1.04); filter: brightness(1.05); }
+
+        /* strategy box */
+        .stat-box {
+            background: var(--blue);
+            color: white;
+            font-weight: 700;
+            font-size: 1.25rem;
+            border-radius: 12px;
+            padding: 10px 22px;
+            display: inline-block;
+        }
+
+        /*testimonial card */
+        .testi-card {
+            border: 1.5px solid #e0f2fe;
+            transition: box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .testi-card:hover {
+            box-shadow: 0 10px 30px rgba(14,165,233,0.1);
+            border-color: var(--blue);
+        }
+
+        /* newsletter input */
+        .newsletter-input:focus {
+            outline: none;
+            border-color: var(--blue);
+            box-shadow: 0 0 0 3px rgba(14,165,233,0.15);
+        }
+
+        /* newsletter shake animation */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%       { transform: translateX(-6px); }
+            40%       { transform: translateX(6px); }
+            60%       { transform: translateX(-4px); }
+            80%       { transform: translateX(4px); }
+        }
+        .shake { animation: shake 0.4s ease; }
+
+        /* dark mode — handled via Tailwind dark: classes */
+
+
+        /* search dropdown style */
+        .search-dropdown {
+            position: absolute;
+            top: calc(100% + 10px);
+            left: 0;
+            min-width: 230px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.18), 0 4px 16px rgba(0,0,0,0.08);
+            padding: 16px;
+            z-index: 9999;
+            border: 1px solid rgba(14,165,233,0.15);
+            animation: dropIn 0.2s ease both;
+        }
+        @keyframes dropIn {
+            from { opacity: 0; transform: translateY(-8px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .drop-heading {
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 8px;
+        }
+        .drop-item {
+            padding: 9px 10px;
+            border-radius: 8px;
+            font-size: 0.82rem;
+            color: #1e293b;
+            cursor: pointer;
+            transition: background 0.15s ease;
+        }
+        .drop-item:hover { background: #e0f2fe; color: #0284c7; }
+        .counter-btn {
+            width: 28px; height: 28px;
+            border-radius: 50%;
+            border: 1.5px solid #e0f2fe;
+            background: white;
+            color: #0ea5e9;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: background 0.15s ease;
+            line-height: 1;
+        }
+        .counter-btn:hover { background: #e0f2fe; }
+        .cal-day {
+            aspect-ratio: 1;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 6px;
+            font-size: 0.72rem;
+            cursor: pointer;
+            color: #1e293b;
+            transition: background 0.15s ease;
+        }
+        
+ 
+        .btn-signup {
+            padding: 0.4rem 1.1rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: #0d1b2a;
+            background: #4fc3f7;
+            border: 1.5px solid #4fc3f7;
+            transition: background 0.2s, box-shadow 0.2s;
+            display: inline-block;
+        }
+        .btn-signup:hover {
+            background: #81d4fa;
+            border-color: #81d4fa;
+            box-shadow: 0 0 12px rgba(79,195,247,0.4);
+        }
+        .cal-day:hover   { background: #e0f2fe; color: #0284c7; }
+        .cal-day.today   { border: 1.5px solid #0ea5e9; color: #0ea5e9; font-weight: 700; }
+        .cal-day.selected { background: #0ea5e9 !important; color: white !important; font-weight: 700; }
+        .cal-day.past    { color: #cbd5e1; cursor: default; pointer-events: none; }
+        .cal-day.empty   { cursor: default; }
+   
+     #nav-menu.open { left: 0 !important; }
+        navbar style
+         :root {
+            --nav-text: #b0bec5;       
+            --nav-text-hover: #e8edf2;  
+            --nav-active: #e8edf2;
+            --nav-accent: #4fc3f7;     
+        } 
+
+     
+       
+              #nav-menu.open { left: 0 !important; }
+        /*navbar style */
+        :root {
+            --nav-bg: #0e486f;          
+            --nav-border: rgba(99,132,170,0.2);
+            --nav-text: #b0bec5;       
+            --nav-text-hover: #e8edf2;  
+            --nav-active: #e8edf2;
+            --nav-accent: #4fc3f7;     
+        }
+        
+   </style>
+</head>
+<body class="bg-white dark:bg-gray-950 text-gray-800 dark:text-gray-100 m-0 transition-colors duration-300">
+
+    <!-- navbar -->
+    <header id="navbar" class="site-header fixed top-0 z-50 w-full "  >
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 ">
+            <div class="flex items-center justify-between h-16 md:h-17">
+ 
+                <!-- Logo -->
+                <a href="#" class="shrink-0 text-2xl font-bold tracking-tight bg-linear-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent dark:from-blue-400 dark:to-pink-400">
+                    TravelSet
+                </a>
+ 
+                <!-- Desktop nav links — pill group -->
+                <div class="hidden lg:flex">
+                    <div class="nav-pill-group bg-slate-900/50 ">
+                        <a href="./index.html"   class="nav-link-desktop active">Home</a>
+                        <a href="../page/destination-pages.html"  class="nav-link-desktop">Destination</a>
+                        <a href="../page/tour2.html"  class="nav-link-desktop ">Tour</a>
+                        <a href="../page/blog2.html"    class="nav-link-desktop">Blog</a>
+                        <a href="../page/contact.html" class="nav-link-desktop">Contact</a>
+                        <a href="../page/about2.html"     class="nav-link-desktop">About Us</a>
+                    </div>
+                </div>
+ 
+                <!-- Right side -->
+                <div class="flex items-center gap-3">
+                    <!-- Dark / Light toggle -->
+                    <button id="theme-toggle" onclick="toggleTheme()"
+                            class="w-9 h-9 flex items-center justify-center rounded-full bg-slate-800/30 hover:bg-white/20 transition-all text-lg"
+                            title="Toggle dark/light mode">
+                        <i id="icon-sun"  class="ri-sun-line  hidden text-white"></i>
+                        <i id="icon-moon" class="ri-moon-line text-white"></i>
+                    </button>
+ 
+                    <!-- Desktop: Log In + Sign Up -->
+                    <div class="hidden lg:flex items-center gap-2">
+                        <a href="../page/signup.html" class="btn-signup">Sign Up</a>
+                    </div>
+ 
+                    <!-- Mobile hamburger -->
+                    <button id="menubutton"
+                            class="lg:hidden w-9 h-9 rounded-lg flex items-center justify-center hover:bg-white/10 transition text-white"
+                            aria-label="Open menu">
+                        <i class="ri-menu-line text-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+ 
+        <!-- Mobile Dropdown -->
+        <div id="nav-menu" class="nav-menu  lg:hidden hidden w-full overflow-hidden transition-all duration-300 ease-in-out border-t" style="background-color: var(--nav-bg); border-color: var(--nav-border);">
+            <div class="px-4 py-3 space-y-1 ">
+                <a href="./index.html"            class="block py-2.5 px-3 text-sm font-medium uppercase tracking-wide rounded-lg transition-colors" style="color: var(--nav-active); background: rgba(79,195,247,0.1);" >Home</a>
+                <a href="../page/destination-pages.html"            class="block py-2.5 px-3 text-sm font-medium uppercase tracking-wide rounded-lg transition-colors" style="color: var(--nav-text);" onmouseover="this.style.color='#fff';this.style.background='rgba(255,255,255,0.06)'" onmouseout="this.style.color='var(--nav-text)';this.style.background=''">Destination</a>
+                <a href="../page/tour2.html"   class="block py-2.5 px-3 text-sm font-medium uppercase tracking-wide rounded-lg" style="color: var(--nav-text);"onmouseover="this.style.color='#fff';this.style.background='rgba(255,255,255,0.06)'" onmouseout="this.style.color='var(--nav-text)';this.style.background=''">Tour</a>
+                <a href="../page/blog2.html"    class="block py-2.5 px-3 text-sm font-medium uppercase tracking-wide rounded-lg transition-colors" style="color: var(--nav-text);" onmouseover="this.style.color='#fff';this.style.background='rgba(255,255,255,0.06)'" onmouseout="this.style.color='var(--nav-text)';this.style.background=''">Blog</a>
+                <a href="../page/contact.html" class="block py-2.5 px-3 text-sm font-medium uppercase tracking-wide rounded-lg transition-colors" style="color: var(--nav-text);" onmouseover="this.style.color='#fff';this.style.background='rgba(255,255,255,0.06)'" onmouseout="this.style.color='var(--nav-text)';this.style.background=''">Contact</a>
+                <a href="../page/blog2.html"            class="block py-2.5 px-3 text-sm font-medium uppercase tracking-wide rounded-lg transition-colors" style="color: var(--nav-text);" onmouseover="this.style.color='#fff';this.style.background='rgba(255,255,255,0.06)'" onmouseout="this.style.color='var(--nav-text)';this.style.background=''">About Us</a>
+                <div class="border-t border-white/10 my-2"></div>
+                <div class="flex flex-col gap-2 pt-1 pb-2">
+                    <a href="signup.html" class="btn-signup text-center w-full">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- end nav -->
+    <!-- main content -->
+    <main>
+        <div class="relative w-full h-screen bg-cover bg-center"
+             style="background-image: url('images/mypic.png');">
+
+            <!-- overlay -->
+            <div class="absolute inset-0 bg-black/50"></div>
+
+            <!-- content -->
+            <div class="relative z-10 flex flex-col items-center justify-center h-full text-white text-center px-4">
+
+                <p class="fade-up delay-1 text-sky-400 text-xs font-semibold uppercase tracking-widest mb-4">
+                     Discover the world
+                </p>
+
+                <h1 class="fade-up delay-2 text-5xl md:text-7xl font-black mb-5 leading-tight">
+                    Take your trip to the<br/>next level With TravelSet.
+                </h1>
+
+                <p class="fade-up delay-3 text-lg text-white/75 w-full md:w-2/3 mb-8">
+                    Discover beautiful destinations, travel experiences, and unforgettable adventures around the world.
+                </p>
+
+                <!--  interactive search bar -->
+                <div class="fade-up delay-4 search-bar rounded-2xl flex flex-wrap md:flex-nowrap items-center max-w-2xl w-full relative"
+                     style="overflow:visible;">
+
+                    <!-- location dropdown list -->
+                    <div class="search-field relative flex-1 min-w-32.5" id="field-location">
+                        <div class="flex items-center gap-2 px-5 py-4 cursor-pointer hover:bg-white/10 transition rounded-l-2xl"
+                             onclick="toggleDropdown('location')">
+                            <svg class="w-4 h-4 text-sky-300 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            <span class="text-sm text-white/80 flex-1" id="label-location">Location</span>
+                            <span class="text-white/40 text-xs" id="arrow-location">▾</span>
+                        </div>
+                        <!-- Location dropdown panel -->
+                        <div id="drop-location" class="search-dropdown" style="display:none;">
+                            <p class="drop-heading">Popular Destinations</p>
+                            <div class="drop-item" onclick="selectOption('location','Bali, Indonesia')"> Bali, Indonesia</div>
+                            <div class="drop-item" onclick="selectOption('location','Paris, France')"> Paris, France</div>
+                            <div class="drop-item" onclick="selectOption('location','Istanbul, Turkey')"> Istanbul, Turkey</div>
+                            <div class="drop-item" onclick="selectOption('location','Rome, Italy')"> Rome, Italy</div>
+                            <div class="drop-item" onclick="selectOption('location','Phnom Penh, Cambodia')"> Phnom Penh, Cambodia</div>
+                            <div class="drop-item" onclick="selectOption('location','Tokyo, Japan')"> Tokyo, Japan</div>
+                            <div class="drop-item" onclick="selectOption('location','Sydney, Australia')"> Sydney, Australia</div>
+                            <div class="drop-item" onclick="selectOption('location','Dubai, UAE')"> Dubai, UAE</div>
+                        </div>
+                    </div>
+
+                    <div class="search-divider h-10 hidden md:block"></div>
+
+                    <!-- pick the date  -->
+                    <div class="search-field relative flex-1 min-w-27.5" id="field-date">
+                        <div class="flex items-center gap-2 px-5 py-4 cursor-pointer hover:bg-white/10 transition"
+                             onclick="toggleDropdown('date')">
+                            <svg class="w-4 h-4 text-sky-300 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            </svg>
+                            <span class="text-sm text-white/80 flex-1" id="label-date">Date</span>
+                            <span class="text-white/40 text-xs" id="arrow-date">▾</span>
+                        </div>
+                        <!-- date dropdown panel -->
+                        <div id="drop-date" class="search-dropdown" style="display:none;">
+                            <p class="drop-heading">Select Travel Date</p>
+                            <!-- mini calendar header -->
+                            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+                                <button onclick="changeMonth(-1)" style="background:none;border:none;color:#0ea5e9;cursor:pointer;font-size:1.1rem;padding:2px 6px;">‹</button>
+                                <span id="cal-month-label" style="font-size:0.8rem;font-weight:700;color:#0f172a;"></span>
+                                <button onclick="changeMonth(1)"  style="background:none;border:none;color:#0ea5e9;cursor:pointer;font-size:1.1rem;padding:2px 6px;">›</button>
+                            </div>
+                            <!-- day header -->
+                            <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:4px;">
+                                <span style="text-align:center;font-size:0.65rem;color:#94a3b8;font-weight:600;">Su</span>
+                                <span style="text-align:center;font-size:0.65rem;color:#94a3b8;font-weight:600;">Mo</span>
+                                <span style="text-align:center;font-size:0.65rem;color:#94a3b8;font-weight:600;">Tu</span>
+                                <span style="text-align:center;font-size:0.65rem;color:#94a3b8;font-weight:600;">We</span>
+                                <span style="text-align:center;font-size:0.65rem;color:#94a3b8;font-weight:600;">Th</span>
+                                <span style="text-align:center;font-size:0.65rem;color:#94a3b8;font-weight:600;">Fr</span>
+                                <span style="text-align:center;font-size:0.65rem;color:#94a3b8;font-weight:600;">Sa</span>
+                            </div>
+                            <div id="cal-days" style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;"></div>
+                        </div>
+                    </div>
+
+                    <div class="search-divider h-10 hidden md:block"></div>
+
+                    <!-- people counter -->
+                    <div class="search-field relative flex-1 min-w-27.5" id="field-people">
+                        <div class="flex items-center gap-2 px-5 py-4 cursor-pointer hover:bg-white/10 transition"
+                             onclick="toggleDropdown('people')">
+                            <svg class="w-4 h-4 text-sky-300 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17 20h5v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2h5M12 12a4 4 0 100-8 4 4 0 000 8z"/>
+                            </svg>
+                            <span class="text-sm text-white/80 flex-1" id="label-people">People</span>
+                            <span class="text-white/40 text-xs" id="arrow-people">▾</span>
+                        </div>
+                        <!-- people dropdown panel -->
+                        <div id="drop-people" class="search-dropdown" style="display:none;">
+                            <p class="drop-heading">Travellers</p>
+
+                            <!-- adults -->
+                            <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f1f5f9;">
+                                <div>
+                                    <p style="font-size:0.8rem;font-weight:600;color:#0f172a;">Adults</p>
+                                    <p style="font-size:0.65rem;color:#94a3b8;">Age 13+</p>
+                                </div>
+                                <div style="display:flex;align-items:center;gap:10px;">
+                                    <button class="counter-btn" onclick="changeCount('adults',-1)">−</button>
+                                    <span id="count-adults" style="font-size:0.9rem;font-weight:700;color:#0f172a;min-width:18px;text-align:center;">1</span>
+                                    <button class="counter-btn" onclick="changeCount('adults',1)">+</button>
+                                </div>
+                            </div>
+
+                            <!-- children -->
+                            <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f1f5f9;">
+                                <div>
+                                    <p style="font-size:0.8rem;font-weight:600;color:#0f172a;">Children</p>
+                                    <p style="font-size:0.65rem;color:#94a3b8;">Age 2–12</p>
+                                </div>
+                                <div style="display:flex;align-items:center;gap:10px;">
+                                    <button class="counter-btn" onclick="changeCount('children',-1)">-</button>
+                                    <span id="count-children" style="font-size:0.9rem;font-weight:700;color:#0f172a;min-width:18px;text-align:center;">0</span>
+                                    <button class="counter-btn" onclick="changeCount('children',1)">+</button>
+                                </div>
+                            </div>
+
+                            <!-- infants -->
+                            <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;">
+                                <div>
+                                    <p style="font-size:0.8rem;font-weight:600;color:#0f172a;">Infants</p>
+                                    <p style="font-size:0.65rem;color:#94a3b8;">Under 2</p>
+                                </div>
+                                <div style="display:flex;align-items:center;gap:10px;">
+                                    <button class="counter-btn" onclick="changeCount('infants',-1)">−</button>
+                                    <span id="count-infants" style="font-size:0.9rem;font-weight:700;color:#0f172a;min-width:18px;text-align:center;">0</span>
+                                    <button class="counter-btn" onclick="changeCount('infants',1)">+</button>
+                                </div>
+                            </div>
+
+                            <button onclick="confirmPeople()"
+                                    style="width:100%;margin-top:12px;background:#0ea5e9;color:white;border:none;border-radius:8px;padding:9px;font-size:0.8rem;font-weight:700;cursor:pointer;">
+                                Confirm
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- explore Now button -->
+                    <a href="../page/destination-pages.html"
+                       class="btn-blue text-sm px-7 py-4 whitespace-nowrap rounded-r-2xl"
+                       style="border-radius: 0 1rem 1rem 0;">
+                        Explore Now
+                    </a>
+                </div>
+
+                <!-- popular places -->
+                <p class="fade-up delay-4 mt-5 text-sm text-white/55">
+                    <span class="font-semibold text-white/85">Popular Place:</span>
+                    <a href="../page/destination-pages.html" class="hover:text-sky-300 transition ml-1">Cambodia,</a>
+                    <a href="../page/destination-pages.html" class="hover:text-sky-300 transition ml-1">Bali,</a>
+                    <a href="../page/destination-pages.html" class="hover:text-sky-300 transition ml-1">Istanbul,</a>
+                    <a href="../page/destination-pages.html" class="hover:text-sky-300 transition ml-1">Rome,</a>
+                    <a href="../page/destination-pages.html" class="hover:text-sky-300 transition ml-1">Paris.</a>
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <!-- sec 1 services -->
+    <section class="py-20 px-10 md:px-20 bg-white dark:bg-gray-950">
+
+            <!-- left heading -->
+            <div class="md:w-1/4 shrink-0">
+                <span class="section-badge">What we server</span>
+                <h2 class=" text-3xl md:text-4xl font-black leading-snug mt-1 dark:text-white">
+                    We offer our<br/>best services
+                </h2>
+            </div>
+
+            <!-- Right: 3 cards -->
+            <div class="flex-1 grid grid-cols-1 sm:grid-cols-3 gap-6">
+
+
+                <div class="service-card rounded-2xl p-6 bg-white dark:bg-gray-900">
+                    <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
+                         style="background: var(--blue-light);">
+                        <svg class="w-6 h-6" style="color: var(--blue);" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-base mb-2 dark:text-white">Calculate Weather</h3>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
+                        Plan your trip around perfect weather conditions with our real-time forecasting tools.
+                    </p>
+                </div>
+
+                <!-- best tour guide -->
+                <div class="service-card rounded-2xl p-6 bg-white dark:bg-gray-900">
+                    <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
+                         style="background: var(--blue-light);">
+                        <svg class="w-6 h-6" style="color: var(--blue);" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-base mb-2 dark:text-white">Best Tour Guide</h3>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
+                        Expert local guides for every destination, ensuring you never miss the best spots.
+                    </p>
+                </div>
+
+                <!-- customization -->
+                <div class="service-card rounded-2xl p-6 bg-white dark:bg-gray-900">
+                    <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
+                         style="background: var(--blue-light);">
+                        <svg class="w-6 h-6" style="color: var(--blue);" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-base mb-2 dark:text-white">Customization</h3>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
+                        Tailor every detail of your journey your way itinerary, budget, and pace.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- sec2 featured tour -->
+    <section class="py-20 px-10 md:px-20 bg-sky-100 dark:bg-slate-900" id="about">
+        <span class="section-badge">Explore</span>
+        <h2 class="text-2xl md:text-4xl font-black mb-10 mt-1 text-gray-900 dark:text-white">
+            Our featured tours
+        </h2>
+
+        <div class="grid grid-cols-4 grid-rows-2 gap-3 h-120">
+
+            <a href="../page/destination-pages.html"
+               class="tour-card relative rounded-2xl overflow-hidden row-span-2 col-span-1 block">
+                <div class="tour-img absolute inset-0 bg-cover bg-center"
+                     style="background-image: url('images/london.jpg');"></div>
+                <div class="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent"></div>
+                <div class="absolute bottom-4 left-4 text-white">
+                    <p class="text-sm italic" style="font-family:'Dancing Script',cursive;">Big Ben</p>
+                    <p class="text-base font-bold tracking-wide">LONDON</p>
+                </div>
+            </a>
+
+            <a href="../page/destination-pages.html"
+               class="tour-card relative rounded-2xl overflow-hidden row-span-2 col-span-1 block">
+                <div class="tour-img absolute inset-0 bg-cover bg-center"
+                     style="background-image: url('images/bali.jpg');"></div>
+                <div class="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent"></div>
+                <div class="absolute bottom-4 left-4 text-white">
+                    <p class="text-sm italic" style="font-family:'Dancing Script',cursive;">Bali</p>
+                    <p class="text-base font-bold tracking-wide">INDONESIA</p>
+                </div>
+            </a>
+
+            <a href="../page/destination-pages.html"
+               class="tour-card relative rounded-2xl overflow-hidden row-span-1 col-span-2 block">
+                <div class="tour-img absolute inset-0 bg-cover bg-center"
+                     style="background-image: url('images/sydney.jpg');"></div>
+                <div class="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent"></div>
+                <div class="absolute bottom-4 left-4 text-white">
+                    <p class="text-sm italic" style="font-family:'Dancing Script',cursive;">Sydney</p>
+                    <p class="text-base font-bold tracking-wide">AUSTRALIA</p>
+                </div>
+            </a>
+
+            <a href="../page/destination-pages.html"
+               class="tour-card relative rounded-2xl overflow-hidden row-span-1 col-span-1 block">
+                <div class="tour-img absolute inset-0 bg-cover bg-center"
+                     style="background-image: url('images/dubai.jpg');"></div>
+                <div class="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent"></div>
+                <div class="absolute bottom-4 left-4 text-white">
+                    <p class="text-sm italic" style="font-family:'Dancing Script',cursive;">Dubai</p>
+                    <p class="text-base font-bold tracking-wide">UAE</p>
+                </div>
+            </a>
+
+            <a href="../page/destination-pages.html"
+               class="tour-card relative rounded-2xl overflow-hidden row-span-1 col-span-1 block">
+                <div class="tour-img absolute inset-0 bg-cover bg-center"
+                     style="background-image: url('images/tokyo.jpg');"></div>
+                <div class="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent"></div>
+                <div class="absolute bottom-4 left-4 text-white">
+                    <p class="text-sm italic" style="font-family:'Dancing Script',cursive;">Tokyo</p>
+                    <p class="text-base font-bold tracking-wide">JAPAN</p>
+                </div>
+            </a>
+
+            <a href="../page/destination-pages.html"
+               class="tour-card relative rounded-2xl overflow-hidden row-span-1 col-span-1 block">
+                <div class="tour-img absolute inset-0 bg-cover bg-center"
+                     style="background-image: url('images/paris.jpg');"></div>
+                <div class="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent"></div>
+                <div class="absolute bottom-4 left-4 text-white">
+                    <p class="text-sm italic" style="font-family:'Dancing Script',cursive;">Paris</p>
+                    <p class="text-base font-bold tracking-wide">FRANCE</p>
+                </div>
+            </a>
+
+            <a href="../page/destination-pages.html"
+               class="tour-card relative rounded-2xl overflow-hidden row-span-1 col-span-1 block">
+                <div class="tour-img absolute inset-0 bg-cover bg-center"
+                     style="background-image: url('images/china.jpg');"></div>
+                <div class="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent"></div>
+                <div class="absolute bottom-4 left-4 text-white">
+                    <p class="text-sm italic" style="font-family:'Dancing Script',cursive;">Wuxi</p>
+                    <p class="text-base font-bold tracking-wide">CHINA</p>
+                </div>
+            </a>
+
+        </div>
+    </section>
+
+    <!--sec 3 experience ng previous successful -->
+    <section class="py-20 px-10 md:px-20 bg-white dark:bg-gray-950">
+        <div class="flex flex-col md:flex-row items-center gap-16">
+
+            <!-- left text ng stats -->
+            <div class="flex-1">
+                <span class="section-badge">Experience</span>
+                <h2 class="text-3xl md:text-4xl font-black mt-2 mb-4 leading-snug dark:text-white">
+                    With our all experience<br/>we will serve you
+                </h2>
+                <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed mb-8 max-w-md">
+                    TravelSet is your trusted partner for discovering the world. With thousands of successful trips and satisfied clients, we provide reliable service and personalized recommendations to help you travel with confidence and ease.
+                </p>
+                <div class="flex gap-6 flex-wrap">
+                    <div>
+                        <span class="stat-box">15k+</span>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Successful trip</p>
+                    </div>
+                    <div>
+                        <span class="stat-box">3k+</span>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Regular clients</p>
+                    </div>
+                    <div>
+                        <span class="stat-box">1+</span>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Year experience</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- right circle picture -->
+            <div class="flex-1 flex justify-center">
+                <div class="relative w-72 h-72">
+                    <div class="absolute inset-0 rounded-full" style="background: var(--blue-light);"></div>
+                    <img src="images/allworld.jpg" alt="Traveller"
+                         class="relative z-10 w-full h-full object-cover rounded-full"
+                         onerror="this.style.display='none'"/>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- sec 4 customer der lg picture-->
+     
+    <section class="py-20 px-10 md:px-20 dark:bg-slate-900 bg-sky-100" >
+        <span class="section-badge">Gallery</span>
+        <h2 class="text-3xl md:text-4xl font-black mt-1 mb-10 text-gray-900 dark:text-white">
+            Visit our customers tour gallery
+        </h2>
+
+        <div class="grid grid-cols-4 gap-3" style="grid-template-rows: 220px 220px;">
+
+            <div class="row-span-2 rounded-2xl overflow-hidden">
+                <img src="images/client1.jpg" alt="client1"
+                     class="gallery-img w-full h-full object-cover cursor-pointer"
+                     onerror="this.parentElement.style.background='#bae6fd'"/>
+            </div>
+
+            <div class="row-span-2 rounded-2xl overflow-hidden">
+                <img src="images/client2.jpg" alt="client2"
+                     class="gallery-img  w-full h-full object-cover    cursor-pointer      "
+                     onerror="this.parentElement.style.background='#bae6fd'"/>
+            </div>
+
+            <div class="row-span-2 rounded-2xl overflow-hidden">
+                <img src="images/client3.jpg" alt="client3"
+                     class="gallery-img w-full h-full object-cover cursor-pointer"
+                     onerror="this.parentElement.style.background='#bae6fd'"/>
+            </div>
+
+            <div class="row-span-2 rounded-2xl overflow-hidden">
+                <img src="images/client4.jpg" alt="client4"
+                     class="gallery-img w-full h-full object-cover cursor-pointer"
+                     onerror="this.parentElement.style.background='#bae6fd'"/>
+            </div>
+
+            <div class="row-span-2 rounded-2xl overflow-hidden">
+                <img src="images/client5.jpg" alt="client5"
+                     class="gallery-img w-full h-full object-cover cursor-pointer"
+                     onerror="this.parentElement.style.background='#bae6fd'"/>
+            </div>
+
+            <div class="row-span-2 rounded-2xl overflow-hidden">
+                <img src="images/client6.jpg" alt="client6"
+                     class="gallery-img w-full h-full object-cover cursor-pointer"
+                     onerror="this.parentElement.style.background='#bae6fd'"/>
+            </div>
+
+            <div class="row-span-2 rounded-2xl overflow-hidden">
+                <img src="images/client7.jpg" alt="client7"
+                     class="gallery-img w-full h-full object-cover cursor-pointer"
+                     onerror="this.parentElement.style.background='#bae6fd'"/>
+            </div>
+
+            <div class="row-span-2 rounded-2xl overflow-hidden">
+                <img src="images/client8.jpg" alt="client8"
+                     class="gallery-img w-full h-full object-cover cursor-pointer"
+                     onerror="this.parentElement.style.background='#bae6fd'"/>
+            </div>
+
+        </div>
+    
+</section>
+    <!-- sec 5 popualr destination -->
+    <section class="py-20 px-10 md:px-20 bg-white dark:bg-gray-950">
+        <div class="mb-12 text-center">
+            <span class="section-badge">Destinations</span>
+            <h2 class="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mt-1">
+                Popular Destinations
+            </h2>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+             <a href="../page/destination-pages.html" class="place-card relative rounded-2xl overflow-hidden h-72 block">
+                <div class="card-img absolute inset-0 bg-cover bg-center"
+                     style="background-image: url('images/angkorwat.jpg');"></div>
+                <div class="absolute inset-0 bg-linear-to-t from-black/70 via-transparent to-transparent"></div>
+                <div class="absolute bottom-4 left-4 text-white">
+                    <h3 class="text-xl font-bold" >Angkor Wat</h3>
+                    <p class="text-xs text-white/60">Cambodia</p>
+                </div>
+            </a>
+
+            <a href="../page/destination-pages.html" class="place-card relative rounded-2xl overflow-hidden h-72 block">
+                <div class="card-img absolute inset-0 bg-cover bg-center"
+                     style="background-image: url('../src/images/bali-ubud.png');"></div>
+                <div class="absolute inset-0 bg-linear-to-t from-black/70 via-transparent to-transparent"></div>
+                <div class="absolute bottom-4 left-4 text-white">
+                    <h3 class="text-xl font-bold" >Bali</h3>
+                    <p class="text-xs text-white/60">Indonesia</p>
+                </div>
+            </a>
+
+            <a href="../page/destination-pages.html" class="place-card relative rounded-2xl overflow-hidden h-72 block">
+                <div class="card-img absolute inset-0 bg-cover bg-center"
+                     style="background-image: url('images/greece.jpg');"></div>
+                <div class="absolute inset-0 bg-linear-to-t from-black/70 via-transparent to-transparent"></div>
+                <div class="absolute bottom-4 left-4 text-white">
+                    <h3 class="text-xl font-bold" >Santorini</h3>
+                    <p class="text-xs text-white/60">Greece</p>
+                </div>
+            </a>
+
+            <a href="../page/destination-pages.html" class="place-card relative rounded-2xl overflow-hidden h-72 block">
+                <div class="card-img absolute inset-0 bg-cover bg-center"
+                     style="background-image: url('../page/images/paris.jpg');"></div>
+                <div class="absolute inset-0 bg-linear-to-t from-black/70 via-transparent to-transparent"></div>
+                <div class="absolute bottom-4 left-4 text-white">
+                    <h3 class="text-xl font-bold" >Paris</h3>
+                    <p class="text-xs text-white/60">France</p>
+                </div>
+            </a>
+
+        </div>
+    </section>
+
+    <!-- sec 6 testimonials -->
+    <section class="py-20 px-10 md:px-20 dark:bg-gray-900 bg-sky-100" >
+        <span class="section-badge">Fans Love</span>
+        <h2 class="text-3xl md:text-4xl font-black mt-1 mb-12 text-gray-900 dark:text-white">
+            What our fans say about us
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+            <div class="testi-card bg-white dark:bg-gray-800 rounded-2xl p-6">
+                <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed mb-6">
+                    I've used many travel websites before, but this one made everything so simple. The recommendations were spot on, and I discovered places I would’ve never found on my own. Highly recommended!
+                </p>
+                <div class="flex items-center gap-3">
+                    <div>
+                        <p class="font-bold text-sm dark:text-white">Chheng Ch.</p>
+                        <p class="text-xs text-gray-400">Customer</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testi-card bg-white dark:bg-gray-800 rounded-2xl p-6">
+                <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed mb-6">
+                   Booking my trip was fast and stress free. The details, guides, and suggestions helped me plan everything perfectly. It saved me so much time and effort.
+                </p><br>
+                <div class="flex items-center gap-3">
+                    <div>
+                        <p class="font-bold text-sm dark:text-white">Ally G.</p>
+                        <p class="text-xs text-gray-400">Customer</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testi-card bg-white dark:bg-gray-800 rounded-2xl p-6">
+                <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed mb-6">
+                   I love how user friendly the website is. The destinations are well described, and it really inspired me to travel more. I’ll definitely use it again for my next trip!
+                </p>
+                <div class="flex items-center gap-3">
+                    <div>
+                        <p class="font-bold text-sm dark:text-white">Alex J.</p>
+                        <p class="text-xs text-gray-400">Customer</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- sec 7 newsletter -->
+    <section class="py-20 px-10 md:px-20 bg-white dark:bg-gray-950">
+        <div class="flex flex-col md:flex-row items-center gap-12">
+
+            <div class="flex-1">
+                <span class="section-badge">Stay updated</span>
+                <h2 class="text-3xl md:text-4xl font-black mb-4 mt-1 leading-snug dark:text-white">
+                    Subscribe now to get useful <br> traveling information
+                </h2>
+                <div class="flex max-w-md mt-6">
+                    <input type="email"
+                           id="newsletter-email"
+                           placeholder="Enter your email"
+                           class="newsletter-input flex-1 border border-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:placeholder-gray-500 rounded-l-xl px-4 py-3 text-sm outline-none"/>
+                    <button id="subscribe-btn" class="btn-blue text-sm px-6 py-3 rounded-r-xl">
+                        Subscribe
+                    </button>
+                </div>
+                <p class="text-gray-400 dark:text-gray-500 text-xs mt-4 max-w-sm leading-relaxed">
+                    We really appreciate for supporting us. stay connect with TravelSet.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+     <footer class="bg-sky-950 dark:bg-gray-800 py-14 px-6 md:px-10 lg:px-16">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 mb-10">
+            <div>
+                <a href="#" class="text-2xl font-bold tracking-tight bg-linear-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent dark:from-blue-400 dark:to-pink-400">TravelSet</a>
+                <p class="text-white/40 text-sm leading-relaxed mb-5 mt-2">Crafting unforgettable journeys for the curious and the bold since 2026.</p>
+                <div class="flex gap-3">
+                    <a href="https://www.facebook.com/istad.co/" target="_blank" class="w-9 h-9 rounded-full bg-white/10 hover:bg-pink-500 flex items-center justify-center transition-colors text-white/60 hover:text-white text-xs"><i class="ri-facebook-fill"></i></a>
+                    <a href="http://www.youtube.com/@istad7665" target="_blank" class="w-9 h-9 rounded-full bg-white/10 hover:bg-pink-500 flex items-center justify-center transition-colors text-white/60 hover:text-white text-xs"><i class="ri-youtube-line"></i></a>
+                    <a href="https://cstad.edu.kh" target="_blank" class="w-9 h-9 rounded-full bg-white/10 hover:bg-pink-500 flex items-center justify-center transition-colors text-white/60 hover:text-white text-xs"><i class="ri-global-line"></i></a>
+                </div>
+            </div>
+            <div>
+                <p class="text-white font-semibold text-sm uppercase tracking-wider mb-5">Quick Links</p>
+                <ul class="space-y-2.5 text-white/40 text-sm">
+                    <li><a href="../src/index.html" class="hover:text-white transition-colors">Home</a></li>
+                    <li><a href="destination-pages.html" class="hover:text-white transition-colors">Destinations</a></li>
+                    <li><a href="tour2.html" class="hover:text-white transition-colors">Tours</a></li>
+                    <li><a href="blog2.html" class="hover:text-white transition-colors">Blog</a></li>
+                    <li><a href="contact.html" class="hover:text-white transition-colors">Contact</a></li>
+                    <li><a href="about2.html" class="hover:text-white transition-colors">About Us</a></li>
+
+                </ul>
+            </div>
+            <div>
+                <p class="text-white font-semibold text-sm uppercase tracking-wider mb-5">Top Destinations</p>
+                <ul class="space-y-2.5 text-white/40 text-sm">
+                    <li><a href="destination-pages.html" class="hover:text-white transition-colors">Maldives</a></li>
+                    <li><a href="destination-pages.html" class="hover:text-white transition-colors">Kyoto, Japan</a></li>
+                    <li><a href="destination-pages.html" class="hover:text-white transition-colors">Santorini</a></li>
+                    <li><a href="destination-pages.html" class="hover:text-white transition-colors">Patagonia</a></li>
+                </ul>
+            </div>
+            <div>
+                <p class="text-white font-semibold text-sm uppercase tracking-wider mb-5">Contact</p>
+                <ul class="space-y-3 text-white/40 text-sm">
+                    <li class="flex gap-2 items-start">
+                        <span class="mt-0.5 text-white"><i class="ri-map-pin-line"></i></span>
+                        <span>123 Explorer Ave, New York, NY 10001</span>
+                    </li>
+                    <li class="flex gap-2 items-center">
+                        <span><i class="ri-phone-line text-white"></i></span>
+                        <a href="tel:+81239857" class="hover:text-white">+8 (123) 987 467</a>
+                    </li>
+                    <li class="flex gap-2 items-center">
+                        <span><i class="ri-mail-line text-white"></i></span>
+                        <a href="mailto:info@travelset.com" class="hover:text-white">info@travelset.com</a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <img src="../img/New Logo iSTAD Full-12 (2).png" alt="#ISTAD" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                <span style="display:none" class="text-white font-bold">iSTAD</span>
+            </div>
+        </div>
+        <div class="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-white/25 text-xs">
+            <p>© 2026 TravelSet. All rights reserved.</p>
+            <div class="flex gap-5">
+                <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- javascript -->
+  
+    <script src="main.js"></script>
+
+</body>
+</html>

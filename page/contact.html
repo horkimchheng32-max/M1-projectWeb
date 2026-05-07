@@ -12,6 +12,18 @@
 
     <link rel="stylesheet" href="../src/output.css">
     <style>
+         @keyframes reveal {
+            from { clip-path: inset(0 100% 0 0); }
+            to { clip-path: inset(0 0 0 0); }
+        }
+        @keyframes textReveal {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+ 
+        .split-reveal { animation: reveal 0.6s cubic-bezier(0.73, 0, 0.175, 1); }
+        .text-reveal { animation: textReveal 0.8s cubic-bezier(0.77, 0, 0.175, 1); }
       
 
         .hero-overlay {
@@ -24,98 +36,145 @@
         * {
             transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
-
-        /* Mobile menu */
-        #nav-menu.open {
-            left: 0 !important;
+            #nav-menu.open { left: 0 !important; }
+        /*navbar style */
+        :root {
+            --nav-bg: #0e486f;          
+            --nav-border: rgba(99,132,170,0.2);
+            --nav-text: #b0bec5;       
+            --nav-text-hover: #e8edf2;  
+            --nav-active: #e8edf2;
+            --nav-accent: #4fc3f7;     
         }
+ 
+       
+        .nav-link-desktop:hover { color: var(--nav-text-hover); }
+        .nav-link-desktop.active { color: var(--nav-active); }
+      
         
-        .btn-solid {
-      background-color: #3b82f6;
-      color: white;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-    }
-    .btn-solid:hover{
-        background-color: #e47cd4;
-      color: white;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-    }
+ 
+        .btn-signup {
+            padding: 0.4rem 1.1rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: #0d1b2a;
+            background: #4fc3f7;
+            border: 1.5px solid #4fc3f7;
+            transition: background 0.2s, box-shadow 0.2s;
+            display: inline-block;
+        }
+        .btn-signup:hover {
+            background: #81d4fa;
+            border-color: #81d4fa;
+            box-shadow: 0 0 12px rgba(79,195,247,0.4);
+        }
+         
+         
+       .nav-link:hover::after { width: 100%; }
+
+        /* pill-group nav styles */
+        .nav-pill-group {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            
+            border-radius: 9999px;
+            padding: 4px;
+        }
+        .nav-link-desktop {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            color: var(--nav-text);
+            text-decoration: none;
+            padding: 6px 14px;
+            border-radius: 9999px;
+            transition: background 0.2s ease, color 0.2s ease;
+            white-space: nowrap;
+        }
+        .nav-link-desktop:hover {
+            color: var(--nav-text-hover);
+            background: rgba(79,195,247,0.12);
+        }
+        .nav-link-desktop.active {
+            background: var(--nav-accent);
+            color: #0d1b2a;
+        }
+
     </style>
 
 </head>
 <body class="bg-gray-50 dark:bg-gray-900">
 
   <!-- navbar -->
- <header id="navbar" class="site-header fixed top-0 z-50 w-full shadow-sm dark:bg-slate-800 bg-slate-500 text-reveal ">
-    <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16 md:h-20">
-        
-        <!--  Website Name -->
-        <div class="shrink-0 nav-menu">
-          <a href="#" class="text-2xl font-bold tracking-tight bg-linear-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent dark:from-blue-400 dark:to-pink-400">
-           TravelSet
-          </a>
+    <header id="navbar" class="site-header fixed top-0 z-50 w-full "  >
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 ">
+            <div class="flex items-center justify-between h-16 md:h-17">
+ 
+                <!-- Logo -->
+                <a href="#" class="shrink-0 text-2xl font-bold tracking-tight bg-linear-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent dark:from-blue-400 dark:to-pink-400">
+                    TravelSet
+                </a>
+ 
+                <!-- Desktop nav links — pill group -->
+                <div class="hidden lg:flex ">
+                    <div class="nav-pill-group bg-slate-900/50 ">
+                        <a href="../src/index.html"   class="nav-link-desktop ">Home</a>
+                        <a href="destination-pages.html"  class="nav-link-desktop">Destination</a>
+                        <a href="tour2.html"  class="nav-link-desktop ">Tour</a>
+                        <a href="blog2.html"    class="nav-link-desktop ">Blog</a>
+                        <a href="contact.html" class="nav-link-desktop active">Contact</a>
+                        <a href="about2.html"     class="nav-link-desktop">About Us</a>
+                    </div>
+                </div>
+ 
+                <!-- Right side -->
+                <div class="flex items-center gap-3">
+                    <!-- Dark / Light toggle -->
+                    <button id="theme-toggle" onclick="toggleTheme()"
+                            class="w-9 h-9 flex items-center justify-center rounded-full bg-slate-800/30 hover:bg-white/20 transition-all text-lg"
+                            title="Toggle dark/light mode">
+                        <i id="icon-sun"  class="ri-sun-line  hidden text-white"></i>
+                        <i id="icon-moon" class="ri-moon-line text-white"></i>
+                    </button>
+ 
+                    <!-- Desktop: Log In + Sign Up -->
+                    <div class="hidden lg:flex items-center gap-2">
+                        <a href="../page/signup.html" class="btn-signup">Sign Up</a>
+                    </div>
+ 
+                    <!-- Mobile hamburger -->
+                    <button id="menubutton"
+                            class="lg:hidden w-9 h-9 rounded-lg flex items-center justify-center hover:bg-white/10 transition text-white"
+                            aria-label="Open menu">
+                        <i class="ri-menu-line text-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+ 
+        <!-- Mobile Dropdown -->
+        <div id="nav-menu" class="nav-menu  lg:hidden hidden w-full overflow-hidden transition-all duration-300 ease-in-out border-t" style="background-color: var(--nav-bg); border-color: var(--nav-border);">
+            <div class="px-4 py-3 space-y-1 ">
+                <a href="../src/index.html"            class="block py-2.5 px-3 text-sm font-medium uppercase tracking-wide rounded-lg transition-colors" style="color: var(--nav-text);" onmouseover="this.style.color='#fff';this.style.background='rgba(255,255,255,0.06)'" onmouseout="this.style.color='var(--nav-text)';this.style.background=''">Home</a>
+                <a href="destination-pages.html"            class="block py-2.5 px-3 text-sm font-medium uppercase tracking-wide rounded-lg transition-colors" style="color: var(--nav-text);" onmouseover="this.style.color='#fff';this.style.background='rgba(255,255,255,0.06)'" onmouseout="this.style.color='var(--nav-text)';this.style.background=''">Destination</a>
+                <a href="tour2.html"   class="block py-2.5 px-3 text-sm font-medium uppercase tracking-wide rounded-lg" style="color: var(--nav-text);"  onmouseover="this.style.color='#fff';this.style.background='rgba(255,255,255,0.06)'" onmouseout="this.style.color='var(--nav-text)';this.style.background=''">Tour</a>
+                <a href="blog2.html"    class="block py-2.5 px-3 text-sm font-medium uppercase tracking-wide rounded-lg transition-colors" style="color: var(--nav-text);" onmouseover="this.style.color='#fff';this.style.background='rgba(255,255,255,0.06)'" onmouseout="this.style.color='var(--nav-text)';this.style.background=''">Blog</a>
+                <a href="contact.html" class="block py-2.5 px-3 text-sm font-medium uppercase tracking-wide rounded-lg transition-colors" style="color: var(--nav-active); background: rgba(79,195,247,0.1);" onmouseover="this.style.color='#fff';this.style.background='rgba(255,255,255,0.06)'" onmouseout="this.style.color='var(--nav-text)';this.style.background=''">Contact</a>
+                <a href="blog2.html"            class="block py-2.5 px-3 text-sm font-medium uppercase tracking-wide rounded-lg transition-colors" style="color: var(--nav-text);" onmouseover="this.style.color='#fff';this.style.background='rgba(255,255,255,0.06)'" onmouseout="this.style.color='var(--nav-text)';this.style.background=''">About Us</a>
+                <div class="border-t border-white/10 my-2"></div>
+                <div class="flex flex-col gap-2 pt-1 pb-2">
+                    <a href="signup.html" class="btn-signup text-center w-full">Sign Up</a>
+                </div>
+            </div>
         </div>
-
-        <!-- Desktop Navigation (large screens) -->
-        <div class="hidden lg:flex lg:items-center lg:space-x-6 xl:space-x-8 uppercase ">
-          <a href="#" class="nav-link text-base font-medium text-white">Home</a>
-          <a href="#" class="nav-link text-base font-medium text-white">Destination</a>
-          <a href="tour2.html" class="nav-link text-base font-medium text-white">Tour</a>
-          <a href="blog.html" class="nav-link text-base font-medium text-white">Blog</a>
-          <a href="contact.html" class="nav-link block py-3 px-2 text-base font-medium rounded-lg text-white">Contact</a>
-          <a href="#" class="nav-link text-base font-medium text-white">About Us</a>
-        </div>
-
-        <!-- Right dark mode toggle Login/Register mobile hamburger -->
-        <div class="flex items-center gap-3 md:gap-4">
-            <button id="theme-toggle" onclick="toggleTheme()"
-                    class="w-10 h-10 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 text-white transition-all duration-300 text-xl"
-                    title="Toggle dark/light mode">
-            <!-- Sun icon -->
-                    <i id="icon-sun" class="ri-sun-line hidden text-slate-700 dark:text-slate-200"></i>
-                    <!-- Moon icon -->
-                    <i id="icon-moon" class="ri-moon-line text-slate-700 dark:text-slate-200"></i>
-            
-          </button>
-
-          <!-- Desktop: Login\Register buttons-->
-          <div class="hidden lg:flex items-center gap-3">
-            <button class="btn-solid px-4 py-2 rounded-full text-sm font-semibold transition dark:text-white uppercase"><a href="login.html">Log in</a></button>
-            <button class="btn-solid px-4 py-2 rounded-full text-sm font-semibold shadow-sm transition uppercase"><a href="signup.html">Sign up</a></button>
-          </div>
-
-          <!-- Mobile menu button -->
-          <button id="menubutton" class="lg:hidden relative w-9 h-9 rounded-lg flex items-center justify-center hover:bg-gray-400 dark:hover:bg-gray-700 transition dark:text-white" aria-label="Open menu">
-             <i class="ri-menu-line "></i>
-          </button>
-        </div>
-      </div>
-    </nav>
-
-    <!-- Mobile Dropdown Menu -->
-    <div id="nav-menu" class="nav-menu lg:hidden hidden w-full overflow-hidden transition-all duration-300 ease-in-out dark:bg-gray-800">
-      <div class="mobile-menu-panel px-4 py-3 space-y-1 shadow-lg">
-        <a href="#" class="nav-link block py-3 px-2 text-base font-medium rounded-lg dark:text-white">Home</a>
-        <a href="#" class="nav-link block py-3 px-2 text-base font-medium rounded-lg dark:text-white">Destination</a>
-        <a href="tour2.html" class="nav-link block py-3 px-2 text-base font-medium rounded-lg dark:text-white">Tour</a>
-        <a href="blog.html" class="nav-link block py-3 px-2 text-base font-medium rounded-lg dark:text-white">Blog</a>
-        <a href="contact.html" class="nav-link block py-3 px-2 text-base font-medium rounded-lg dark:text-white">Contact</a>
-        <a href="#" class="nav-link block py-3 px-2 text-base font-medium rounded-lg dark:text-white">About Us</a>
-        
-        <!-- divider -->
-        <div class="border-t border-gray-200 dark:border-gray-700 my-2"></div>
-        
-        <!-- mobile Login\Register full width -->
-        <div class="flex flex-col gap-3 pt-2 pb-1 ">
-          <button class="btn-solid w-full py-2.5 rounded-full text-center font-semibold transition uppercase"><a href="login.html" class="text-white uppercase">Log in</a></button>
-          <button class="btn-solid w-full py-2.5 rounded-full text-center font-semibold transition  bg-blue-500 text-white uppercase"><a href="signup.html">Sign up</a></button>
-        </div>
-      </div>
-    </div>
-  </header>
+    </header>
     <!-- hero -->
-<section class="relative h-[62vh] min-h-105 overflow-hidden grain"
+<section class="relative h-[62vh] min-h-105 overflow-hidden grain "
              aria-labelledby="hero-title">
       <img src="../img/sereneMountain.jpg"
            alt="" class="absolute inset-0 w-full h-full object-cover" />
@@ -141,7 +200,7 @@
     <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
       <!-- Office Address -->
-      <div class="info-card bg-white rounded-2xl p-8 text-center shadow-sm border border-gray-100 animate-fade-up delay-1 dark:bg-gray-700 dark:border-gray-600">
+      <div class=" text-reveal bg-white rounded-2xl p-8 text-center shadow-sm border border-gray-100 animate-fade-up delay-1 dark:bg-gray-700 dark:border-gray-600">
         <div class="icon-box w-16 h-16 bg-blue-400 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-md">
          <i class="ri-map-pin-line text-3xl text-white"></i>
         </div>
@@ -150,7 +209,7 @@
       </div>
 
       <!-- Phone Call -->
-      <div class="info-card bg-white rounded-2xl p-8 text-center shadow-sm border border-gray-100 delay-2 dark:bg-gray-700 dark:border-gray-600">
+      <div class=" text-reveal bg-white rounded-2xl p-8 text-center shadow-sm border border-gray-100 delay-2 dark:bg-gray-700 dark:border-gray-600">
         <div class="icon-box w-16 h-16 bg-blue-400 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-md">
           <i class="ri-phone-line text-3xl text-white"></i>
         </div>
@@ -159,16 +218,16 @@
       </div>
 
       <!-- E-Mail Us -->
-      <div class="info-card bg-white rounded-2xl p-8 text-center shadow-sm border border-gray-100 delay-3 dark:bg-gray-700 dark:border-gray-600">
+      <div class=" text-reveal bg-white rounded-2xl p-8 text-center shadow-sm border border-gray-100 delay-3 dark:bg-gray-700 dark:border-gray-600">
         <div class="icon-box w-16 h-16 bg-blue-400 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-md">
          <i class="ri-mail-line text-3xl text-white"></i>
         </div>
         <h3 class="font-semibold text-gray-900 text-lg mb-2 dark:text-white">E-Mail Us</h3>
-        <p class="text-gray-500 text-sm leading-relaxed dark:text-gray-400">pitraz@gmail.com<br>traz@gmail.com</p>
+        <p class="text-gray-500 text-sm leading-relaxed dark:text-gray-400">travelset@gmail.com<br>travel@gmail.com</p>
       </div>
 
       <!-- Supports -->
-      <div class="info-card bg-white rounded-2xl p-8 text-center shadow-sm border border-gray-100 delay-4 dark:bg-gray-700 dark:border-gray-600">
+      <div class=" text-reveal bg-white rounded-2xl p-8 text-center shadow-sm border border-gray-100 delay-4 dark:bg-gray-700 dark:border-gray-600">
         <div class="icon-box w-16 h-16 bg-blue-400 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-md">
             <i class="ri-customer-service-2-line text-3xl text-white"></i>
         </div>
@@ -235,42 +294,36 @@
   </section>
 
   <!-- footer -->
- <footer class="bg-sky-950 dark:bg-gray-800 py-14 px-6 md:px-10 lg:px-16 mt-5">
+    <footer class="bg-sky-950 dark:bg-gray-800 py-14 px-6 md:px-10 lg:px-16">
         <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 mb-10">
-            <div class="mb-32">
-                <img src="../img/logotravel.png" alt="LogoTraZ" width="">
-                <span style="display:none"
-                    class="text-2xl font-bold text-white block mb-3">Tra<span class="text-pink-400">Z</span></span>
-                <p class="text-white/40 text-sm leading-relaxed mb-5">Crafting unforgettable journeys for the curious
-                    and the bold since 2009.</p>
+            <div>
+                <a href="#" class="text-2xl font-bold tracking-tight bg-linear-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent dark:from-blue-400 dark:to-pink-400">TravelSet</a>
+                <p class="text-white/40 text-sm leading-relaxed mb-5 mt-2">Crafting unforgettable journeys for the curious and the bold since 2026.</p>
                 <div class="flex gap-3">
-                    <a href="https://www.facebook.com/istad.co" target="_blank"
-                        class="w-9 h-9 rounded-full bg-white/10 hover:bg-pink-500 flex items-center justify-center transition-colors text-white/60 hover:text-white text-xs"><i
-                            class="ri-facebook-fill"></i></a>
-                    <a href="https://m.youtube.com/@istad7665?fbclid=IwVERDUAQ4zE5leHRuA2FlbQIxMABzcnRjBmFwcF9pZAo2NjI4NTY4Mzc5AAEeGL_QCEd8wqWZizfJiD43C5CMFZf35MqQtN5-x5t2i_pZukelhgDHtyve2wc_aem_ZIiKHglwimxsbV0EwJNpAQ" target="_blank"
-                        class="w-9 h-9 rounded-full bg-white/10 hover:bg-pink-500 flex items-center justify-center transition-colors text-white/60 hover:text-white text-xs"><i
-                            class="ri-youtube-line"></i></a>
-                    <a href="https://cstad.edu.kh" target="_blank"
-                        class="w-9 h-9 rounded-full bg-white/10 hover:bg-pink-500 flex items-center justify-center transition-colors text-white/60 hover:text-white text-xs"><i
-                            class="ri-global-line"></i></a>
+                    <a href="https://www.facebook.com/istad.co/" target="_blank" class="w-9 h-9 rounded-full bg-white/10 hover:bg-pink-500 flex items-center justify-center transition-colors text-white/60 hover:text-white text-xs"><i class="ri-facebook-fill"></i></a>
+                    <a href="http://www.youtube.com/@istad7665" target="_blank" class="w-9 h-9 rounded-full bg-white/10 hover:bg-pink-500 flex items-center justify-center transition-colors text-white/60 hover:text-white text-xs"><i class="ri-youtube-line"></i></a>
+                    <a href="https://cstad.edu.kh" target="_blank" class="w-9 h-9 rounded-full bg-white/10 hover:bg-pink-500 flex items-center justify-center transition-colors text-white/60 hover:text-white text-xs"><i class="ri-global-line"></i></a>
                 </div>
             </div>
             <div>
                 <p class="text-white font-semibold text-sm uppercase tracking-wider mb-5">Quick Links</p>
                 <ul class="space-y-2.5 text-white/40 text-sm">
-                    <li><a href="#" class="hover:text-white transition-colors">About Us</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Destinations</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Tours</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Blog</a></li>
+                    <li><a href="../src/index.html" class="hover:text-white transition-colors">Home</a></li>
+                    <li><a href="destination-pages.html" class="hover:text-white transition-colors">Destinations</a></li>
+                    <li><a href="tour2.html" class="hover:text-white transition-colors">Tours</a></li>
+                    <li><a href="blog2.html" class="hover:text-white transition-colors">Blog</a></li>
+                    <li><a href="contact.html" class="hover:text-white transition-colors">Contact</a></li>
+                    <li><a href="about2.html" class="hover:text-white transition-colors">About Us</a></li>
+
                 </ul>
             </div>
             <div>
                 <p class="text-white font-semibold text-sm uppercase tracking-wider mb-5">Top Destinations</p>
                 <ul class="space-y-2.5 text-white/40 text-sm">
-                    <li><a href="#" class="hover:text-white transition-colors">Maldives</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Kyoto, Japan</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Santorini</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Patagonia</a></li>
+                    <li><a href="destination-pages.html" class="hover:text-white transition-colors">Maldives</a></li>
+                    <li><a href="destination-pages.html" class="hover:text-white transition-colors">Kyoto, Japan</a></li>
+                    <li><a href="destination-pages.html" class="hover:text-white transition-colors">Santorini</a></li>
+                    <li><a href="destination-pages.html" class="hover:text-white transition-colors">Patagonia</a></li>
                 </ul>
             </div>
             <div>
@@ -278,33 +331,32 @@
                 <ul class="space-y-3 text-white/40 text-sm">
                     <li class="flex gap-2 items-start">
                         <span class="mt-0.5 text-white"><i class="ri-map-pin-line"></i></span>
-                        <span class="hover:text-white">123 Explorer Ave, New York, NY 10001</span>
+                        <span>123 Explorer Ave, New York, NY 10001</span>
                     </li>
                     <li class="flex gap-2 items-center">
                         <span><i class="ri-phone-line text-white"></i></span>
-                        <a href="tel:+81239857" class="hover:text-white transition-colors">+8 (123) 987 467</a>
+                        <a href="tel:+81239857" class="hover:text-white">+8 (123) 987 467</a>
                     </li>
                     <li class="flex gap-2 items-center">
                         <span><i class="ri-mail-line text-white"></i></span>
-                        <a href="mailto:info@traz.com" class="hover:text-white transition-colors">info@traz.com</a>
+                        <a href="mailto:info@travelset.com" class="hover:text-white">info@travelset.com</a>
                     </li>
                 </ul>
             </div>
             <div>
-                <img src="../img/New Logo iSTAD Full-12 (2).png" alt="#ISTAD"
-                    onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                <img src="../img/New Logo iSTAD Full-12 (2).png" alt="#ISTAD" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
                 <span style="display:none" class="text-white font-bold">iSTAD</span>
             </div>
         </div>
-        <div
-            class="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-white/25 text-xs">
-            <p>© 2026 TraZ. All rights reserved.</p>
+        <div class="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-white/25 text-xs">
+            <p>© 2026 TravelSet. All rights reserved.</p>
             <div class="flex gap-5">
                 <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
                 <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
             </div>
         </div>
     </footer>
+ 
 
 
 
