@@ -3,18 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About Us</title>
+  <title>Travelset - AboutUs</title>
   <link rel="stylesheet" href="../src/output.css">
-  <!-- Tailwind CDN for dark mode class support -->
-  <script>
-    // Apply saved theme before page renders to prevent flash
-    (function() {
-      const saved = localStorage.getItem('theme');
-      if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.classList.add('dark');
-      }
-    })();
-  </script>
+   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&family=Dancing+Script:wght@600&display=swap" rel="stylesheet"/>
+  
    <!-- favicon -->
     <link rel="shortcut icon" href="../img/logowebb.PNG" type="image/x-icon">
      <!-- Remix icon -->
@@ -23,7 +15,7 @@
 
   <style>
      
-
+body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--dark); }
         /* Dark mode body & page background */
         .dark body {
             background-color: #0f172a;
